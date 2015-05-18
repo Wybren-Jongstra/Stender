@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends BaseController {
+class InlogController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -15,9 +15,10 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function showInlogPage()
 	{
-		return View::make('hello');
+		$test = 'hallo';
+		$testName = 'Wybren';
+		return View::make('home', compact('test', 'testName'));
 	}
-
 }

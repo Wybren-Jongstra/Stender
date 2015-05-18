@@ -1,0 +1,81 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#body-home {
+    background: url('../images/background_home.jpg') left top no-repeat;
+    background-size: cover;
+}
+
+#header {
+    background-color: #013a75;
+    height: 50px;
+}
+
+#logo {
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
+.background-overlay {
+    position:absolute;
+    width: 100%;
+    height: 95%;
+    top: 50px;
+    left: 0;
+    opacity: 0.8;
+    background: rgba(0, 0, 0, .3);
+}
+
+#content-home {
+    color: white;
+}
+
+#left-column h1 {
+    padding-top: 50px;
+    font-size: 36pt;
+}
+
+#left-column p {
+    padding-top: 50px;
+    font-size: 16pt;
+    line-height: 38px;
+}
+
+.rounded-div {
+    background-color: #eeeeee;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+#log-in {
+    margin-top: 50px;
+}
+
+#log-in form {
+    padding-top: 20px;
+    padding-bottom: 50px;
+    color: #000000;
+}
+
+#register {
+    margin-top: 50px;
+}
+
+#register h2 {
+    font-size: 18pt;
+    color: #000000;
+}
+
+#register form {
+    padding-bottom: 50px;
+    color: #000000;
+}
+
+.line {
+    background-color: #cccccc !important;
+    width: 100%;
+    height: 2px;
+}
