@@ -10,12 +10,16 @@
 
 #header {
     background-color: #013a75;
+    padding-top: 4px;
     height: 50px;
 }
 
 #logo {
+    display: block;
     margin-left: 50px;
-    margin-top: 5px;
+    background: url("../images/logo.png") left top no-repeat;
+    width: 35px;
+    height: 41px;
 }
 
 .background-overlay {

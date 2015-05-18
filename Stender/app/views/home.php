@@ -15,7 +15,7 @@
 </head>
     <body id="body-home">
         <div id="header" class="container-fluid">
-            <img id="logo" src="images/logo.png" width="35" height="41" />
+            <a id="logo" href="/home"></a>
         </div>
         <div class="background-overlay"></div>
         <div id="content-home" class="container">
