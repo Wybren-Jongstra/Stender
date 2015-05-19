@@ -11,7 +11,7 @@ class HomeController extends BaseController {
 	{
 		$input = Input::all();
 
-		$rules = array('fullName' => 'required', 'email' => 'required|email', 'password' => 'required');
+		$rules = array('fullName' => 'required', 'email' => 'required|email|unique:USER', 'password' => 'required');
 
 		$v = Validator::make($input, $rules);
 
