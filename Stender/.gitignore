@@ -1,3 +1,4 @@
+# from Laravel
 /bootstrap/compiled.php
 /vendor
 composer.phar
@@ -6,3 +7,9 @@ composer.lock
 .env.php
 .DS_Store
 Thumbs.db
+
+# added from the old .gitignore
+.env
+
+# PhpStorm
+.idea/
