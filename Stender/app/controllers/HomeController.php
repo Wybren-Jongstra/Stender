@@ -11,18 +11,19 @@ class HomeController extends BaseController {
 	{
 		$input = Input::all();
 
-		$rules = array('inputName' => 'required', 'inputEmail' => 'required|unique:users|email', 'password' => 'required');
+		$rules = array('fullName' => 'required', 'email' => 'required|email', 'password' => 'required');
 
 		$v = Validator::make($input, $rules);
 
 		if($v->passes())
 		{
 			$password = $input['password'];
-			$password = hash::make($password);
+			$password = Hash::make($password);
 			$user = new User();
-			$user->username = $input['inputName'];
-			$user->inputEmail = $input['inputEmail'];
+			$user->fullName = $input['fullName'];
+			$user->email = $input['email'];
 			$user->password = $password;
+			$user->save();
 
 			return Redirect::to('/');
 
