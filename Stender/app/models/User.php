@@ -9,13 +9,22 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
+	
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'users';
+	protected $table = 'USER';
+	public $timestamps = false;
 
+    /**
+    * Prevents the listed columns from mass assignment.
+    *
+    * @var array
+    */
+    protected $guarded = array('id');
+	
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *

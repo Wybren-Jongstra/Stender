@@ -20,9 +20,11 @@ class HomeController extends BaseController {
 			$password = $input['password'];
 			$password = Hash::make($password);
 			$user = new User();
-			$user->fullName = $input['fullName'];
-			$user->email = $input['email'];
-			$user->password = $password;
+			//$user->fullName = $input['fullName'];
+			$user->Email = $input['email'];
+			$user->Password = $password;
+			$user->UserKindID = 1;
+			$user->DateCreated = Carbon\Carbon::now();;
 			$user->save();
 
 			return Redirect::to('/');
