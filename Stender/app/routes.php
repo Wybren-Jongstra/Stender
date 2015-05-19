@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/inlog', 'InlogController@showInlogPage');
+//Route::get('/inlog', 'InlogController@showInlogPage');
 
-Route::get('/', function()
-{
-	return View::make('home');
-});
+Route::get('/', 'HomeController@getIndex');
+Route::post('postRegister', 'HomeController@postRegister');

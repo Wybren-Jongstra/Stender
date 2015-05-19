@@ -1,6 +1,7 @@
 <?php
 
 class BaseController extends Controller {
+	public static $timestamps = false;
 
 	/**
 	 * Setup the layout used by the controller.
