@@ -48,6 +48,12 @@
                     <div id="register" class="rounded-div col-lg-12">
                         <h2>Nieuw op Stender? Registreer nu</h2>
                         <hr class="line">
+                        
+     @if(Session::has('success'))
+<div class="alert alert-success">
+        {{ Session::get('success') }}
+</div>
+@endif
                         {{ Form::open(array('url' => 'postRegister'))}}
                         @if($errors->any())
                         <div class="alert alert-error">

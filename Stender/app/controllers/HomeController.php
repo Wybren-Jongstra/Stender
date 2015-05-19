@@ -27,7 +27,7 @@ class HomeController extends BaseController {
 			$user->DateCreated = Carbon\Carbon::now();;
 			$user->save();
 
-			return Redirect::to('/');
+			return Redirect::to('/')->withSuccess( 'Registreren gelukt! Je krijgt een mail om je account te activeren.' );
 
 		}
 		else
