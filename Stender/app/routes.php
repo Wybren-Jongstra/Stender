@@ -15,3 +15,5 @@
 
 Route::get('/', 'HomeController@getIndex');
 Route::post('postRegister', 'HomeController@postRegister');
+
+Route::get('/timeline', 'TimelineController@getTimeline');
