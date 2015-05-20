@@ -12,6 +12,7 @@ class HomeController extends BaseController {
 		//haal de input op
 		$input = Input::all();
 
+		print_r($input);
 		//regels waar de input aan moet voldoen
 		$rules = array(
 			'fullName' 	=> 'required',
@@ -32,7 +33,8 @@ class HomeController extends BaseController {
 			$user->Email = $input['email'];
 			$user->Password = $password;
 			$user->UserKindID = 1;
-			$user->DateCreated = Carbon\Carbon::now();;
+			$user->DateCreated = Carbon\Carbon::now();
+			$user->remember_token = $input['_token'];
 			$user->save();
 
 			return Redirect::to('/')->withSuccess( 'Registreren gelukt! Je krijgt een mail om je account te activeren.' );
