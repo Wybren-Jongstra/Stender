@@ -14,6 +14,7 @@ class HomeController extends BaseController {
 		$rules = array('fullName' => 'required', 'email' => 'required|email|unique:USER', 'password' => 'required');
 
 		$v = Validator::make($input, $rules);
+        $v->setAttributeNames(Lang::get('attributes.user'));
 
 		if($v->passes())
 		{
