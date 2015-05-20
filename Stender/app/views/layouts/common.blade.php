@@ -30,6 +30,20 @@
                     {{ Form::close() }}
                 </div>
                 <div class="menu col-lg-offset-1 col-lg-3">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown "><a href="#" id="drop1" data-toggle="dropdown" class="dropdown-toggle" role="button">About <b class="caret"></b></a>
+                                <ul role="menu" class="dropdown-menu" aria-labelledby="drop1">
+                                    <li role="presentation"><a href="#" role="menuitem">Overview</a></li>
+                                    <li role="presentation"><a href="#" role="menuitem">Team Bios</a></li>
+                                    <li role="presentation"><a href="#" role="menuitem">Customers</a></li>
+                                    <li role="presentation"><a href="#" role="menuitem">Careers</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a>
