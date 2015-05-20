@@ -38,7 +38,7 @@
                                 <li><a href="#">Profiel</a></li>
                                 <li><a href="#">Connecties</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">Account instellingen</a></li>
+                                <li><a href="#">Account</a></li>
                             </ul>
                         </li>
                     </ul>
