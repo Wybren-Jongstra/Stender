@@ -22,8 +22,8 @@
     <body>
         <div id="header" class="container-fluid">
             <div class="row">
-                <a id="logo" class="col-xs-2 col-sm-2 col-md-3 col-lg-3" href="/"></a>
-                <div class="search col-xs-offset-1 col-xs-5 col-sm-offset-2 col-sm-5 col-md-offset-3 col-md-4 col-lg-offset-4 col-lg-3">
+                <a id="logo" class="col-xs-2 col-sm-2 col-md-2 col-lg-2" href="/"></a>
+                <div class="search col-xs-offset-1 col-xs-5 col-sm-offset-2 col-sm-4 col-md-offset-2 col-md-4 col-lg-offset-2 col-lg-4">
                     {{ Form::open(array('url' => 'searchUser')) }}
                         <div class="form-group col-lg-12">
                             <div class="input-group">
@@ -35,7 +35,7 @@
                         </div>
                     {{ Form::close() }}
                 </div>
-                <div class="menu col-xs-offset-1 col-xs-2 col-sm-offset-1 col-sm-2 col-md-offset-1 col-md-2 col-lg-offset-1 col-lg-3">
+                <div class="menu col-xs-offset-1 col-xs-3 col-sm-offset-1 col-sm-3 col-md-offset-1 col-md-3 col-lg-offset-1 col-lg-3">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a>
