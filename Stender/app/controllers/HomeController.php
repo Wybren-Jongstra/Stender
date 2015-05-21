@@ -9,13 +9,28 @@ class HomeController extends BaseController {
 
 	public function postRegister()
 	{
+
+		Validator::extend('contains', function($attribute, $value, $parameters)
+		{
+		    // check email address
+		    $words = array('stenden.com', 'student.stenden.com');
+		    foreach ($words as $word)
+		    {
+		        if (stripos($value, $word) !== true) 
+		        {
+		        	return true;
+		    	}
+		    }
+		    return false;
+		});
+
 		//get input
 		$input = Input::all();
 
 		//rules to validate input
 		$rules = array(
 			'fullName' 	=> 'required',
-			'email'	 	=> 'required|email|unique:USER',
+			'email'	 	=> 'required|email|unique:USER|contains',
 			'password' 	=> 'required'
 		);
 
