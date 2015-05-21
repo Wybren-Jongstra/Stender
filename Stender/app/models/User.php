@@ -16,6 +16,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'USER';
+
+    /**
+     * The primairy key of the database table
+     * @var string
+     */
+    protected $primaryKey = 'UserID';
+
+    /**
+     * Disable the insertion of timestamps that are automatically created by Laravel.
+     * @var bool
+     */
 	public $timestamps = false;
 
     /**
@@ -38,7 +49,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     // }
 
     /**
-     * Get the password for the user.
+     * Override to get the password for the user from the correct column from the database.
+     *
+     * {@inheritDoc}
      *
      * @return string
      */
@@ -47,15 +60,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->Password;
     }
 
-	public function getRememberToken()
-	{
-		return $this->RememberToken;
-	}
-
-	public function setRememberToken($value)
-{
-    $this->RememberToken = $value;
-}
-
-    protected $primaryKey = 'UserID';
+    /**
+     * Override to get the correct column name for the "remember me" token.
+     *
+     * {@inheritDoc}
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        // TODO Test disabeling of this code
+        return 'RememberToken';
+    }
 }
