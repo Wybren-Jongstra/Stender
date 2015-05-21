@@ -16,17 +16,6 @@ class BaseController extends Controller {
 		}
 	}
 
-    // HOME PAGE
-    public function getIndex()
-    {
-        if (Auth::check())
-        {
-            return View::make('timeline');
-        }
-        else
-        {
-            return View::make('home');
-        }
-    }
+
 
 }
