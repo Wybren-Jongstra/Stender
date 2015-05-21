@@ -12,6 +12,12 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $(".dropdown-toggle").dropdown('toggle');
+    });
+    </script>
 </head>
     <body>
         <div id="header" class="container-fluid">
@@ -30,25 +36,11 @@
                     {{ Form::close() }}
                 </div>
                 <div class="menu col-lg-offset-1 col-lg-3">
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown "><a href="#" id="drop1" data-toggle="dropdown" class="dropdown-toggle" role="button">About <b class="caret"></b></a>
-                                <ul role="menu" class="dropdown-menu" aria-labelledby="drop1">
-                                    <li role="presentation"><a href="#" role="menuitem">Overview</a></li>
-                                    <li role="presentation"><a href="#" role="menuitem">Team Bios</a></li>
-                                    <li role="presentation"><a href="#" role="menuitem">Customers</a></li>
-                                    <li role="presentation"><a href="#" role="menuitem">Careers</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Tijdlijn</a></li>
+                                <li><a href="/timeline">Tijdlijn</a></li>
                                 <li><a href="#">Profiel</a></li>
                                 <li><a href="#">Connecties</a></li>
                                 <li class="divider"></li>

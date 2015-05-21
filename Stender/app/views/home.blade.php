@@ -25,10 +25,10 @@
                 @endif
 
                 <div class="form-group">
-                    {{ Form::text('emailLogin', '', array('class' => 'form-control', 'id' => 'email', 'placeholder' => 'E-mailadres', 'required' => 'required'))}}
+                    {{ Form::text('emailLogin', '', array('class' => 'form-control', 'id' => 'email', 'placeholder' => ucfirst(Lang::get('attributes.user.email')), 'required' => 'required'))}}
                 </div>
                 <div class="form-group">
-                    {{ Form::password('password', array('placeholder' => 'Wachtwoord', 'class' => 'form-control', 'required' => 'required'))}}
+                    {{ Form::password('password', array('placeholder' => ucfirst(Lang::get('attributes.user.password')), 'class' => 'form-control', 'required' => 'required'))}}
                 </div>
                 <div class="checkbox">
                         <label>
@@ -59,13 +59,13 @@
                     </div>
                 @endif
                 <div class="form-group">
-                    {{ Form::text('fullName', '', array('class' => 'form-control', 'id' => 'inputName', 'placeholder' => 'Volledige naam', 'required' => 'required'))}}
+                    {{ Form::text('fullName', '', array('class' => 'form-control', 'id' => 'inputName', 'placeholder' => ucfirst(Lang::get('attributes.user.fullName')), 'required' => 'required'))}}
                 </div>
                 <div class="form-group">
-                    {{ Form::text('email', '', array('class' => 'form-control', 'id' => 'inputEmail', 'placeholder' => 'E-mailadres', 'required' => 'required'))}}
+                    {{ Form::text('email', '', array('class' => 'form-control', 'id' => 'inputEmail', 'placeholder' => ucfirst(Lang::get('attributes.user.email')), 'required' => 'required'))}}
                 </div>
                 <div class="form-group">
-                    {{ Form::password('password', array('placeholder' => 'Wachtwoord', 'class' => 'form-control', 'required' => 'required'))}}
+                    {{ Form::password('password', array('placeholder' => ucfirst(Lang::get('attributes.user.password')), 'class' => 'form-control', 'required' => 'required'))}}
                 </div>
                 {{ Form::submit('Registreren', array('class' => 'btn btn-warning col-xs-12 col-sm-12 col-md-12'))}}
 

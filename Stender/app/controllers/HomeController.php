@@ -21,6 +21,7 @@ class HomeController extends BaseController {
 
 		//check validation
 		$v = Validator::make($input, $rules);
+        $v->setAttributeNames(Lang::get('attributes.user'));
 
 		//store data in user object and save to database
 		if($v->passes())

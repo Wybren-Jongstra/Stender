@@ -88,3 +88,19 @@
     height: 40px;
     padding-top: 5px;
 }
+
+.menu a {
+    color: white;
+}
+.menu .dropdown-toggle:hover, .menu .dropdown-toggle:active, .menu .dropdown-toggle:visited {
+    color: white;
+    background-color: transparent !important;
+}
+.nav .open > a {
+    background-color: transparent !important;
+    border-color: none !important;
+}
+.navbar-nav > li > a {
+    padding-top: 13px !important;
+    padding-bottom: 12px !important;
+}
