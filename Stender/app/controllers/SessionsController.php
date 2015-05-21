@@ -14,6 +14,7 @@ class SessionsController extends BaseController {
 	public function store()
 	{
 		
+		
 
 		$input = Input::all();
 
@@ -39,6 +40,9 @@ class SessionsController extends BaseController {
 			//attempt to login
 			if (Auth::attempt($userdata))
 			{
+				Auth::user()->LastLogin = new DateTime;
+    			Auth::user()->save();
+
 				//login succesfull move along
 				return Redirect::to('/timeline');
 			}

@@ -16,6 +16,7 @@
 //homepagina
 Route::get('/', 'HomeController@getIndex');
 
+
 //posten van registreren
 Route::post('postRegister', 'HomeController@postRegister');
 

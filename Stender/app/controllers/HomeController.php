@@ -2,10 +2,18 @@
 
 class HomeController extends BaseController {
 	
-	public function getIndex()
-	{
-		return View::make('home');
-	}
+    // HOME PAGE
+    public function getIndex()
+    {
+        if (Auth::check())
+        {
+            return View::make('timeline');
+        }
+        else
+        {
+            return View::make('home');
+        }
+    }
 
 	public function postRegister()
 	{
