@@ -55,9 +55,8 @@ class HomeController extends BaseController {
 			//$user->fullName = $input['fullName'];
 			$user->Email = $input['email'];
 			$user->Password = $password;
-			$user->UserKindID = 1;
+			$user->UserKindID = 2;
 			$user->DateCreated = Carbon\Carbon::now();
-			$user->RememberToken = $input['_token'];
 			$user->save();
 
 			return Redirect::to('/')->withSuccess( 'Registreren gelukt! Je krijgt een mail om je account te activeren.' );

@@ -41,6 +41,7 @@ class SessionsController extends BaseController {
 			if (Auth::attempt($userdata))
 			{
 				Auth::user()->LastLogin = new DateTime;
+				Auth::user()->RememberToken = $input['_token'];
     			Auth::user()->save();
 
 				//login succesfull move along
