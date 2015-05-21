@@ -47,5 +47,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->Password;
     }
 
+	public function getRememberToken()
+	{
+		return $this->RememberToken;
+	}
+
+	public function setRememberToken($value)
+{
+    $this->RememberToken = $value;
+}
+
     protected $primaryKey = 'UserID';
 }
