@@ -9,21 +9,20 @@ class HomeController extends BaseController {
 
 	public function postRegister()
 	{
-		//haal de input op
+		//get input
 		$input = Input::all();
 
-		print_r($input);
-		//regels waar de input aan moet voldoen
+		//rules to validate input
 		$rules = array(
 			'fullName' 	=> 'required',
 			'email'	 	=> 'required|email|unique:USER',
 			'password' 	=> 'required'
 		);
 
-		//checken of de input aan de regels voldoet
+		//check validation
 		$v = Validator::make($input, $rules);
 
-		//als het voldoet dan de gegevens in een user object stoppen en deze opslaan
+		//store data in user object and save to database
 		if($v->passes())
 		{
 			$password = $input['password'];
@@ -45,48 +44,6 @@ class HomeController extends BaseController {
 			return Redirect::to('/')->withInput()->withErrors($v);
 		}
 		
-	}
-
-	public function postLogin()
-	{
-		//input ophalen
-		$input = Input::all();
-
-		//regels voor de input
-		$rules = array(
-			'emailLogin' => 'required|email',
-			'password' => 'required'
-		);
-
-		//checken of de input aan de regels voldoet
-		$v = Validator::make($input, $rules);
-
-		//als het voldoet dan de gegevens in een user object stoppen en deze opslaan
-		if($v->passes())
-		{
-
-			$userdata = array(
-				'Email' 	=> Input::get('emailLogin'),
-				'Password' 	=> Hash::make(Input::get('password'))
-			);
-
-			//proberen in te loggen
-			if(Auth::attempt($userdata))
-			{
-				//inloggen gelukt
-				return Redirect::to('timeline');
-			}
-			else
-			{
-				return Redirect::to('/')->withInput()->with('wrongCred', 'Verkeerde gebruikersnaam en/of wachtwoord!');
-			}
-		}
-		else
-		{
-			return Redirect::to('/')->withInput()->withErrors($v);
-		}
-
-
 	}
 }
 

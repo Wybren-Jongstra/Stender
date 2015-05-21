@@ -4,28 +4,57 @@ class SessionsController extends BaseController {
 
 	public function create()
 	{
-		return View:: make('sessions.create');
+		if(Auth::check())
+		{
+			return Redirect::to('/timeline');
+		}
+		return Redirect::to('/');
 	}
 
 	public function store()
 	{
-		// $userdata = Input::only(['Email', 'Password']);
-			$userdata = array(
-					'Email' 	=> Input::get('Email'),
-					'password' 	=> Input::get('Password')
-				);
-			print_r($userdata);
+		$input = Input::all();
 
-				
+		//rules to validate input
+		$rules = array(
+			'emailLogin' => 'required|email',
+			'password' => 'required'
+		);
 
+		//check validation
+		$v = Validator::make($input, $rules);
 
-		if (Auth::attempt($userdata))
+		//if validator passes then try to login
+		if($v->passes())
 		{
-			return Auth::User();
+
+			//get the input userdata
+				$userdata = array(
+						'Email' 	=> Input::get('emailLogin'),
+						'password' 	=> Input::get('password')
+					);
+			
+			//attempt to login
+			if (Auth::attempt($userdata))
+			{
+				//login succesfull move along
+				return Redirect::to('/timeline');
+			}
+			else
+			{
+				return Redirect::to('/')->withInput()->with('wrongCred', 'Verkeerde gebruikersnaam en/of wachtwoord!');		
+			}
 		}
 		else
 		{
-			return 'Failed';
+			return Redirect::to('/')->withInput()->withErrors($v);
 		}
+	}
+
+	public function destroy()
+	{
+		Auth::logout();
+
+		return Redirect::to('/');
 	}
 }

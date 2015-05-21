@@ -20,7 +20,7 @@ Route::get('/', 'HomeController@getIndex');
 Route::post('postRegister', 'HomeController@postRegister');
 
 //timelinepagina
-Route::get('timeline', 'TimelineController@getTimeline');
+Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 
 //posten van login
 //Route::post('login', array('uses' => 'HomeController@postLogin'));

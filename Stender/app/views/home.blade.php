@@ -15,7 +15,7 @@
         </div>
         <div id="right-column" class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
             <div id="log-in" class="rounded-div col-lg-12">
-                {{ Form::open(array('url' => 'login')) }}
+                {{ Form::open(['route' => 'sessions.store']) }}
 
                 @if(Session::has('wrongCred'))
                     <div class="alert alert-danger">
