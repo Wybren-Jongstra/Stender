@@ -46,4 +46,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     {
         return $this->Password;
     }
+
+    protected $primaryKey = 'UserID';
 }

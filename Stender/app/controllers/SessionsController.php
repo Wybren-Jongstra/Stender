@@ -13,6 +13,8 @@ class SessionsController extends BaseController {
 
 	public function store()
 	{
+		
+
 		$input = Input::all();
 
 		//rules to validate input

@@ -85,8 +85,8 @@ return array(
     */
 
     'custom' => array(
-        'attribute-name' => array(
-            'rule-name' => 'custom-message',
+        'email' => array(
+            'contains' => 'Je moet registreren met een Stenden e-mailadres.',
         ),
     ),
 
