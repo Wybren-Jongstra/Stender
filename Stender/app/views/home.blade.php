@@ -15,37 +15,48 @@
         </div>
         <div id="right-column" class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
             <div id="log-in" class="rounded-div col-lg-12">
-                <form>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="email" placeholder="<?php echo ucfirst(Lang::get('attributes.user.email')); ?>">
+                {{ Form::open(['route' => 'sessions.store']) }}
+
+                @if(Session::has('wrongCred'))
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    {{ Session::get('wrongCred') }}
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="password" placeholder="<?php echo ucfirst(Lang::get('attributes.user.password')); ?>">
-                    </div>
-                    <div class="checkbox">
+                @endif
+
+                <div class="form-group">
+                    {{ Form::text('emailLogin', '', array('class' => 'form-control', 'id' => 'email', 'placeholder' => ucfirst(Lang::get('attributes.user.email')), 'required' => 'required'))}}
+                </div>
+                <div class="form-group">
+                    {{ Form::password('password', array('placeholder' => ucfirst(Lang::get('attributes.user.password')), 'class' => 'form-control', 'required' => 'required'))}}
+                </div>
+                <div class="checkbox">
                         <label>
-                            <input type="checkbox">Blijf ingelogd
+                            {{ Form::checkbox('blijf_ingelogd') }} Blijf ingelogd
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-primary col-xs-12 col-sm-12 col-md-12">Inloggen</button>
-                </form>
+
+                {{ Form::submit('Inloggen', array('class' => 'btn btn-primary col-xs-12 col-sm-12 col-md-12'))}}
+
+                {{ Form::close() }}
+
             </div>
 
             <div id="register" class="rounded-div col-lg-12">
                 <h2>Nieuw op Stender? Registreer nu</h2>
                 <hr class="line">
-
-                @if(Session::has('success'))
-                <div class="alert alert-success">
-                        {{ Session::get('success') }}
-                </div>
-                @endif
                 {{ Form::open(array('url' => 'postRegister'))}}
+                @if(Session::has('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                @endif
+                
                 @if($errors->any())
-                <div class="alert alert-error">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
                     {{ implode('', $errors->all('<li class="error">:message</li>'))}}
-                </div>
+                    </div>
                 @endif
                 <div class="form-group">
                     {{ Form::text('fullName', '', array('class' => 'form-control', 'id' => 'inputName', 'placeholder' => ucfirst(Lang::get('attributes.user.fullName')), 'required' => 'required'))}}

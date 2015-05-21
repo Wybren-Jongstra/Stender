@@ -13,7 +13,18 @@
 
 //Route::get('/inlog', 'InlogController@showInlogPage');
 
+//homepagina
 Route::get('/', 'HomeController@getIndex');
+
+//posten van registreren
 Route::post('postRegister', 'HomeController@postRegister');
 
-Route::get('/timeline', 'TimelineController@getTimeline');
+//timelinepagina
+Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
+
+//posten van login
+//Route::post('login', array('uses' => 'HomeController@postLogin'));
+
+Route::resource('sessions', 'SessionsController');
+Route::get('login', 'SessionsController@create');
+Route::get('logout', 'SessionsController@destroy');

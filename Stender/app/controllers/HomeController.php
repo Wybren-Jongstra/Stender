@@ -9,13 +9,21 @@ class HomeController extends BaseController {
 
 	public function postRegister()
 	{
+		//get input
 		$input = Input::all();
 
-		$rules = array('fullName' => 'required', 'email' => 'required|email|unique:USER', 'password' => 'required');
+		//rules to validate input
+		$rules = array(
+			'fullName' 	=> 'required',
+			'email'	 	=> 'required|email|unique:USER',
+			'password' 	=> 'required'
+		);
 
+		//check validation
 		$v = Validator::make($input, $rules);
         $v->setAttributeNames(Lang::get('attributes.user'));
 
+		//store data in user object and save to database
 		if($v->passes())
 		{
 			$password = $input['password'];
@@ -25,7 +33,8 @@ class HomeController extends BaseController {
 			$user->Email = $input['email'];
 			$user->Password = $password;
 			$user->UserKindID = 1;
-			$user->DateCreated = Carbon\Carbon::now();;
+			$user->DateCreated = Carbon\Carbon::now();
+			$user->remember_token = $input['_token'];
 			$user->save();
 
 			return Redirect::to('/')->withSuccess( 'Registreren gelukt! Je krijgt een mail om je account te activeren.' );
