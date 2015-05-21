@@ -9,14 +9,17 @@ class SessionsController extends BaseController {
 
 	public function store()
 	{
-		$userdata = Input::only(['Email', 'Password']);
-		/*$userdata = array(
-				'Email' 	=> Input::get('Email'),
-				'Password' 	=> Hash::make(Input::get('Password'))
-			);*/
-		// print_r($userdata);
+		// $userdata = Input::only(['Email', 'Password']);
+			$userdata = array(
+					'Email' 	=> Input::get('Email'),
+					'password' 	=> Input::get('Password')
+				);
+			print_r($userdata);
 
-		if (Auth::attempt(Input::only('Email', 'Password')))
+				
+
+
+		if (Auth::attempt($userdata))
 		{
 			return Auth::User();
 		}
