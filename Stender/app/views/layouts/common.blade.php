@@ -5,11 +5,13 @@
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
     <link type="text/css" href="css/bootstrap.css" rel="stylesheet" media="screen, projection" />
     <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet" media="screen, projection" />
 
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
