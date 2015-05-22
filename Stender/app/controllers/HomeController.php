@@ -23,7 +23,8 @@ class HomeController extends BaseController {
 
 		//rules to validate input
 		$rules = array(
-			'fullName' 	=> 'required',
+			'firstname' => 'required',
+			'surname' 	=> 'required',
 			'email'	 	=> 'required|email|unique:USER',
 			'password' 	=> 'required'
 		);
@@ -38,15 +39,32 @@ class HomeController extends BaseController {
 			$email = $input['email'];
 			if(ends_with($email, 'stenden.com'))
 			{
+				$confirmationCode = str_random(64);
+
 				$password = $input['password'];
 				$password = Hash::make($password);
 				$user = new User();
 				//$user->fullName = $input['fullName'];
 				$user->Email = $input['email'];
+				$user->ActivationToken = $confirmationCode;
 				$user->Password = $password;
 				$user->UserKindID = 2;
 				$user->DateCreated = Carbon\Carbon::now();
+				
+
+				$userprofile = new UserProfile();
+				$userprofile->FirstName = $input['firstname'];
+				$userprofile->SurnamePrefix = $input['surnamePrefix'];
+				$userprofile->Surname = $input['surname'];
+				$userprofile->save();
+
+				$user->UserProfileID = $userprofile->UserProfileID;
 				$user->save();
+
+
+				Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+		    		$message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
+				});
 			}
 			else
 			{

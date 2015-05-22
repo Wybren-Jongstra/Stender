@@ -13,8 +13,6 @@ class SessionsController extends BaseController {
 
 	public function store()
 	{
-		
-		
 
 		$input = Input::all();
 
@@ -40,12 +38,20 @@ class SessionsController extends BaseController {
 			//attempt to login
 			if (Auth::attempt($userdata))
 			{
-				Auth::user()->LastLogin = new DateTime;
-				Auth::user()->RememberToken = $input['_token'];
-    			Auth::user()->save();
+				if(Auth::user()->Activated != '1')
+    			{
+    				Auth::logout();
+    				return Redirect::to('/')->withInput()->with('wrongCred', 'Je account is nog niet geactiveerd!');	
+    			}
+    			else
+	    		{
+					Auth::user()->LastLogin = new DateTime;
+					Auth::user()->RememberToken = $input['_token'];
+	    			Auth::user()->save();
 
-				//login succesfull move along
-				return Redirect::to('/timeline');
+					//login succesfull move along
+					return Redirect::to('/timeline');
+				}
 			}
 			else
 			{
@@ -63,5 +69,30 @@ class SessionsController extends BaseController {
 		Auth::logout();
 
 		return Redirect::to('/');
+	}
+
+	public function verify($token)
+    {
+        if( ! $token)
+        {
+            throw new InvalidTokenException;
+        }
+
+        $user = User::where('ActivationToken', '=', $token)->first();
+
+        if($user->Activated === 1)
+        {
+			return Redirect::to('/')->withInput()->with('wrongCred', 'Account is al geactiveerd!');
+        }
+
+        if ( ! $user)
+        {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $user->Activated = 1;
+        $user->save();
+
+        return Redirect::to('/')->withInput()->with('activated', 'Account is geactiveerd! Je kunt nu inloggen.');
 	}
 }
