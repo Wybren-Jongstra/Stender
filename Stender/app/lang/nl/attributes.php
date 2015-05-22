@@ -21,7 +21,9 @@ return array(
     'user' => array(
         'email' => 'e-mailadres',
         'password' => 'wachtwoord',
-        'fullName' => 'volledige naam',
+        'firstname' => 'voornaam',
+        'surnamePrefix' => 'tussenvoegsel',
+        'surname' => 'achternaam',
     ),
 
     /*

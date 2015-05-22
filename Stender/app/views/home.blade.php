@@ -59,7 +59,9 @@
                     </div>
                 @endif
                 <div class="form-group">
-                    {{ Form::text('fullName', '', array('class' => 'form-control', 'id' => 'inputName', 'placeholder' => ucfirst(Lang::get('attributes.user.fullName')), 'required' => 'required'))}}
+                    {{ Form::text('firstname', '', array('class' => 'form-control', 'id' => 'inputFirstname', 'placeholder' => ucfirst(Lang::get('attributes.user.firstname')), 'required' => 'required', 'style' => ''))}}
+                    {{ Form::text('surnamePrefix', '', array('class' => 'form-control', 'id' => 'inputSurnamePrefix', 'placeholder' => ucfirst(Lang::get('attributes.user.surnamePrefix'))))}}
+                    {{ Form::text('surname', '', array('class' => 'form-control', 'id' => 'inputSurname', 'placeholder' => ucfirst(Lang::get('attributes.user.surname')), 'required' => 'required'))}}
                 </div>
                 <div class="form-group">
                     {{ Form::text('email', '', array('class' => 'form-control', 'id' => 'inputEmail', 'placeholder' => ucfirst(Lang::get('attributes.user.email')), 'required' => 'required'))}}

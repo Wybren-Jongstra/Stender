@@ -35,4 +35,12 @@ Route::resource('sessions', 'SessionsController');
 Route::get('login', 'SessionsController@create');
 Route::get('logout', 'SessionsController@destroy');
 
+Route::get('verify/{confirmationCode}', 'SessionsController@verify');
+
+Route::get('test', function()
+{
+    $userprofile = UserProfile::find(Auth::user()->UserProfileID);
+    echo $userprofile->FirstName;
+});
+
 ?>
