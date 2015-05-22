@@ -80,6 +80,11 @@ class SessionsController extends BaseController {
 
         $user = User::where('ActivationToken', '=', $token)->first();
 
+        if($user->Activated === 1)
+        {
+			return Redirect::to('/')->withInput()->with('wrongCred', 'Account is al geactiveerd!');
+        }
+
         if ( ! $user)
         {
             throw new InvalidConfirmationCodeException;
@@ -88,6 +93,6 @@ class SessionsController extends BaseController {
         $user->Activated = 1;
         $user->save();
 
-        //Flash::message('You have successfully verified your account.');
+        return Redirect::to('/')->withInput()->with('activated', 'Account is geactiveerd! Je kunt nu inloggen.');
 	}
 }
