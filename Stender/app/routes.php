@@ -11,8 +11,6 @@
 |
 */
 
-//Route::get('/inlog', 'InlogController@showInlogPage');
-
 //homepagina
 Route::get('/', 'HomeController@getIndex');
 
