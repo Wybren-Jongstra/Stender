@@ -1,9 +1,9 @@
 @extends('layouts.header')
     @section('jquery-scripts')
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
     @endsection
     @section('custom-scripts')
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" >
+    <script>
     $(document).ready(function(){
         $(".dropdown-toggle").dropdown('toggle');
 
