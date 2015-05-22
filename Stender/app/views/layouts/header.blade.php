@@ -8,19 +8,19 @@
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
-    @yield('custom-stylesheets')
+@yield('custom-stylesheets')
         <link type="text/css" href="css/bootstrap.css" rel="stylesheet" media="screen, projection" />
         <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet" media="screen, projection" />
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
-    @yield('jquery-scripts')
+@yield('jquery-scripts')
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-    @yield('custom-scripts')
+@yield('custom-scripts')
     </head>
 
     <body @yield('body-attributes')>
-        @yield('body')
+@yield('body')
     </body>
 </html>
