@@ -1,5 +1,5 @@
-@include('layouts.header')
-    <body id="body-home">
-		@yield('content')
-	</body>
-</html>
+@extends('layouts.header')
+@section('body-attributes')id="body-home"@endsection
+@section('body')
+    @yield('content')
+@stop
