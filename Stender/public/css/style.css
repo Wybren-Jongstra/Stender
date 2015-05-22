@@ -78,6 +78,23 @@
     color: #000000;
 }
 
+#inputFirstname {
+    width: 38%;
+    float: left;
+    margin-right: 3%;
+}
+
+#inputSurnamePrefix {
+    width: 18%;
+    float: left;
+    margin-right: 3%;
+}
+
+#inputSurname {
+    width: 38%;
+    
+}
+
 .line {
     background-color: #cccccc !important;
     width: 100%;
