@@ -38,15 +38,22 @@ class HomeController extends BaseController {
 			$email = $input['email'];
 			if(ends_with($email, 'stenden.com'))
 			{
+				$confirmationCode = str_random(30);
+
 				$password = $input['password'];
 				$password = Hash::make($password);
 				$user = new User();
 				//$user->fullName = $input['fullName'];
 				$user->Email = $input['email'];
+				$user->ActivationToken = $confirmationCode;
 				$user->Password = $password;
 				$user->UserKindID = 2;
 				$user->DateCreated = Carbon\Carbon::now();
 				$user->save();
+
+				Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+		    		$message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
+				});
 			}
 			else
 			{

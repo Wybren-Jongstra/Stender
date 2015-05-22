@@ -65,3 +65,5 @@ class SessionsController extends BaseController {
 		return Redirect::to('/');
 	}
 }
+
+?>
