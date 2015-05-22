@@ -39,7 +39,7 @@ class HomeController extends BaseController {
 			$email = $input['email'];
 			if(ends_with($email, 'stenden.com'))
 			{
-				$confirmationCode = str_random(30);
+				$confirmationCode = str_random(64);
 
 				$password = $input['password'];
 				$password = Hash::make($password);

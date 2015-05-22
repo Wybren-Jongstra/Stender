@@ -23,6 +23,12 @@
                     {{ Session::get('wrongCred') }}
                     </div>
                 @endif
+                @if(Session::has('activated'))
+                    <div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    {{ Session::get('activated') }}
+                    </div>
+                @endif
 
                 <div class="form-group">
                     {{ Form::text('emailLogin', '', array('class' => 'form-control', 'id' => 'email', 'placeholder' => ucfirst(Lang::get('attributes.user.email')), 'required' => 'required'))}}
