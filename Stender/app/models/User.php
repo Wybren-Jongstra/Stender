@@ -69,7 +69,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      */
     public function getRememberTokenName()
     {
-        // TODO Test disabeling of this code
         return 'RememberToken';
     }
 }
