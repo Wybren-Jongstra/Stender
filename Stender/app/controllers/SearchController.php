@@ -7,17 +7,18 @@ class SearchController extends BaseController {
 	 *
 	 * @return Response
 	 */
-    public function autocomplete(){
-        $term = Input::get('term');
+    public function autocomplete($term){
+        //$term = Input::get('term');
 
+        $search = UserProfile::where('FirstName', 'LIKE', '%'.$term.'%')->orWhere('Surname', 'LIKE', '%'.$term.'%')->take(5)->get();
         $results = array();
 
-        $queries = DB::table('USER_PROFILE')
-            ->where('FirstName', 'LIKE', '%'.$term.'%')
-            ->orWhere('Surname', 'LIKE', '%'.$term.'%')
-            ->take(5)->get();
+        // $queries = DB::table('USER_PROFILE')
+        //     ->where('FirstName', 'LIKE', '%'.$term.'%')
+        //     ->orWhere('Surname', 'LIKE', '%'.$term.'%')
+        //     ->take(5)->get();
 
-        foreach ($queries as $query)
+        foreach ($search as $query)
         {
             $results[] = [ 'id' => $query->UserID, 'value' => $query->FirstName.' '.$query->Surname ];
         }
@@ -27,14 +28,15 @@ class SearchController extends BaseController {
     public function searchUser(){
         $term = Input::get('userName');
 
+        $search = UserProfile::where('FirstName', 'LIKE', '%'.$term.'%')->orWhere('Surname', 'LIKE', '%'.$term.'%')->get();
         $results = array();
 
-        $queries = DB::table('USER_PROFILE')
-            ->where('FirstName', 'LIKE', '%'.$term.'%')
-            ->orWhere('Surname', 'LIKE', '%'.$term.'%')
-            ->get();
+        // $queries = DB::table('USER_PROFILE')
+        //     ->where('FirstName', 'LIKE', '%'.$term.'%')
+        //     ->orWhere('Surname', 'LIKE', '%'.$term.'%')
+        //     ->->get();
 
-        foreach ($queries as $query)
+        foreach ($search as $query)
         {
             $results[] = [ 'id' => $query->UserID, 'value' => $query->FirstName.' '.$query->Surname ];
         }
