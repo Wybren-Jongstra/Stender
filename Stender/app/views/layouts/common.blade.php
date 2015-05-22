@@ -15,17 +15,20 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" >
     $(document).ready(function(){
         $(".dropdown-toggle").dropdown('toggle');
 
-        $( "#inputName" ).autocomplete({
-            source: "search/autocomplete",
-            minLength: 3,
-            select: function(event, ui) {
-                $('#inputName').val(ui.item.value);
+
+        $('#inputName').autocomplete({
+            serviceUrl: '/admin/searches',
+            dataType: 'json',
+            type: 'GET',
+            onSelect: function (suggestion) {
+                alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
             }
         });
+        
     });
     </script>
 </head>

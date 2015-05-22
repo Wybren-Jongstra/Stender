@@ -7,7 +7,7 @@ class HomeController extends BaseController {
     {
         if (Auth::check())
         {
-            return View::make('timeline');
+            return Redirect::to('timeline');
         }
         else
         {
