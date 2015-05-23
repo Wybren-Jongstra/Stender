@@ -1,21 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//NL" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="nl" lang="nl">
-<head>
-    <title>Stender home</title>
-
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
-    <link type="text/css" href="css/bootstrap.css" rel="stylesheet" media="screen, projection" />
-    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet" media="screen, projection" />
-
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" >
+@extends('layouts.header')
+    @section('jquery-scripts')
+        <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
+    @endsection
+    @section('custom-scripts')
+    <script>
     $(document).ready(function(){
         $(".dropdown-toggle").dropdown('toggle');
 
@@ -28,11 +16,11 @@
                 alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
             }
         });
-        
+
     });
     </script>
-</head>
-    <body>
+    @endsection
+    @section('body')
         <div id="header" class="container-fluid">
             <div class="row">
                 <a id="logo" class="col-xs-2 col-sm-3 col-md-2 col-lg-2" href="/"></a>
@@ -66,5 +54,4 @@
             </div>
         </div>
 		@yield('content')
-	</body>
-</html>
+    @stop
