@@ -3,19 +3,24 @@
         <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
     @endsection
     @section('custom-scripts')
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
     <script>
     $(document).ready(function(){
+
+
         $(".dropdown-toggle").dropdown('toggle');
 
 
-        $('#inputName').autocomplete({
-            serviceUrl: '/admin/searches',
-            dataType: 'json',
-            type: 'GET',
-            onSelect: function (suggestion) {
-                alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-            }
-        });
+    $( "#inputName" ).autocomplete(
+    {
+        source: 'search/autocomplete',
+        select: function( event, ui ) {
+            $( "#inputName" ).val( ui.item.label + " / " + ui.item.actor );
+            return false;
+        }
+    });
 
     });
     </script>
@@ -28,7 +33,7 @@
                     {{ Form::open(['action' => ['SearchController@searchUser'], 'method' => 'GET']) }}
                         <div class="form-group col-lg-12">
                             <div class="input-group">
-                                {{ Form::text('userName', '', array('class' => 'form-control', 'id' => 'inputName', 'placeholder' => 'Naam', 'required' => 'required')) }}
+                                {{ Form::text('inputName', '', array('class' => 'form-control', 'id' => 'inputName', 'placeholder' => 'Naam', 'required' => 'required')) }}
                                 <span class="input-group-btn">
                                     {{ Form::submit('Zoek', array('type' => 'button', 'class' => 'btn btn-default'))}}
                                 </span>
