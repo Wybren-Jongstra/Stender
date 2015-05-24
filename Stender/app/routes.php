@@ -23,7 +23,7 @@ Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 //Route::get('timeline', 'TimelineController@getTimeline');
 
 //Search controller
-Route::get('search/autocomplete/{q}', 'SearchController@autocomplete');
+Route::get('search/autocomplete/', 'SearchController@autocomplete');
 Route::get('searchUser', 'SearchController@searchUser');
 
 //posten van login
@@ -41,15 +41,31 @@ Route::get('test', function()
     echo $userprofile->FirstName;
 });
 
+Route::get('search', function(){
 
-Route::get('/admin/searches', function(){
-$in = array(
-    "suggestions" => array(
-        array("value" => "one", "data" => "ON"),
-        array("value" => "two", "data" => "TW"),
-        array("value" => "three", "data" => "TH"),
-        array("value" => "four", "data" => "FO"),
-    )
-);
-return Response::json($in);
-});
+       return View::make('search');
+
+    });
+Route::get('getdata',function(){
+
+        $term = Input::get('term');
+
+        $data = [
+            'R' => 'Red',
+            'O' => 'Orange',
+            'Y' => 'Yellow',
+            'G' => 'Green'
+
+        ];
+
+        $result = [];
+
+        foreach($data as $color) {
+            if(strpos(Str::lower($color),$term) !== false) {
+                $result[] = ['value' => $color];
+            }
+        }
+
+        return Response::json($result);
+
+    });
