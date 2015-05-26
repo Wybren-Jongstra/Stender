@@ -36,21 +36,25 @@ class SessionsController extends BaseController {
 						'password' 	=> Input::get('password')
 					);
 			
-			// Attempt to login
-            // The value of a checkbox is only sent when it is 'on'. So there is no need to use the actual value.
-			if (Auth::attempt($userdata, Input::has('staySignedIn')))
+			// Custom attempt to login
+            // Send no remember token when the user is not validated to login.
+			if (Auth::validate($userdata))
 			{
-				if(Auth::user()->Activated != '1')
+                // Check if account is activated
+				if(Auth::getLastAttempted()->Activated != '1')
     			{
-    				Auth::logout();
-    				return Redirect::to('/')->withInput()->with('wrongCred', 'Je account is nog niet geactiveerd!');	
+    				return Redirect::to('/')->withInput()->with('wrongCred', 'Je account is nog niet geactiveerd!');
     			}
     			else
 	    		{
+                    // User is fully validated so log the user in.
+                    // The value of a checkbox is only sent when it is 'on'. So there is no need to use the actual value.
+                    Auth::login(Auth::getLastAttempted(), Input::has('staySignedIn'));
+
 					Auth::user()->LastLogin = new DateTime;
 	    			Auth::user()->save();
 
-					//login succesfull move along
+					// Login successful move along
 					return Redirect::to('/timeline');
 				}
 			}
