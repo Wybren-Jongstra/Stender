@@ -6,7 +6,7 @@ class ProfileController extends BaseController {
     {
         //$this->fillSession();
 
-        $userprofile = UserProfile::find(Auth::user()->UserProfileID);
+        $userprofile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
 
         $data = array(
         'UserProfileID'  => $userprofile->UserProfileID,
