@@ -22,7 +22,7 @@ class HomeController extends BaseController {
 		$input = Input::all();
 
 		$profileUrl = '';
-
+		$displayName = '';
 
 
 		//rules to validate input
@@ -48,10 +48,12 @@ class HomeController extends BaseController {
 				if($input['surnamePrefix'] == '')
 				{
 					$profileUrl = $input['firstname'].'.'.$input['surname'];
+					$displayName = $input['firstname'].' '.$input['surname'];
 				}
 				else
 				{
 					$profileUrl = $input['firstname'].'.'.$input['surnamePrefix'].'.'.$input['surname'];
+					$displayName = $input['firstname'].' '.$input['surnamePrefix'].' '.$input['surname'];
 				}
 				//$verifier->setConnection('stender');
 
@@ -74,12 +76,16 @@ class HomeController extends BaseController {
 					$userprofile->SurnamePrefix = $input['surnamePrefix'];
 					$userprofile->Surname = $input['surname'];
 					$userprofile->ProfileUrlPart = $this->getProfileUrlPart($profileUrl);
+					$userprofile->Displayname = $displayName;
 
 					$userprofile->save();
 
 					$user->UserProfileID = $userprofile->UserProfileID;
 					$user->save();
 
+					// Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+			  //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
+					// });
 
 					Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
 			    		$message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');

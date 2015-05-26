@@ -2,15 +2,35 @@
 
 class ProfileController extends BaseController {
 
-    public function getProfile()
+    public function getProfile($profileUrl)
     {
         //$this->fillSession();
 
         $userprofile = UserProfile::find(Auth::user()->UserProfileID);
 
         $data = array(
-        'firstname'  => $userprofile->FirstName,
-        'profileID' => $userprofile->UserProfileID,
+        'UserProfileID'  => $userprofile->UserProfileID,
+        'DateUpdated' => $userprofile->DateUpdated,
+        'ProfileUrlPart'  => $userprofile->ProfileUrlPart,
+        'DisplayName'  => $userprofile->DisplayName,
+        'PhotoUrl' => $userprofile->PhotoUrl,
+        'FirstName'  => $userprofile->FirstName,
+        'Surname'  => $userprofile->Surname,
+        'Prefix' => $userprofile->Prefix,
+        'MiddleName'  => $userprofile->MiddleName,
+        'SurnamePrefix'  => $userprofile->SurnamePrefix,
+        'Suffix' => $userprofile->Suffix,
+        'Birthday'  => $userprofile->Birthday,
+        'GenderID'  => $userprofile->GenderID,
+        'SexualOrientation' => $userprofile->SexualOrientation,
+        'StreetName'  => $userprofile->StreetName,
+        'HouseNumber'  => $userprofile->HouseNumber,
+        'HouseNumberSuffix' => $userprofile->HouseNumberSuffix,
+        'Zip'  => $userprofile->Zip,
+        'City'  => $userprofile->City,
+        'Country' => $userprofile->Country,
+        'AlternativeEmail'  => $userprofile->AlternativeEmail,
+        'Description'  => $userprofile->Description,
         );
 
         return View::make('profile')->with('data', $data);

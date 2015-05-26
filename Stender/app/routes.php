@@ -23,7 +23,7 @@ Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 //Route::get('timeline', 'TimelineController@getTimeline');
 
 //profielpagina
-Route::get('profile', 'ProfileController@getProfile')->before('auth');
+Route::get('profile/{profileUrl}', 'ProfileController@getProfile')->before('auth');
 
 //Search controller
 Route::get('search/autocomplete/', 'SearchController@autocomplete');

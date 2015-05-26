@@ -10,7 +10,7 @@ class TimelineController extends BaseController {
 
         $data = array(
         'firstname'  => $userprofile->FirstName,
-        'profileID' => $userprofile->UserProfileID,
+        'ProfileUrlPart' => $userprofile->ProfileUrlPart,
         );
 
         return View::make('timeline')->with('data', $data);
