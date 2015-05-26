@@ -21,12 +21,17 @@ class HomeController extends BaseController {
 		//get input
 		$input = Input::all();
 
+		$profileUrl = '';
+
+
+
 		//rules to validate input
 		$rules = array(
 			'firstname' => 'required',
 			'surname' 	=> 'required',
 			'email'	 	=> 'required|email|unique:USER',
 			'password' 	=> 'required'
+
 		);
 
 		//check validation
@@ -39,32 +44,46 @@ class HomeController extends BaseController {
 			$email = $input['email'];
 			if(ends_with($email, 'stenden.com'))
 			{
-				$confirmationCode = str_random(64);
-
-				$password = $input['password'];
-				$password = Hash::make($password);
-				$user = new User();
-				//$user->fullName = $input['fullName'];
-				$user->Email = $input['email'];
-				$user->ActivationToken = $confirmationCode;
-				$user->Password = $password;
-				$user->UserKindID = 2;
-				$user->DateCreated = Carbon\Carbon::now();
-				
-
-				$userprofile = new UserProfile();
-				$userprofile->FirstName = $input['firstname'];
-				$userprofile->SurnamePrefix = $input['surnamePrefix'];
-				$userprofile->Surname = $input['surname'];
-				$userprofile->save();
-
-				$user->UserProfileID = $userprofile->UserProfileID;
-				$user->save();
+				//$verifier = App::make('validation.presence');
+				if($input['surnamePrefix'] == '')
+				{
+					$profileUrl = $input['firstname'].'.'.$input['surname'];
+				}
+				else
+				{
+					$profileUrl = $input['firstname'].'.'.$input['surnamePrefix'].'.'.$input['surname'];
+				}
+				//$verifier->setConnection('stender');
 
 
-				Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-		    		$message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
-				});
+					$confirmationCode = str_random(64);
+
+					$password = $input['password'];
+					$password = Hash::make($password);
+					$user = new User();
+					//$user->fullName = $input['fullName'];
+					$user->Email = $input['email'];
+					$user->ActivationToken = $confirmationCode;
+					$user->Password = $password;
+					$user->UserKindID = 2;
+					$user->DateCreated = Carbon\Carbon::now();
+					
+
+					$userprofile = new UserProfile();
+					$userprofile->FirstName = $input['firstname'];
+					$userprofile->SurnamePrefix = $input['surnamePrefix'];
+					$userprofile->Surname = $input['surname'];
+					$userprofile->ProfileUrlPart = $this->getProfileUrlPart($profileUrl);
+
+					$userprofile->save();
+
+					$user->UserProfileID = $userprofile->UserProfileID;
+					$user->save();
+
+
+					Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+			    		$message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
+					});
 			}
 			else
 			{
@@ -80,6 +99,31 @@ class HomeController extends BaseController {
 		}
 		
 	}
-}
 
-?>
+	private function getProfileUrlPart($profileUrlPart, $increment = 0)
+	{
+		if($increment > 0)
+		{
+			$newProfileUrlPart = $profileUrlPart . $increment;
+		}
+		else
+		{
+			$newProfileUrlPart = $profileUrlPart;
+		}
+
+		$valPart = Validator::make(
+			    ['ProfileUrlPart' => $newProfileUrlPart],
+			    ['ProfileUrlPart' => 'unique:USER_PROFILE,ProfileUrlPart']
+		);
+
+		if($valPart->fails())
+		{	
+			++$increment;
+			return $this->getProfileUrlPart($profileUrlPart, $increment);
+		}
+		else
+		{
+			return $newProfileUrlPart;
+		}
+	}
+}
