@@ -3,7 +3,10 @@
 <div id="content" class="container">
     <div class="row">
         <div id="left-column" class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-            <h1>Welkom </h1>
+            
+            <h1>
+                {{ $data['DisplayName']; }}
+        </h1>
             <p>
                 Verbind met je klasgenoten - studiegenoten - en andere medestudenten. Ontvang updates over jou interesses.
                 Bekijk met wie jij naar een studenten feest wilt.
