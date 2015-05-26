@@ -19,7 +19,8 @@ class SessionsController extends BaseController {
 		//rules to validate input
 		$rules = array(
 			'emailLogin' => 'required|email',
-			'password' => 'required'
+			'password' => 'required',
+            'staySignedIn' => 'boolean', // Not required because the value of a checkbox is not sent when it isn't 'on'.
 		);
 
 		//check validation
@@ -35,8 +36,9 @@ class SessionsController extends BaseController {
 						'password' 	=> Input::get('password')
 					);
 			
-			//attempt to login
-			if (Auth::attempt($userdata))
+			// Attempt to login
+            // The value of a checkbox is only sent when it is 'on'. So there is no need to use the actual value.
+			if (Auth::attempt($userdata, Input::has('staySignedIn')))
 			{
 				if(Auth::user()->Activated != '1')
     			{
@@ -46,7 +48,6 @@ class SessionsController extends BaseController {
     			else
 	    		{
 					Auth::user()->LastLogin = new DateTime;
-					Auth::user()->RememberToken = $input['_token'];
 	    			Auth::user()->save();
 
 					//login succesfull move along

@@ -38,7 +38,7 @@
                 </div>
                 <div class="checkbox">
                         <label>
-                            {{ Form::checkbox('blijf_ingelogd') }} Blijf ingelogd
+                            {{ Form::checkbox('staySignedIn') }} Blijf ingelogd
                         </label>
                     </div>
 
