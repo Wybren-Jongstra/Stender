@@ -36,11 +36,12 @@ class SessionsController extends BaseController {
 						'password' 	=> Input::get('password')
 					);
 			
-			// Custom attempt to login
-            // Send no remember token when the user is not validated to login.
+			// Custom attempt to login because authenticating a user with conditions gives
+			// no direct possibility to check which error occurs.
+            // Send(s) no remember token when the user is not validated to login.
 			if (Auth::validate($userdata))
 			{
-                // Check if account is activated
+                // Check if account is deactivated
 				if(Auth::getLastAttempted()->Activated != '1')
     			{
     				return Redirect::to('/')->withInput()->with('wrongCred', 'Je account is nog niet geactiveerd!');
