@@ -95,6 +95,27 @@
     
 }
 
+/*
+* Dropdown search bar css
+*/
+.ui-autocomplete{
+    padding-top:10px;
+    margin-left:10px;
+    list-style:none;
+}
+
+.ui-menu-item{
+    width: 27.5%;
+    height:50px;
+    padding-left:13px;
+    background-color:white;
+}
+.ui-menu-item:hover{
+    background-color:lightblue;
+    color:white;
+
+}
+
 .line {
     background-color: #cccccc !important;
     width: 100%;
@@ -119,4 +140,8 @@
 .navbar-nav > li > a {
     padding-top: 13px !important;
     padding-bottom: 12px !important;
+}
+
+.ui-helper-hidden-accessible{
+    display:none;
 }
