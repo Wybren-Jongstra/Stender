@@ -47,7 +47,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/timeline">Tijdlijn</a></li>
-                                <li><a href="#">Profiel</a></li>
+                                <li><a href="/profile/{{ $data['profileID'] }}">Profiel</a></li>
                                 <li><a href="#">Connecties</a></li>
                                 <li><a href="#">Account</a></li>
                                 <li class="divider"></li>

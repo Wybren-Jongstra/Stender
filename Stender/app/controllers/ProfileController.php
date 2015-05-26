@@ -1,10 +1,10 @@
 <?php
 
-class TimelineController extends BaseController {
+class ProfileController extends BaseController {
 
-    public function getTimeline()
+    public function getProfile()
     {
-        $this->fillSession();
+        //$this->fillSession();
 
         $userprofile = UserProfile::find(Auth::user()->UserProfileID);
 
@@ -13,7 +13,7 @@ class TimelineController extends BaseController {
         'profileID' => $userprofile->UserProfileID,
         );
 
-        return View::make('timeline')->with('data', $data);
+        return View::make('profile')->with('data', $data);
     }
 
     public static function fillSession()

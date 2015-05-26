@@ -22,6 +22,9 @@ Route::post('postRegister', 'HomeController@postRegister');
 Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 //Route::get('timeline', 'TimelineController@getTimeline');
 
+//profielpagina
+Route::get('profile', 'ProfileController@getProfile')->before('auth');
+
 //Search controller
 Route::get('search/autocomplete/', 'SearchController@autocomplete');
 Route::get('searchUser', 'SearchController@searchUser');
