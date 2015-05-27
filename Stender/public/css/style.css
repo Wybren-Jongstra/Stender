@@ -175,12 +175,18 @@ h5 {
 }
 #vote-up-button {
     margin-top: 65px;
+    margin-left: auto;
+    margin-right: auto;
     height: 50px;
+    width: 70px;
     background: url('../images/vote_up_unselected.png') no-repeat;
     border: none;
 }
 #vote-down-button {
+    margin-left: auto;
+    margin-right: auto;
     height: 50px;
+    width: 70px;
     background: url('../images/vote_down_selected.png') no-repeat;
     border: none;
 }

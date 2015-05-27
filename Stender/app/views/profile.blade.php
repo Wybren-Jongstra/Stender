@@ -25,6 +25,7 @@
                     <span id="connections" class="score">20</span>
                     <span class="scoreHeader">Stender Score</span>
                     <span id="stenderScore" class="score">+9</span>
+                    <button class="btn btn-primary">Connect</button>
                 </div>
             </div>
         </div>
