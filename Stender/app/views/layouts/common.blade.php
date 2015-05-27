@@ -3,27 +3,28 @@
         <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
     @endsection
     @section('custom-scripts')
-      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
+        <script src="{{ URL::to('js/jquery-ui.js') }}"></script>
+        <!-- <script src="{{ URL::to('js/jquery-ui.min.js') }}"></script> -->
+        <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
 
-    <script>
-    $(document).ready(function(){
-
-
-        $(".dropdown-toggle").dropdown('toggle');
+        <script>
+        $(document).ready(function(){
 
 
-    $( "#inputName" ).autocomplete(
-    {
-        source: '/search/autocomplete',
-        select: function( event, ui ) {
-            $( "#inputName" ).val( ui.item.label + " / " + ui.item.actor );
-            return false;
-        }
-    });
+            $(".dropdown-toggle").dropdown('toggle');
 
-    });
-    </script>
+
+        $( "#inputName" ).autocomplete(
+        {
+            source: '/search/autocomplete',
+            select: function( event, ui ) {
+                $( "#inputName" ).val( ui.item.label + " / " + ui.item.actor );
+                return false;
+            }
+        });
+
+        });
+        </script>
     @endsection
     @section('body')
         <div id="header" class="container-fluid">
