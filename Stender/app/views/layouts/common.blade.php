@@ -3,7 +3,9 @@
         <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
     @endsection
     @section('custom-scripts')
-      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script src="{{ URL::to('js/jquery-ui.js') }}"></script>
+        <!-- <script src="{{ URL::to('js/jquery-ui.min.js') }}"></script> -->
+        <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
   <link rel="stylesheet" href="/resources/demos/style.css">
 
     <script>
