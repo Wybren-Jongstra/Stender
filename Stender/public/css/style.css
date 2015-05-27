@@ -3,6 +3,12 @@
     margin: 0;
 }
 
+h5 {
+    color: #000000;
+    font-size: 12pt !important;
+    font-weight: bold !important;
+}
+
 #body-home {
     background: url('../images/background_home.jpg') left top no-repeat;
     background-size: cover;
@@ -50,6 +56,14 @@
 .rounded-div {
     background-color: #eeeeee;
     border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+.rounded-div-border {
+    background-color: #eeeeee;
+    border-color: #cccccc;
+    border-style: solid;
     border-width: 1px;
     border-radius: 4px;
 }
@@ -144,4 +158,62 @@
 
 .ui-helper-hidden-accessible{
     display:none;
+}
+
+.spacing-top {
+    margin-top: 20px;
+    padding: 0 !important;
+}
+.border-right {
+    border-right: 1px solid #cccccc;
+}
+.border-top {
+    border-top: 1px solid #cccccc;
+}
+#profile {
+    min-height: 232px;
+}
+#vote-up-button {
+    margin-top: 65px;
+    height: 50px;
+    background: url('../images/vote_up_unselected.png') no-repeat;
+    border: none;
+}
+#vote-down-button {
+    height: 50px;
+    background: url('../images/vote_down_selected.png') no-repeat;
+    border: none;
+}
+#profile-photo img {
+    max-height: 232px;
+}
+#profile-info {
+    height: 100%;
+}
+#profile-score-info {
+    position: relative;
+    bottom: 0;
+}
+.social-media-blocks {
+    padding: 0 !important;
+}
+#profile-score-info .scoreHeader {
+    color: #acacac;
+}
+#profile-score-info .score {
+    color: #013972;
+    font-size: 14pt;
+}
+
+@media screen and (max-width: 992px) {
+    #interest-block {
+        border-right: none !important;
+    }
+    #experience-block {
+        border-top: 1px solid #cccccc;
+        border-right: none !important;
+    }
+    #hobby-block {
+        border-top: 1px solid #cccccc;
+    }
 }
