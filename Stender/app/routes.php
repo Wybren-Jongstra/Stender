@@ -51,24 +51,6 @@ Route::get('search', function(){
     });
 Route::get('getdata',function(){
 
-        $term = Input::get('term');
-
-        $data = [
-            'R' => 'Red',
-            'O' => 'Orange',
-            'Y' => 'Yellow',
-            'G' => 'Green'
-
-        ];
-
-        $result = [];
-
-        foreach($data as $color) {
-            if(strpos(Str::lower($color),$term) !== false) {
-                $result[] = ['value' => $color];
-            }
-        }
-
-        return Response::json($result);
+        echo microtime(true);
 
     });
