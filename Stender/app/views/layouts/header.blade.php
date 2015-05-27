@@ -12,7 +12,8 @@
         <link type="text/css" href="{{ URL::to('css/bootstrap.css') }}" rel="stylesheet" media="screen, projection" />
         <!-- <link type="text/css" href="{{ URL::to('css/bootstrap.min.css') }}" rel="stylesheet" media="screen, projection" /> -->
 
-        <script src="{{ URL::to('js/jquery.min.js') }}"></script>
+        <script src="{{ URL::to('js/jquery.js') }}"></script>
+        <!-- <script src="{{ URL::to('js/jquery.min.js') }}"></script> -->
 @yield('jquery-scripts')
         <script src="{{ URL::to('js/bootstrap.js') }}"></script>
         <!-- <script src="{{ URL::to('js/bootstrap.min.js') }}"></script> -->
