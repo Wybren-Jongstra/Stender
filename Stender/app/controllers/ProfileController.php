@@ -30,7 +30,7 @@ class ProfileController extends BaseController {
         'City'  => $userprofile->City,
         'Country' => $userprofile->Country,
         'AlternativeEmail'  => $userprofile->AlternativeEmail,
-        'Description'  => $userprofile->Description,
+        'Education'  => $userprofile->Education,
         );
 
         return View::make('profile')->with('data', $data);
