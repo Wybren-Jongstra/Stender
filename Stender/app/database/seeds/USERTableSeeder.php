@@ -30,7 +30,7 @@ class USERTableSeeder extends Seeder {
                 $createdUserData = $this->generateUser($faker->firstName, $faker->lastName, $faker->word, $faker->boolean(), $faker->boolean());
             }
 
-            $this->command->info('Created random user. Student: ' . ($createdUserData['student'] ? '1' : '0') . ', Activated: ' . ($createdUserData['active'] ? '1' : '0') . ', Email: ' . $createdUserData['email'] . ', Password: ' . $createdUserData['password']);
+            $this->command->info('Created random user. StudentEmail: ' . ($createdUserData['student'] ? '1' : '0') . ', Activated: ' . ($createdUserData['active'] ? '1' : '0') . ', Email: ' . $createdUserData['email'] . ', Password: ' . $createdUserData['password']);
 		}
 	}
 
