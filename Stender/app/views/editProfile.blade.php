@@ -1,4 +1,12 @@
 @extends('layouts.common')
+@section('custom-jquery')
+  $(".edit").editable("{{ URL::to('/saveProfile/'.$data['ProfileUrlPart'])}}", { 
+      indicator : "<img src='img/indicator.gif'>",
+      event     : "dblclick",
+      placeholder: '',
+      style  : "inherit"
+  });
+@endsection
 @section('content')
 <div id="content" class="container">
     <div class="row">
@@ -8,17 +16,33 @@
                 <button id="vote-down-button" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
             </div>
             <div id="profile-photo" class="col-xs-8 col-sm-4 col-md-3 col-lg-3">
-                @if( empty($fb->photoURL) )
+                @if( empty($data['PhotoUrl']) )
                     <img src="{{ URL::to('uploads/default_profile_picture.png') }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
                 @else
-                    <img src="{{ $fb->photoURL }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                    <img src="{{ URL::to('uploads/'.$data['PhotoUrl']) }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
                 @endif
             </div>
-            <div id="profile-info" class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-                <h2>{{ $fb->displayName }}</h2>
-                Geboren: {{ $fb->birthDay.'-'.$fb->birthMonth.'-'.$fb->birthYear }}<br/>
-                Woonplaats: {{ $fb->city }}<br/>
-                Opleiding: 
+            <div id="profile-info" class="col-xs-12 col-sm-6 col-md-8 col-lg-8 edit">
+                <h2 class="edit" id="DisplayName">{{ $data['DisplayName'] }}</h2>
+                Geboren:<b class="edit" id="Birthday"> 
+                @if($data['Birthday'] == null)
+                    {{"Voer je verjaardag in!"}}
+                @else
+                   {{ $data['Birthday'] }} 
+                @endif
+            </b></br>
+                Woonplaats:<b class="edit" id="City"> 
+                @if($data['City'] == null)
+                    {{"Voer je Woonplaats in!"}}
+                @else
+                   {{ $data['City'] }} 
+                @endif</b></br>
+                Opleiding:<b class="edit" id="Education"> 
+                @if($data['Education'] == null)
+                    {{"Voer je opleiding in!"}}
+                @else
+                   {{ $data['Education'] }} 
+                @endif{{ $data['Education'] }}</b>
 
                 <div id="profile-score-info" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <span class="scoreHeader">Connecties</span>

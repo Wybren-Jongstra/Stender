@@ -25,6 +25,11 @@ Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 //profielpagina
 Route::get('profile/{profileUrl}', 'ProfileController@getProfile')->before('auth');
 
+//profielpagina aanpassen
+Route::get('editProfile/{profileUrl}', 'ProfileController@editProfile')->before('auth');
+//save de aanpassingen:
+Route::post('saveProfile/{profileUrl}', 'ProfileController@saveChanges')->before('auth');
+
 //Search controller
 Route::get('search/autocomplete/', 'SearchController@autocomplete');
 Route::get('searchUser', 'SearchController@searchUser');
@@ -76,15 +81,17 @@ Route::get('social/{action?}', array("as" => "hybridauth", function($action = ""
         $provider = $socialAuth->authenticate("facebook");
         // fetch user profile
         $userProfile = $provider->getUserProfile();
+    
     }
     catch(Exception $e) {
         // exception codes can be found on HybBridAuth's web site
         return $e->getMessage();
     }
     // access user profile data
-    //echo "Connected with: <b>{$provider->id}</b><br />";
-    //echo "As: <b>{$userProfile->displayName}</b><br />";
-    //echo "<pre>" . print_r( $userProfile, true ) . "</pre><br />";
+    echo "Connected with: <b>{$provider->id}</b><br />";
+    echo "As: <b>{$userProfile->displayName}</b><br />";
+    echo "<pre>" . print_r( $userProfile, true ) . "</pre><br />";
+    
 
 
 

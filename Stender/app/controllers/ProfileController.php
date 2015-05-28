@@ -5,8 +5,18 @@ class ProfileController extends BaseController {
     public function getProfile($profileUrl)
     {
         //$this->fillSession();
+        
+        return View::make('profile')->with('data', $this->getData($profileUrl));
+    }
 
-        $userprofile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
+    public function editprofile($profileUrl)
+    {
+        return View::make('editProfile')->with('data', $this->getData($profileUrl));
+    }
+
+    public function getData($profileUrl)
+    {
+         $userprofile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
 
         $data = array(
         'UserProfileID'  => $userprofile->UserProfileID,
@@ -33,7 +43,19 @@ class ProfileController extends BaseController {
         'Education'  => $userprofile->Education,
         );
 
-        return View::make('profile')->with('data', $data);
+        return $data;
+
+    }
+
+
+    public function saveChanges($profileUrl)
+    {
+        $userProfile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
+        $id = Input::get('id');
+        $value = Input::get('value');
+
+       $userProfile->$id = $value;
+       $userProfile->save();
     }
 
     public static function fillSession()

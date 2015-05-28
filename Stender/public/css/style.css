@@ -220,6 +220,23 @@ h5 {
     bottom: 0px;
 }
 
+/*
+* EditProfile
+*/
+
+.edit {
+    
+    min-height: 20px;
+    width: 200px;
+
+}
+.edit h2
+{
+    width: 300px;
+
+}
+
+
 @media screen and (max-width: 992px) {
     #interest-block {
         border-right: none !important;
