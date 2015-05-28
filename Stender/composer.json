@@ -10,7 +10,8 @@
 	},
 	"require-dev": {
 		"xethron/migrations-generator": "dev-master",
-		"caouecs/laravel4-lang": "~1.0"
+		"caouecs/laravel4-lang": "~1.0",
+        "fzaninotto/faker": "1.3.*"
 	},
 	"autoload": {
 		"classmap": [
