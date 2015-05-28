@@ -51,24 +51,53 @@ Route::get('search', function(){
     });
 Route::get('getdata',function(){
 
-        $term = Input::get('term');
-
-        $data = [
-            'R' => 'Red',
-            'O' => 'Orange',
-            'Y' => 'Yellow',
-            'G' => 'Green'
-
-        ];
-
-        $result = [];
-
-        foreach($data as $color) {
-            if(strpos(Str::lower($color),$term) !== false) {
-                $result[] = ['value' => $color];
-            }
-        }
-
-        return Response::json($result);
+        echo microtime(true);
 
     });
+
+Route::get('social/{action?}', array("as" => "hybridauth", function($action = "")
+{
+    // check URL segment
+    if ($action == "auth") {
+        // process authentication
+        try {
+            Hybrid_Endpoint::process();
+        }
+        catch (Exception $e) {
+            // redirect back to http://URL/social/
+            return Redirect::route('hybridauth');
+        }
+        return;
+    }
+    try {
+        // create a HybridAuth object
+        $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
+        // authenticate with Google
+        $provider = $socialAuth->authenticate("facebook");
+        // fetch user profile
+        $userProfile = $provider->getUserProfile();
+    }
+    catch(Exception $e) {
+        // exception codes can be found on HybBridAuth's web site
+        return $e->getMessage();
+    }
+    // access user profile data
+    //echo "Connected with: <b>{$provider->id}</b><br />";
+    //echo "As: <b>{$userProfile->displayName}</b><br />";
+    //echo "<pre>" . print_r( $userProfile, true ) . "</pre><br />";
+
+
+
+    // logout
+    $provider->logout();
+
+    //compleet iets anders maargoed:
+    $userprofile = UserProfile::find(Auth::user()->UserProfileID);
+
+        $data = array(
+        'firstname'  => $userprofile->FirstName,
+        'ProfileUrlPart' => $userprofile->ProfileUrlPart,
+        );
+
+    return View::make('facebook')->with('data', $data)->with('fb', $userProfile);
+}));
