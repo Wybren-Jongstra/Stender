@@ -17,7 +17,7 @@ class USERTableSeeder extends Seeder {
         // When the config property not exists, faker creates dumber values.
 		$faker = Faker::create(Config::get('app.locale'));
 
-		foreach(range(1, 5) as $index)
+        for ($i = 1; $i <= 5; $i++)
         {
             $createdUserData = null;
 
@@ -85,11 +85,12 @@ class USERTableSeeder extends Seeder {
     {
         if (is_null($surnamePrefix))
         {
-            return (lcfirst($firstName) . '.' . lcfirst($surname));
+            // Uses by default UTF-8 encoding
+            return (mb_strtolower($firstName . '.' . $surname));
         }
         else
         {
-            return (lcfirst($firstName) . '.' . lcfirst($surnamePrefix) . '.' . lcfirst($surname));
+            return (mb_strtolower($firstName . '.' . $surnamePrefix . '.' . $surname));
         }
     }
 
