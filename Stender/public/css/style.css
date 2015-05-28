@@ -187,21 +187,25 @@ h5 {
     margin-right: auto;
     height: 50px;
     width: 70px;
-    background: url('../images/vote_down_selected.png') no-repeat;
+    background: url('../images/vote_down_unselected.png') no-repeat;
     border: none;
 }
 #profile-photo img {
     max-height: 232px;
 }
 #profile-info {
-    height: 100%;
+    position: relative;
+    height: 232px;
 }
 #profile-score-info {
-    position: relative;
-    bottom: 0;
+    position: absolute;
+    bottom: 10px;
 }
 .social-media-blocks {
     padding: 0 !important;
+}
+.no-padding-left {
+    padding-left: 0 !important;
 }
 #profile-score-info .scoreHeader {
     color: #acacac;
@@ -209,6 +213,11 @@ h5 {
 #profile-score-info .score {
     color: #013972;
     font-size: 14pt;
+}
+#profile-score-info button {
+    position: absolute;
+    right: 30px;
+    bottom: 0px;
 }
 
 @media screen and (max-width: 992px) {
