@@ -4,6 +4,8 @@
     @endsection
     @section('custom-scripts')
         <script src="{{ URL::to('js/jquery-ui.js') }}"></script>
+        <!--jEditable plugin for jQuery -->
+        <script src="{{ URL::to('js/jquery.jeditable.js') }}" type="text/javascript" charset="utf-8"></script>
         <!-- <script src="{{ URL::to('js/jquery-ui.min.js') }}"></script> -->
         <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
 
@@ -23,6 +25,8 @@
             }
         });
 
+
+            @yield('custom-jquery')
         });
         </script>
     @endsection
