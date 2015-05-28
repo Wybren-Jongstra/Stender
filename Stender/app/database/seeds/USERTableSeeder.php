@@ -17,7 +17,7 @@ class USERTableSeeder extends Seeder {
         // When the config property not exists, faker creates dumber values.
 		$faker = Faker::create(Config::get('app.locale'));
 
-        for ($i = 1; $i <= 5; $i++)
+        for ($i = 0; $i <= 4; $i++)
         {
             $createdUserData = null;
 
