@@ -4,8 +4,10 @@
     <div class="row">
         <div id="profile" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="up-down-vote" class="col-xs-4 col-sm-2 col-md-1 col-lg-1">
-                <button id="vote-up-button" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
-                <button id="vote-down-button" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                @if( $data['UserProfileID'] !== Session::get('UserProfileID') )
+                    <button id="vote-up-button" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                    <button id="vote-down-button" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                @endif
             </div>
             <div id="profile-photo" class="col-xs-8 col-sm-4 col-md-3 col-lg-3">
                 @if( empty($data['PhotoUrl']) )
@@ -20,11 +22,18 @@
                 Woonplaats: {{ $data['City'] }}<br/>
                 Opleiding: {{ $data['Education'] }}
 
-                <div id="profile-score-info" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <span class="scoreHeader">Connecties</span>
-                    <span id="connections" class="score">20</span>
-                    <span class="scoreHeader">Stender Score</span>
-                    <span id="stenderScore" class="score">+9</span>
+                <div id="profile-score-info" class="no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="no-padding-left col-xs-4 col-sm-4 col-md-3 col-lg-3">
+                        <span class="scoreHeader no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">Connecties</span>
+                        <span id="connections" class="score no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">20</span>
+                    </div>
+                    <div class="no-padding-left col-xs-4 col-sm-4 col-md-3 col-lg-3">
+                        <span class="scoreHeader no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">Stender Score</span>
+                        <span id="stenderScore" class="score no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">+9</span>
+                    </div>
+                    @if( $data['UserProfileID'] !== Session::get('UserProfileID') )
+                        <button class="btn btn-primary col-xs-offset-2 col-sm-offset-2 col-md-offset-4 col-lg-offset-4">Connect</button>
+                    @endif
                 </div>
             </div>
         </div>

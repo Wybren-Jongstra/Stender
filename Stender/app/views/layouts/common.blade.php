@@ -1,17 +1,15 @@
 @extends('layouts.header')
     @section('jquery-scripts')
-        <!-- <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script> -->
     @endsection
     @section('custom-scripts')
         <script src="{{ URL::to('js/jquery-ui.js') }}"></script>
-        <!-- <script src="{{ URL::to('js/jquery-ui.min.js') }}"></script> -->
-        <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
-
         <script>
         $(document).ready(function(){
 
-
+        $("#menuButton").onclick(function(){
             $(".dropdown-toggle").dropdown('toggle');
+        });
+
 
 
         $( "#inputName" ).autocomplete(
@@ -45,7 +43,7 @@
                 <div class="menu col-xs-3 col-sm-3 col-md-3 col-lg-offset-2 col-lg-1 pull-right">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a>
+                            <a href="#" id="menuButton" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/timeline">Tijdlijn</a></li>
                                 <li><a href="/profile/{{ $data['ProfileUrlPart'] }}">Profiel</a></li>
