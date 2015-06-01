@@ -14,8 +14,8 @@ class AddForeignKeysToREVIEWTable2 extends Migration {
 	{
 		Schema::table('REVIEW', function(Blueprint $table)
 		{
-			$table->foreign('ForUserID', 'fk_REVIEW_USER1')->references('UserID')->on('USER')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('FromUserID', 'fk_REVIEW_USER2')->references('UserID')->on('USER')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+			$table->foreign('ForUserProfileID', 'fk_REVIEW_USER_PROFILE1')->references('UserProfileID')->on('USER_PROFILE')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+			$table->foreign('FromUserProfileID', 'fk_REVIEW_USER_PROFILE2')->references('UserProfileID')->on('USER_PROFILE')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 
@@ -29,8 +29,8 @@ class AddForeignKeysToREVIEWTable2 extends Migration {
 	{
 		Schema::table('REVIEW', function(Blueprint $table)
 		{
-			$table->dropForeign('fk_REVIEW_USER1');
-			$table->dropForeign('fk_REVIEW_USER2');
+			$table->dropForeign('fk_REVIEW_USER_PROFILE1');
+			$table->dropForeign('fk_REVIEW_USER_PROFILE2');
 		});
 	}
 

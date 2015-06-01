@@ -16,7 +16,7 @@ class CreateINTERESTKINDTable2 extends Migration {
 		{
 			$table->integer('InterestKindID', true);
 			$table->string('Name', 15)->unique('Name_UNIQUE');
-			$table->string('Description', 100)->unique('Description_UNIQUE');
+			$table->string('Description', 100);
 		});
 	}
 

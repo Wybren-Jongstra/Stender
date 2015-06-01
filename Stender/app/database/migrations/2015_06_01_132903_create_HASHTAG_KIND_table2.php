@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePLACEKINDTable2 extends Migration {
+class CreateHASHTAGKINDTable2 extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreatePLACEKINDTable2 extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('PLACE_KIND', function(Blueprint $table)
+		Schema::create('HASHTAG_KIND', function(Blueprint $table)
 		{
-			$table->integer('PlaceKindID', true);
+			$table->integer('HashtagKindID', true);
 			$table->string('Name', 20)->unique('Name_UNIQUE');
-			$table->string('Description', 100)->unique('Description_UNIQUE');
+			$table->string('Description', 100);
 		});
 	}
 
@@ -28,7 +28,7 @@ class CreatePLACEKINDTable2 extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('PLACE_KIND');
+		Schema::drop('HASHTAG_KIND');
 	}
 
 }

@@ -15,8 +15,8 @@ class CreateREVIEWTable2 extends Migration {
 		Schema::create('REVIEW', function(Blueprint $table)
 		{
 			$table->integer('ReviewID', true);
-			$table->integer('ForUserID')->index('fk_REVIEW_USER1_idx');
-			$table->integer('FromUserID')->index('fk_REVIEW_USER2_idx');
+			$table->integer('ForUserProfileID')->index('fk_REVIEW_USER_PROFILE1_idx');
+			$table->integer('FromUserProfileID')->index('fk_REVIEW_USER_PROFILE2_idx');
 			$table->dateTime('DateCreated');
 			$table->dateTime('DateUpdated')->nullable();
 			$table->boolean('Deleted');

@@ -17,7 +17,7 @@ class CreateINTERESTOPTIONTable2 extends Migration {
 			$table->integer('InterestOptionID', true);
 			$table->integer('InterestKindID')->index('fk_INTEREST_OPTION_INTEREST_KIND1_idx');
 			$table->string('Name', 100)->unique('Name_UNIQUE');
-			$table->string('Description', 200)->unique('Description_UNIQUE');
+			$table->string('Description', 200);
 		});
 	}
 
