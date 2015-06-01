@@ -1,18 +1,18 @@
 <?php
 
-class PlaceOption extends Eloquent {
+class Hashtag extends Eloquent {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'PLACE_OPTION';
+    protected $table = 'HASHTAG';
 
     /**
      * The primairy key of the database table
      * @var string
      */
-    protected $primaryKey = 'PlaceOptionID';
+    protected $primaryKey = 'HashtagID';
 
     /**
      * Disable the insertion of timestamps that are automatically created by Laravel.
@@ -25,7 +25,7 @@ class PlaceOption extends Eloquent {
      *
      * @var array
      */
-    protected $guarded = array('PlaceOptionID');
+    protected $guarded = array('HashtagID');
 
     /**
      * The attributes excluded from the model's JSON form.

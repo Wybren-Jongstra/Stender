@@ -1,18 +1,18 @@
 <?php
 
-class Place extends Eloquent {
+class HashtagKind extends Eloquent {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'PLACE';
+    protected $table = 'HASHTAG_KIND';
 
     /**
      * The primairy key of the database table
      * @var string
      */
-    protected $primaryKey = 'PlaceID';
+    protected $primaryKey = 'HashKindID';
 
     /**
      * Disable the insertion of timestamps that are automatically created by Laravel.
@@ -25,7 +25,7 @@ class Place extends Eloquent {
      *
      * @var array
      */
-    protected $guarded = array('PlaceID');
+    protected $guarded = array('HashKindID');
 
     /**
      * The attributes excluded from the model's JSON form.
