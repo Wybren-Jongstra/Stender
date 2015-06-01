@@ -141,11 +141,11 @@ class ProfileController extends BaseController {
 
     public function getHashTags($profileID)
     {
-        $places = Place::where('UserProfileID', '=', $profileID)->get();
+        $places = Hashtag::where('UserProfileID', '=', $profileID)->get();
 
         $placeArray = array();
         foreach ($places as $place) {
-            $placeOptions = PlaceOption::where('PlaceOptionID', '=', $place->PlaceOptionID)->get();
+            $placeOptions = HashtagOption::where('HashtagOptionID', '=', $place->HashtagOptionID)->get();
             foreach ($placeOptions as $placeOption) {
                 $placeArray[] = $placeOption->Name;
             }
