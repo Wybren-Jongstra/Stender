@@ -31,8 +31,8 @@ class USERTableSeeder extends Seeder {
             }
 
             $this->command->info('Created random user. StudentEmail: ' . ($createdUserData['student'] ? '1' : '0') . ', Activated: ' . ($createdUserData['active'] ? '1' : '0') . ', Email: ' . $createdUserData['email'] . ', Password: ' . $createdUserData['password']);
-		}
-	}
+        }
+    }
 
     private function generateUser($firstName, $surname, $surnamePrefix = null, $isStudent = true, $isActivated = true)
     {
@@ -107,31 +107,30 @@ class USERTableSeeder extends Seeder {
     }
 
     // TODO This code also exists in HomeController
-    private function getProfileUrlPart($profileUrlPart, $increment = 0)
+    private function getProfileUrlPart($profileUrlPart)
     {
-        if($increment > 0)
+        $increment = 0;
+        do
         {
-            $newProfileUrlPart = $profileUrlPart . $increment;
-        }
-        else
-        {
-            $newProfileUrlPart = $profileUrlPart;
-        }
+            if($increment > 0)
+            {
+                $newProfileUrlPart = $profileUrlPart . $increment;
+            }
+            else
+            {
+                $newProfileUrlPart = $profileUrlPart;
+            }
 
-        $valPart = Validator::make(
-            ['ProfileUrlPart' => $newProfileUrlPart],
-            ['ProfileUrlPart' => 'unique:USER_PROFILE,ProfileUrlPart']
-        );
+            $valPart = Validator::make(
+                ['ProfileUrlPart' => $newProfileUrlPart],
+                ['ProfileUrlPart' => 'unique:USER_PROFILE,ProfileUrlPart']
+            );
 
-        if($valPart->fails())
-        {
-            ++$increment;
-            return $this->getProfileUrlPart($profileUrlPart, $increment);
+            $increment++;
         }
-        else
-        {
-            return $newProfileUrlPart;
-        }
+        while($valPart->fails());
+
+        return $newProfileUrlPart;
     }
 
 }
