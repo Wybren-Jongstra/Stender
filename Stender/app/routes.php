@@ -25,6 +25,7 @@ Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 //profielpagina
 Route::get('profile/{profileUrl}', 'ProfileController@getProfile')->before('auth');
 Route::post('connect', 'ProfileController@setConnection');
+Route::get('connection/{id}/{usrID}/{state}', 'ProfileController@checkForConnectionByMail');
 
 //Search controller
 Route::get('search/autocomplete/', 'SearchController@autocomplete');

@@ -2,64 +2,79 @@
 
 class ProfileController extends BaseController {
 
-    private $data = array();
-
     public function getProfile($profileUrl)
     {
         $userprofile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
 
-        $data['UserProfileID'] = $userprofile->UserProfileID;
-        $data['DateUpdated'] = $userprofile->DateUpdated;
-        $data['ProfileUrlPart'] = $userprofile->DateUpdated;
-        $data['DisplayName'] = $userprofile->DateUpdated;
-        $data['PhotoUrl'] = $userprofile->DateUpdated;
-        $data['FirstName'] = $userprofile->DateUpdated;
-        $data['Surname'] = $userprofile->DateUpdated;
-        $data['Prefix'] = $userprofile->DateUpdated;
-        $data['MiddleName'] = $userprofile->DateUpdated;
-        $data['SurnamePrefix'] = $userprofile->DateUpdated;
-        $data['FirstName'] = $userprofile->DateUpdated;
-        $data['Surname'] = $userprofile->DateUpdated;
-        $data['Prefix'] = $userprofile->DateUpdated;
-        $data['MiddleName'] = $userprofile->DateUpdated;
-        $data['PhotoUrl'] = $userprofile->DateUpdated;
-        $data['FirstName'] = $userprofile->DateUpdated;
-        $data['Surname'] = $userprofile->DateUpdated;
-        $data['Prefix'] = $userprofile->DateUpdated;
-        $data['MiddleName'] = $userprofile->DateUpdated;
-            'ProfileUrlPart' => $userprofile->ProfileUrlPart,
-            'DisplayName' => $userprofile->DisplayName,
-            '' => $userprofile->PhotoUrl,
-            '' => $userprofile->FirstName,
-            '' => $userprofile->Surname,
-            '' => $userprofile->Prefix,
-            '' => $userprofile->MiddleName,
-            '' => $userprofile->SurnamePrefix,
+        $data = array(
+            'UserProfileID'  => $userprofile->UserProfileID,
+            'DateUpdated' => $userprofile->DateUpdated,
+            'ProfileUrlPart'  => $userprofile->ProfileUrlPart,
+            'DisplayName'  => $userprofile->DisplayName,
+            'PhotoUrl' => $userprofile->PhotoUrl,
+            'FirstName'  => $userprofile->FirstName,
+            'Surname'  => $userprofile->Surname,
+            'Prefix' => $userprofile->Prefix,
+            'MiddleName'  => $userprofile->MiddleName,
+            'SurnamePrefix'  => $userprofile->SurnamePrefix,
             'Suffix' => $userprofile->Suffix,
-            'Birthday' => $userprofile->Birthday,
-            'GenderID' => $userprofile->GenderID,
+            'Birthday'  => date("d-m-Y", strtotime($userprofile->Birthday)),
+            'GenderID'  => $userprofile->GenderID,
             'SexualOrientation' => $userprofile->SexualOrientation,
-            'StreetName' => $userprofile->StreetName,
-            'HouseNumber' => $userprofile->HouseNumber,
+            'StreetName'  => $userprofile->StreetName,
+            'HouseNumber'  => $userprofile->HouseNumber,
             'HouseNumberSuffix' => $userprofile->HouseNumberSuffix,
-            'Zip' => $userprofile->Zip,
-            'City' => $userprofile->City,
+            'Zip'  => $userprofile->Zip,
+            'City'  => $userprofile->City,
             'Country' => $userprofile->Country,
-            'AlternativeEmail' => $userprofile->AlternativeEmail,
-            'Education' => $userprofile->Education,
+            'AlternativeEmail'  => $userprofile->AlternativeEmail,
+            'Education'  => $userprofile->Education,
         );
 
+        $getCheckConnection = $this->checkForConnection($data['UserProfileID']);
         $interests = $this->getInterests($data['UserProfileID']);
         $skills = $this->getSkills($data['UserProfileID']);
         $places = $this->getHashTags($data['UserProfileID']);
         $reviews = $this->getReviews($data['UserProfileID']);
 
-        return View::make('profile')->with('data', $data)->with('interests', $interests)->with('skills', $skills)->with('places', $places)->with('reviews', $reviews);
+        return View::make('profile')->with('data', $data)->with('interests', $interests)->with('skills', $skills)->with('places', $places)->with('reviews', $reviews)->with('connectionState', $getCheckConnection);
+    }
+
+    public function checkForConnectionByMail($connectID, $usrID, $acceptState)
+    {
+        if (Connection::where('ForUserID', '=', $usrID)->where('ConnectionID', '=', $connectID)->where('ConnectionStatusID', '=', '1')->exists()) {
+            if ($acceptState == true) {
+                $connection = Connection::where('ForUserID', '=', $usrID)->where('ConnectionID', '=', $connectID)->first();
+                $connection->ConnectionStatusID = 2;
+                $connection->save();
+            }
+            else {
+                $connection = Connection::where('ForUserID', '=', $usrID)->where('ConnectionID', '=', $connectID)->first();
+                $connection->ConnectionStatusID = 3;
+                $connection->save();
+            }
+            return Redirect::to('/');
+        }
+        else {
+            return Redirect::to('/');
+        }
+    }
+
+    public function checkForConnection($profileID)
+    {
+        $forUser = User::where('UserProfileID', '=', $profileID)->firstOrFail();
+        if (Connection::where('ForUserID', '=', $forUser->UserID)->where('FromUserID', '=', Session::get('UserID'))->exists()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public function setConnection()
     {
         $forUser = User::where('UserProfileID', '=', Input::get('user'))->firstOrFail();
+        $forUserProfile = UserProfile::where('UserProfileID', '=', Input::get('user'))->firstOrFail();
 
         $connection = new Connection();
         $connection->ForUserID = $forUser->UserID;
@@ -72,14 +87,12 @@ class ProfileController extends BaseController {
 
         $id = $connection->ConnectionID;
 
-
-
-        // Mail::send('emails.Welcome', array('id'=> $id), function($message) {
-        //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
+        // Mail::send('emails.connection', array('id'=> $id, 'DisplayName' => $forUserProfile->DisplayName), function($message) {
+        //     $message->to(Session::get('Email'), $fromUserProfile->DisplayName)->subject('Nieuwe connectie!');
         // });
 
-         Mail::send('emails.Welcome', array('id'=> $id, 'DisplayName' => $data['DisplayName']), function($message) {
-             $message->to('wybrenjongstra@gmail.com', 'John Doe')->subject('Please activate your account!');
+         Mail::send('emails.connection', array('id'=> $id, 'DisplayName' => $forUserProfile->DisplayName, 'usrID' => $forUser->UserID), function($message) {
+             $message->to('wybrenjongstra@gmail.com', 'John Doe')->subject('Nieuwe connectie!');
          });
 
         return Redirect::to('/profile/'.Input::get('url'));

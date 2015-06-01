@@ -31,7 +31,7 @@
                         <span class="scoreHeader no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">Stender Score</span>
                         <span id="stenderScore" class="score no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">+9</span>
                     </div>
-                    @if( $data['UserProfileID'] !== Session::get('UserProfileID') )
+                    @if( $data['UserProfileID'] !== Session::get('UserProfileID') && $connectionState != true )
                         {{ Form::open(array('url' => 'connect')) }}
                             {{ Form::hidden('user', $data["UserProfileID"], array('type' => 'hidden')) }}
                             {{ Form::hidden('url', $data["ProfileUrlPart"], array('type' => 'hidden')) }}
