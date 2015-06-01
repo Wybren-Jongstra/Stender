@@ -106,6 +106,8 @@ class ProfileController extends BaseController {
         $forUser = User::where('UserProfileID', '=', Input::get('user'))->firstOrFail();
         $forUserProfile = UserProfile::where('UserProfileID', '=', Input::get('user'))->firstOrFail();
 
+        // Displayname user ophalen en in de mail zetten bij 'DisplayName'!!!
+
         $connection = new Connection();
         $connection->ForUserID = $forUser->UserID;
         $connection->FromUserID = Session::get('UserID');
@@ -130,7 +132,7 @@ class ProfileController extends BaseController {
 
     public function getReviews($profileID)
     {
-        $reviews = Review::where('ForUserID', '=', $profileID)->get();
+        $reviews = Review::where('ForUserProfileID', '=', $profileID)->get();
 
         $reviewArray = array();
         foreach ($reviews as $review) {
