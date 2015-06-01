@@ -109,26 +109,28 @@ class USERTableSeeder extends Seeder {
     // TODO This code also exists in HomeController
     private function getProfileUrlPart($profileUrlPart)
     {
-        $increment = 0;
-        do
+        // Get results
+        $results = DB::table('USER_PROFILE')->select('ProfileUrlPart')->where('ProfileUrlPart', 'LIKE', $profileUrlPart . '%')->get();
+
+        // Convert results to an array
+        $profileUrlParts = array();
+        for ($i = 0, $length = count($results); $i < $length; $i++)
         {
-            if($increment > 0)
-            {
-                $newProfileUrlPart = $profileUrlPart . $increment;
-            }
-            else
-            {
-                $newProfileUrlPart = $profileUrlPart;
-            }
-
-            $valPart = Validator::make(
-                ['ProfileUrlPart' => $newProfileUrlPart],
-                ['ProfileUrlPart' => 'unique:USER_PROFILE,ProfileUrlPart']
-            );
-
-            $increment++;
+            $profileUrlParts[$i] = $results[$i]->ProfileUrlPart;
         }
-        while($valPart->fails());
+
+        // First check the given ProfileUrlPart
+        $newProfileUrlPart = $profileUrlPart;
+
+        // Check if ProfileUrlPart already exists
+        // If not generate an unique ProfileUrlPart
+        // TODO Maybe speed optimisations
+        $increment = 0;
+        while(in_array($newProfileUrlPart, $profileUrlParts))
+        {
+            $increment++;
+            $newProfileUrlPart = $profileUrlPart . $increment;
+        }
 
         return $newProfileUrlPart;
     }
