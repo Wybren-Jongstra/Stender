@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
  * Class DropTables
  * Drops the tables of the previous database version.
  */
-class DropTables extends Migration {
+class DropTables2 extends Migration {
 
     /**
      * Run the migrations.
