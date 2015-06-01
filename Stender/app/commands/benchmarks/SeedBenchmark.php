@@ -86,6 +86,7 @@ class SeedBenchmark extends Command {
     {
         return array(
             'db',
+            'dbSelect',
             'model',
             'allModels',
         );
@@ -96,6 +97,9 @@ class SeedBenchmark extends Command {
         switch ($benchmarkName) {
             case 'db':
                 $this->runDbBenchmark();
+                break;
+            case 'dbSelect':
+                $this->runDbSelectBenchmark();
                 break;
             case 'model':
                 $this->runModelBenchmark();
@@ -108,24 +112,45 @@ class SeedBenchmark extends Command {
         }
     }
 
+    /**
+     * runDbBenchmark method
+     */
     private function runDbBenchmark()
     {
-        // db query
         $t0 = microtime(true);
         for ($i = 0; $i < ($this->option('iterations')); $i++)
         {
-            $queries = DB::table('USER_PROFILE')->where('ProfileUrlPart', 'LIKE', 'raymon.bunt%')->get();
-            foreach ($queries as $query)
+            $results = DB::table('USER_PROFILE')->where('ProfileUrlPart', 'LIKE', 'raymon.bunt%')->get();
+            foreach ($results as $row)
             {
-                $query->ProfileUrlPart;
+                $row->ProfileUrlPart;
             }
         }
         $this->info('db loop: ' . (microtime(true) - $t0) . ' s', PHP_EOL);
     }
 
+    /**
+     * runDbSelectBenchmark method
+     */
+    private function runDbSelectBenchmark()
+    {
+        $t0 = microtime(true);
+        for ($i = 0; $i < ($this->option('iterations')); $i++)
+        {
+            $results = DB::table('USER_PROFILE')->select('ProfileUrlPart')->where('ProfileUrlPart', 'LIKE', 'raymon.bunt%')->get();
+            foreach ($results as $row)
+            {
+                $row->ProfileUrlPart;
+            }
+        }
+        $this->info('db with select loop: ' . (microtime(true) - $t0) . ' s', PHP_EOL);
+    }
+
+    /**
+     * runModelBenchmark method
+     */
     private function runModelBenchmark()
     {
-        // model
         $t0 = microtime(true);
         for ($i = 0; $i < ($this->option('iterations')); $i++)
         {
@@ -138,9 +163,12 @@ class SeedBenchmark extends Command {
         $this->info('model loop: ' . (microtime(true) - $t0) . ' s', PHP_EOL);
     }
 
+
+    /**
+     * runAllModelsBenchmark method
+     */
     private function runAllModelsBenchmark()
     {
-        // all models
         $t0 = microtime(true);
         for ($i = 0; $i < ($this->option('iterations')); $i++)
         {
