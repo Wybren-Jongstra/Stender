@@ -63,6 +63,7 @@ class USERTableSeeder extends Seeder {
         $userprofile->save();
 
         $user->UserProfileID = $userprofile->UserProfileID;
+        $user->save();
 
         return array('active' => $isActivated, 'student' => $isStudent, 'email' => $email, 'password' => $firstName);
     }
