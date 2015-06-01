@@ -48,8 +48,9 @@ class USERTableSeeder extends Seeder {
         $password              = Hash::make($password);
         $user                  = new User();
         $user->Email           = $email;
+        $user->Activated       = $isActivated;
         $user->ActivationToken = $confirmationCode;
-        $user->Password        = $password;
+        $user->Password        = mb_strtolower($password);
         $user->UserKindID      = 2;
         $user->DateCreated     = Carbon\Carbon::now();
 
