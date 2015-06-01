@@ -5,8 +5,8 @@ class USERKINDTableSeeder extends Seeder {
 	public function run()
 	{
         $dbEntries = array(
-            array('Name' => 'Admin'),
-            array('Name' => 'User'),
+            array('Name' => 'admin'),
+            array('Name' => 'user'),
         );
 
         // TODO Replace this code with a model
