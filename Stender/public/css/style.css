@@ -228,15 +228,36 @@ h5 {
     
     min-height: 20px;
     width: 200px;
+    padding-left: 1px;
 
 }
-.edit h2
+#displayName
 {
-    width: 300px;
+    margin-top: 14px;
+}
+#displayName b
+{
 
+    font-size: 2em
 }
 
-
+#displayName .input-sm
+{
+    height: 40px;
+    
+}
+#displayName .form-control
+{
+    font-size: 1.5em;
+}
+#displayName .btn
+{
+    height: 40px;
+}
+#extraInfo
+{
+    margin-top: 14px;
+}
 @media screen and (max-width: 992px) {
     #interest-block {
         border-right: none !important;
