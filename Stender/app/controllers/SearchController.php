@@ -50,6 +50,6 @@ class SearchController extends BaseController {
         {
             $results[] = [ 'id' => $query->UserID, 'value' => $query->FirstName.' '.$query->Surname, 'url' => $query->ProfileUrlPart ];
         }
-        return Redirect::to('/profile/'.$results['url']);
+        return Response::json($results);
     }
 }

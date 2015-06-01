@@ -20,7 +20,7 @@ class ProfileController extends BaseController {
 
     public function getData($profileUrl)
     {
-         $userprofile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
+        $userprofile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
 
         $data = array(
         'UserProfileID'  => $userprofile->UserProfileID,
