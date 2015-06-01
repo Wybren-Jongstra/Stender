@@ -31,8 +31,12 @@
                         <span class="scoreHeader no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">Stender Score</span>
                         <span id="stenderScore" class="score no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">+9</span>
                     </div>
-                    @if( $data['UserProfileID'] !== Session::get('UserProfileID') )
-                        <button class="btn btn-primary col-xs-offset-2 col-sm-offset-2 col-md-offset-4 col-lg-offset-4">Connect</button>
+                    @if( $data['UserProfileID'] !== Session::get('UserProfileID') && $connectionState != true )
+                        {{ Form::open(array('url' => 'connect')) }}
+                            {{ Form::hidden('user', $data["UserProfileID"], array('type' => 'hidden')) }}
+                            {{ Form::hidden('url', $data["ProfileUrlPart"], array('type' => 'hidden')) }}
+                            {{ Form::submit('Connect', array('type' => 'button', 'class' => 'btn btn-primary col-xs-offset-2 col-sm-offset-2 col-md-offset-4 col-lg-offset-4')) }}
+                        {{ Form::close() }}
                     @endif
                 </div>
             </div>
@@ -41,40 +45,37 @@
         <div id="socialData" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="interest-block" class="social-media-blocks border-right col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div id="interests-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h5>Interests</h5>
+                    <h5>Interesses</h5>
                 </div>
-                <div id="interests" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="interests" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        <li>Interests 1</li>
-                        <li>Interests 2</li>
-                        <li>Interests 3</li>
-                        <li>Interests 4</li>
+                        @foreach ($interests as $interest)
+                            <li>{{ $interest }}</li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             <div id="experience-block" class="border-right social-media-blocks col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div id="experience-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h5>Experience</h5>
+                    <h5>Vaardigheden</h5>
                 </div>
-                <div id="experience" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="experience" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        <li>Experience 1</li>
-                        <li>Experience 2</li>
-                        <li>Experience 3</li>
-                        <li>Experience 4</li>
+                        @foreach ($skills as $skill)
+                            <li>{{ $skill }}</li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             <div id="hobby-block" class="social-media-blocks col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div id="hobby-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h5>Hobby</h5>
+                    <h5>Hashtags</h5>
                 </div>
-                <div id="hobby" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="hobby" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        <li>Hobby 1</li>
-                        <li>Hobby 2</li>
-                        <li>Hobby 3</li>
-                        <li>Hobby 4</li>
+                        @foreach ($places as $place)
+                            <li>#{{ $place }}</li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -84,12 +85,11 @@
             <div id="review-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h5>Reviews</h5>
             </div>
-            <div id="review-list" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="review-list" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <ul>
-                    <li>Review 1</li>
-                    <li>Review 2</li>
-                    <li>Review 3</li>
-                    <li>Review 4</li>
+                    @foreach ($reviews as $review)
+                        <li>{{ $review }}</li>
+                    @endforeach
                 </ul>
             </div>
         </div>

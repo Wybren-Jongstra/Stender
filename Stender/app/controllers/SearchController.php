@@ -48,8 +48,8 @@ class SearchController extends BaseController {
 
         foreach ($search as $query)
         {
-            $results[] = [ 'id' => $query->UserID, 'value' => $query->FirstName.' '.$query->Surname ];
+            $results[] = [ 'id' => $query->UserID, 'value' => $query->FirstName.' '.$query->Surname, 'url' => $query->ProfileUrlPart ];
         }
-        return Response::json($results);
+        return Redirect::to('/profile/'.$results['url']);
     }
 }
