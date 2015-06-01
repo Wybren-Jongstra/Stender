@@ -1,12 +1,12 @@
 <?php
 
-use App\Database\Migrations\AbstractDropTable;
+use App\Database\Migrations\AbstractDeleteTables;
 
 /**
  * Class DropTables2
  * Drops the tables of the previous database version.
  */
-class DropTables2 extends AbstractDropTable {
+class DeleteTables2 extends AbstractDeleteTables {
 
     protected function getMigrationObjectsArray()
     {

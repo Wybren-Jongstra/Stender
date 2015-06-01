@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 
 /**
- * Class AbstractDropTable
+ * Class AbstractDeleteTables
  * Drops the tables of a previous database version.
  */
-abstract class AbstractDropTable extends Migration {
+abstract class AbstractDeleteTables extends Migration {
 
     /**
      * @return array
