@@ -4,11 +4,12 @@ class ProfileController extends BaseController {
 
     public function getProfile($profileUrl)
     {
-    	$getCheckConnection = $this->checkForConnection($data['UserProfileID']);
-        $interests = $this->getInterests($data['UserProfileID']);
-        $skills = $this->getSkills($data['UserProfileID']);
-        $places = $this->getHashTags($data['UserProfileID']);
-        $reviews = $this->getReviews($data['UserProfileID']);
+        $profileData = $this->getData($profileUrl);
+    	$getCheckConnection = $this->checkForConnection($profileData['UserProfileID']);
+        $interests = $this->getInterests($profileData['UserProfileID']);
+        $skills = $this->getSkills($profileData['UserProfileID']);
+        $places = $this->getHashTags($profileData['UserProfileID']);
+        $reviews = $this->getReviews($profileData['UserProfileID']);
         return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)->with('places', $places)->with('reviews', $reviews)->with('connectionState', $getCheckConnection);
     }
 
