@@ -1,11 +1,16 @@
 @extends('layouts.common')
 @section('custom-jquery')
-  $(".edit").editable("{{ URL::to('/saveProfile/'.$data['ProfileUrlPart'])}}", { 
-      indicator : "<img src='img/indicator.gif'>",
-      event     : "dblclick",
-      placeholder: '',
-      style  : "inherit"
-  });
+  {{-- $(".click").editable(
+  "{{ URL::to('/saveProfile/'.$data['ProfileUrlPart'])}}", { 
+      indicator : "<img src='/images/indicator.gif'>",
+      style  : "inherit",
+      placeholder : ""
+  }); --}}
+   $('.click').editable({
+    type: 'text',
+    pk: 0,
+    url: '{{ URL::to('/saveProfile/'.$data['ProfileUrlPart'])}}',
+}); 
 @endsection
 @section('content')
 <div id="content" class="container">
@@ -23,27 +28,30 @@
                 @endif
             </div>
             <div id="profile-info" class="col-xs-12 col-sm-6 col-md-8 col-lg-8 edit">
-                <h2 class="edit" id="DisplayName">{{ $data['DisplayName'] }}</h2>
-                Geboren:<b class="edit" id="Birthday"> 
-                @if($data['Birthday'] == null)
-                    {{"Voer je verjaardag in!"}}
-                @else
-                   {{ $data['Birthday'] }} 
-                @endif
-            </b></br>
-                Woonplaats:<b class="edit" id="City"> 
-                @if($data['City'] == null)
-                    {{"Voer je Woonplaats in!"}}
-                @else
-                   {{ $data['City'] }} 
-                @endif</b></br>
-                Opleiding:<b class="edit" id="Education"> 
-                @if($data['Education'] == null)
-                    {{"Voer je opleiding in!"}}
-                @else
-                   {{ $data['Education'] }} 
-                @endif{{ $data['Education'] }}</b>
-
+                <div id="displayName">
+                    <b class="click" id="DisplayName">{{ $data['DisplayName'] }}</b>
+                </div>
+                <div id="extraInfo">
+                    Geboren:<b class="click" id="Birthday">
+                    @if($data['Birthday'] == null)
+                        {{"Voer je verjaardag in!"}}
+                    @else
+                       {{ $data['Birthday'] }} 
+                    @endif
+                    </b></br>
+                    Woonplaats:<b class="click" id="City">
+                    @if($data['City'] == null)
+                        {{"Voer je Woonplaats in!"}}
+                    @else
+                       {{ $data['City'] }} 
+                    @endif</b></br>
+                    Opleiding:<b class="click" id="Education">
+                    @if($data['Education'] == null)
+                        {{"Voer je opleiding in!"}}
+                    @else
+                       {{ $data['Education'] }} 
+                    @endif{{ $data['Education'] }}</b>
+                </div>
                 <div id="profile-score-info" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <span class="scoreHeader">Connecties</span>
                     <span id="connections" class="score">20</span>

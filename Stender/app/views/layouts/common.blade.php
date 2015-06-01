@@ -4,17 +4,19 @@
     @endsection
     @section('custom-scripts')
         <script src="{{ URL::to('js/jquery-ui.js') }}"></script>
-        <!--jEditable plugin for jQuery -->
-        <script src="{{ URL::to('js/jquery.jeditable.js') }}" type="text/javascript" charset="utf-8"></script>
         <!-- <script src="{{ URL::to('js/jquery-ui.min.js') }}"></script> -->
         <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+
+            <link href="{{ URL::to('/css/bootstrap-editable.css') }}" rel="stylesheet">
+            <script src="{{ URL::to('js/bootstrap-editable.js') }}">
+            </script>
 
         <script>
         $(document).ready(function(){
 
-
-            $(".dropdown-toggle").dropdown('toggle');
-
+//$("#menuButton").onclick(function(){
+  //          $(".dropdown-toggle").dropdown('toggle');
+    //    });
 
         $( "#inputName" ).autocomplete(
         {
