@@ -1,37 +1,16 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
+use App\Database\Migrations\AbstractDeleteTables;
 
 /**
- * Class DropTables
+ * Class DropTables2
  * Drops the tables of the previous database version.
  */
-class DropTables2 extends Migration {
+class DeleteTables2 extends AbstractDeleteTables {
 
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     * @throws Exception
-     */
-	public function up()
-	{
-        // Check if there are no app tables in the database so that
-        // the up method deactivates automatically without breaking php artisan migrate.
-        // Use the default auth table for that check.
-        // Throw an error when this check is not possible. So when the configuration for the auth table is not found.
-        if(is_null(Config::get('auth.table')))
-        {
-            throw new Exception('Configuration for auth table not found!');
-        }
-        elseif(! Schema::hasTable(Config::get('auth.table')))
-        {
-            return;
-        }
-
-        $migrationObjects = array
-        (
+    protected function getMigrationObjectsArray()
+    {
+        return array (
             new CreateCONNECTIONTable2(),
             new CreateCONNECTIONSTATUSTable2(),
             new CreateEDUCATIONTable2(),
@@ -67,23 +46,6 @@ class DropTables2 extends Migration {
             new AddForeignKeysToUSERPROFILETable2(),
             new AddForeignKeysToUSERVOTETable2(),
         );
-
-        // Loop backwards because the foreign keys must first be removed.
-        for($i = (count($migrationObjects) - 1); $i >= 0; $i--)
-        {
-            // down method rolls back the migration file
-            $migrationObjects[$i]->down();
-        }
-	}
-
-	/**
-	 * Reverse the migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		//
-	}
+    }
 
 }
