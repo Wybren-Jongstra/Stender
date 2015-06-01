@@ -219,6 +219,9 @@ h5 {
     right: 30px;
     bottom: 0px;
 }
+.no-list-signs ul {
+    list-style: none;
+}
 
 @media screen and (max-width: 992px) {
     #interest-block {
