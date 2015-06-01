@@ -30,7 +30,7 @@ class ProfileController extends BaseController {
         'MiddleName'  => $userprofile->MiddleName,
         'SurnamePrefix'  => $userprofile->SurnamePrefix,
         'Suffix' => $userprofile->Suffix,
-        'Birthday'  => $userprofile->Birthday,
+        'Birthday'  => date("d-m-Y", strtotime($userprofile->Birthday)),
         'GenderID'  => $userprofile->GenderID,
         'SexualOrientation' => $userprofile->SexualOrientation,
         'StreetName'  => $userprofile->StreetName,
@@ -51,11 +51,19 @@ class ProfileController extends BaseController {
     public function saveChanges($profileUrl)
     {
         $userProfile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
-        $id = Input::get('id');
+        $name = Input::get('name');
         $value = Input::get('value');
 
-       $userProfile->$id = $value;
-       $userProfile->save();
+        if($name == 'Birthday')
+        {
+            $userProfile->$name = date("Y-m-d", strtotime($value));
+            $userProfile->save();
+        }
+        else
+        {
+            $userProfile->$name = $value;
+            $userProfile->save();
+        }
     }
 
     public static function fillSession()
