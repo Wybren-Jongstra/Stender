@@ -9,8 +9,8 @@ return array(
 			"scope"		=> "user_friends, email"
 			),
 		"Twitter"    => array (
-			"enabled"    => false,
-			"keys"       => array ( "key" => "ID", "secret" => "SECRET" )
+			"enabled"    => true,
+			"keys"       => array ( "key" => "R2yrXaggilT7eKnABiroNPTfs", "secret" => "pjwJMxXeHxnmYA4SRG0JKkzw95y2U0yRBeoBZiu4LKRCh9ZLKw" )
 			)
 	),
 );

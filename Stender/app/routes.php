@@ -78,22 +78,30 @@ Route::get('social/{action?}', array("as" => "hybridauth", function($action = ""
         // create a HybridAuth object
         $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
         // authenticate with Google
-        $provider = $socialAuth->authenticate("facebook");
+        $provider = $socialAuth->authenticate("twitter");
         // fetch user profile
         $userProfile = $provider->getUserProfile();
+        $user_timeline = $provider->getUserActivity("timeline");
+
+
     
     }
     catch(Exception $e) {
         // exception codes can be found on HybBridAuth's web site
         return $e->getMessage();
     }
+
+    $hashtags = array();
+
+    foreach ($user_timeline as $timeline) {
+        $hashtags[] = $timeline->hashtags;
+
+        
+    }
     // access user profile data
     echo "Connected with: <b>{$provider->id}</b><br />";
     echo "As: <b>{$userProfile->displayName}</b><br />";
-    echo "<pre>" . print_r( $userProfile, true ) . "</pre><br />";
-    
-
-
+   // echo "<pre>" . print_r( $userProfile, true ) . "</pre><br />";
 
     // logout
     $provider->logout();
@@ -106,5 +114,5 @@ Route::get('social/{action?}', array("as" => "hybridauth", function($action = ""
         'ProfileUrlPart' => $userprofile->ProfileUrlPart,
         );
 
-    return View::make('facebook')->with('data', $data)->with('fb', $userProfile);
+    return View::make('facebook')->with('data', $data)->with('fb', $userProfile)->with('twitter', $hashtags);
 }));

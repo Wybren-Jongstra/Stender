@@ -36,10 +36,11 @@
                 </div>
                 <div id="interests" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        <li>Interests 1</li>
-                        <li>Interests 2</li>
-                        <li>Interests 3</li>
-                        <li>Interests 4</li>
+                        @foreach ($twitter as $hashtags)
+                        @foreach ($hashtags as $hashtag)
+                        <li>#{{ $hashtag->text }}</li>
+                        @endforeach
+                        @endforeach
                     </ul>
                 </div>
             </div>
