@@ -44,13 +44,12 @@ class USERTableSeeder extends Seeder {
 
         $confirmationCode = str_random(64);
 
-        $password              = $firstName;
-        $password              = Hash::make($password);
+        $password              = mb_strtolower($firstName);
         $user                  = new User();
         $user->Email           = $email;
         $user->Activated       = $isActivated;
         $user->ActivationToken = $confirmationCode;
-        $user->Password        = mb_strtolower($password);
+        $user->Password        = Hash::make($password);
         $user->UserKindID      = 2;
         $user->DateCreated     = Carbon\Carbon::now();
 
@@ -66,7 +65,7 @@ class USERTableSeeder extends Seeder {
         $user->UserProfileID = $userprofile->UserProfileID;
         $user->save();
 
-        return array('active' => $isActivated, 'student' => $isStudent, 'email' => $email, 'password' => $firstName);
+        return array('active' => $isActivated, 'student' => $isStudent, 'email' => $email, 'password' => $password);
     }
 
     private function createEmail($firstName, $surnamePrefix, $surname, $isStudent)
