@@ -47,8 +47,7 @@ Route::get('verify/{confirmationCode}', 'SessionsController@verify');
 
 Route::get('test', function()
 {
-    $userprofile = UserProfile::find(Auth::user()->UserProfileID);
-    echo $userprofile->FirstName;
+    echo Hash::make('test');
 });
 
 Route::get('search', function(){
