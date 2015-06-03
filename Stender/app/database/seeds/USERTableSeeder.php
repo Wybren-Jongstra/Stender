@@ -17,7 +17,7 @@ class USERTableSeeder extends Seeder {
         // When the config property not exists, faker creates dumber values.
 		$faker = Faker::create(Config::get('app.locale'));
 
-        for ($i = 0; $i <= 4; $i++)
+		foreach(range(1, 5) as $index)
         {
             $createdUserData = null;
 
@@ -30,9 +30,9 @@ class USERTableSeeder extends Seeder {
                 $createdUserData = $this->generateUser($faker->firstName, $faker->lastName, $faker->word, $faker->boolean(), $faker->boolean());
             }
 
-            $this->command->info('Created random user. StudentEmail: ' . ($createdUserData['student'] ? '1' : '0') . ', Activated: ' . ($createdUserData['active'] ? '1' : '0') . ', Email: ' . $createdUserData['email'] . ', Password: ' . $createdUserData['password']);
-        }
-    }
+            $this->command->info('Created random user. Student: ' . ($createdUserData['student'] ? '1' : '0') . ', Activated: ' . ($createdUserData['active'] ? '1' : '0') . ', Email: ' . $createdUserData['email'] . ', Password: ' . $createdUserData['password']);
+		}
+	}
 
     private function generateUser($firstName, $surname, $surnamePrefix = null, $isStudent = true, $isActivated = true)
     {
@@ -48,9 +48,8 @@ class USERTableSeeder extends Seeder {
         $password              = Hash::make($password);
         $user                  = new User();
         $user->Email           = $email;
-        $user->Activated       = $isActivated;
         $user->ActivationToken = $confirmationCode;
-        $user->Password        = mb_strtolower($password);
+        $user->Password        = $password;
         $user->UserKindID      = 2;
         $user->DateCreated     = Carbon\Carbon::now();
 
@@ -58,13 +57,12 @@ class USERTableSeeder extends Seeder {
         $userprofile->FirstName      = $firstName;
         $userprofile->SurnamePrefix  = $surnamePrefix;
         $userprofile->Surname        = $surname;
-        $userprofile->ProfileUrlPart = HomeController::getProfileUrlPart($profileUrl);
+        $userprofile->ProfileUrlPart = $this->getProfileUrlPart($profileUrl);
         $userprofile->Displayname    = $displayName;
 
         $userprofile->save();
 
         $user->UserProfileID = $userprofile->UserProfileID;
-        $user->save();
 
         return array('active' => $isActivated, 'student' => $isStudent, 'email' => $email, 'password' => $firstName);
     }
@@ -87,12 +85,11 @@ class USERTableSeeder extends Seeder {
     {
         if (is_null($surnamePrefix))
         {
-            // Uses by default UTF-8 encoding
-            return (mb_strtolower($firstName . '.' . $surname));
+            return (lcfirst($firstName) . '.' . lcfirst($surname));
         }
         else
         {
-            return (mb_strtolower($firstName . '.' . $surnamePrefix . '.' . $surname));
+            return (lcfirst($firstName) . '.' . lcfirst($surnamePrefix) . '.' . lcfirst($surname));
         }
     }
 
@@ -105,6 +102,34 @@ class USERTableSeeder extends Seeder {
         else
         {
             return ($firstName . ' ' . $surnamePrefix . ' ' . $surname);
+        }
+    }
+
+    // TODO This code also exists in HomeController
+    private function getProfileUrlPart($profileUrlPart, $increment = 0)
+    {
+        if($increment > 0)
+        {
+            $newProfileUrlPart = $profileUrlPart . $increment;
+        }
+        else
+        {
+            $newProfileUrlPart = $profileUrlPart;
+        }
+
+        $valPart = Validator::make(
+            ['ProfileUrlPart' => $newProfileUrlPart],
+            ['ProfileUrlPart' => 'unique:USER_PROFILE,ProfileUrlPart']
+        );
+
+        if($valPart->fails())
+        {
+            ++$increment;
+            return $this->getProfileUrlPart($profileUrlPart, $increment);
+        }
+        else
+        {
+            return $newProfileUrlPart;
         }
     }
 

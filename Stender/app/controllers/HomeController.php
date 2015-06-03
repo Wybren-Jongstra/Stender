@@ -75,7 +75,7 @@ class HomeController extends BaseController {
 					$userprofile->FirstName = $input['firstname'];
 					$userprofile->SurnamePrefix = $input['surnamePrefix'];
 					$userprofile->Surname = $input['surname'];
-					$userprofile->ProfileUrlPart = self::getProfileUrlPart($profileUrl);
+					$userprofile->ProfileUrlPart = $this->getProfileUrlPart($profileUrl);
 					$userprofile->Displayname = $displayName;
 
 					$userprofile->save();
@@ -106,33 +106,30 @@ class HomeController extends BaseController {
 		
 	}
 
-    // Made public static for use in USERTableSeeder
-    public static function getProfileUrlPart($profileUrlPart)
-    {
-        // Get results
-        $results = DB::table('USER_PROFILE')->select('ProfileUrlPart')->where('ProfileUrlPart', 'LIKE', $profileUrlPart . '%')->get();
+	private function getProfileUrlPart($profileUrlPart, $increment = 0)
+	{
+		if($increment > 0)
+		{
+			$newProfileUrlPart = $profileUrlPart . $increment;
+		}
+		else
+		{
+			$newProfileUrlPart = $profileUrlPart;
+		}
 
-        // Convert results to an array
-        $profileUrlParts = array();
-        for ($i = 0, $length = count($results); $i < $length; $i++)
-        {
-            $profileUrlParts[$i] = $results[$i]->ProfileUrlPart;
-        }
+		$valPart = Validator::make(
+			    ['ProfileUrlPart' => $newProfileUrlPart],
+			    ['ProfileUrlPart' => 'unique:USER_PROFILE,ProfileUrlPart']
+		);
 
-        // First check the given ProfileUrlPart
-        $newProfileUrlPart = $profileUrlPart;
-
-        // Check if ProfileUrlPart already exists
-        // If not generate an unique ProfileUrlPart
-        // TODO Maybe check if there are speed optimisations possible
-        $increment = 0;
-        while(in_array($newProfileUrlPart, $profileUrlParts))
-        {
-            $increment++;
-            $newProfileUrlPart = $profileUrlPart . $increment;
-        }
-
-        return $newProfileUrlPart;
-    }
-
+		if($valPart->fails())
+		{	
+			++$increment;
+			return $this->getProfileUrlPart($profileUrlPart, $increment);
+		}
+		else
+		{
+			return $newProfileUrlPart;
+		}
+	}
 }

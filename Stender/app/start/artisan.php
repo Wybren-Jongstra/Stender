@@ -10,5 +10,4 @@
 | the console gets access to each of the command object instances.
 |
 */
-Artisan::resolve('App\Commands\Benchmarks\SeedBenchmark');
-Artisan::resolve('App\Commands\Benchmarks\CompareProfileUrlPartBenchmark');
+
