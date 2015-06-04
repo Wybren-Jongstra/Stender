@@ -232,10 +232,7 @@ class ProfileController extends BaseController {
 
         $placeArray = array();
         foreach ($places as $place) {
-            $placeOptions = HashtagOption::where('HashtagOptionID', '=', $place->HashtagOptionID)->get();
-            foreach ($placeOptions as $placeOption) {
-                $placeArray[] = $placeOption->Name;
-            }
+            $placeArray[] = $place->Value;
         }
         return $placeArray;
     }
@@ -246,10 +243,7 @@ class ProfileController extends BaseController {
 
         $skillArray = array();
         foreach ($skills as $skill) {
-            $skillOptions = SkillOption::where('SkillOptionID', '=', $skill->SkillOptionID)->get();
-            foreach ($skillOptions as $skillOption) {
-                $skillArray[] = $skillOption->Name;
-            }
+            $skillArray[] = $skill->Value;
         }
         return $skillArray;
     }
@@ -260,10 +254,7 @@ class ProfileController extends BaseController {
 
         $interestArray = array();
         foreach ($interests as $interest) {
-            $interestOptions = InterestOption::where('InterestOptionID', '=', $interest->InterestOptionID)->get();
-            foreach ($interestOptions as $interestOption) {
-                $interestArray[] = $interestOption->Name;
-            }
+            $interestArray[] = $interest->Value;
         }
         return $interestArray;
     }
