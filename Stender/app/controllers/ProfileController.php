@@ -10,6 +10,7 @@ class ProfileController extends BaseController {
         $skills = $this->getSkills($profileData['UserProfileID']);
         $places = $this->getHashTags($profileData['UserProfileID']);
         $reviews = $this->getReviews($profileData['UserProfileID']);
+        //TODO Maybe do not get the data twice
         return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)->with('places', $places)->with('reviews', $reviews)->with('connectionState', $getCheckConnection);
     }
 
