@@ -18,11 +18,12 @@ class TimelineController extends BaseController {
 
     public static function fillSession()
     {
+        $userprofile = UserProfile::find(Auth::user()->UserProfileID);
+
         Session::put('UserID', Auth::user()->UserID);
         Session::put('UserKindID', Auth::user()->UserKindID);
         Session::put('UserProfileID', Auth::user()->UserProfileID);
         Session::put('Email', Auth::user()->Email);
-
-        
+        Session::put('ProfileUrlPart', $userprofile->ProfileUrlPart);
     }
 }

@@ -1,12 +1,36 @@
 @extends('layouts.common')
+@section('custom-jquery')
+$('#vote-up-button').click(function() {
+    $.ajax({
+        url: '{{ URL::to('/upvote') }}',
+        type: 'GET',
+        data: { "id" : "{{ $data['UserProfileID'] }}" },
+        success: function (result) {
+            //location.reload();
+            console.log(result);
+        }
+    });
+});
+$('#vote-down-button').click(function() {
+    $.ajax({
+        url: '{{ URL::to('/downvote') }}',
+        type: 'GET',
+        data: { "id" : "{{ $data['UserProfileID'] }}" },
+        success: function (result) {
+            //location.reload();
+            console.log(result);
+        }
+    });
+});
+@endsection
 @section('content')
 <div id="content" class="container">
     <div class="row">
         <div id="profile" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="up-down-vote" class="col-xs-4 col-sm-2 col-md-1 col-lg-1">
                 @if( $data['UserProfileID'] !== Session::get('UserProfileID') )
-                    <button id="vote-up-button" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
-                    <button id="vote-down-button" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                    <a id="vote-up-button" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12"></a>
+                    <a id="vote-down-button" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12"></a>
                 @endif
             </div>
             <div id="profile-photo" class="col-xs-8 col-sm-4 col-md-3 col-lg-3">
@@ -25,11 +49,11 @@
                 <div id="profile-score-info" class="no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="no-padding-left col-xs-4 col-sm-4 col-md-3 col-lg-3">
                         <span class="scoreHeader no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">Connecties</span>
-                        <span id="connections" class="score no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">20</span>
+                        <span id="connections" class="score no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">{{ $connections }}</span>
                     </div>
                     <div class="no-padding-left col-xs-4 col-sm-4 col-md-3 col-lg-3">
                         <span class="scoreHeader no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">Stender Score</span>
-                        <span id="stenderScore" class="score no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">+9</span>
+                        <span id="stenderScore" class="score no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">{{ $stenderScore }}</span>
                     </div>
                     @if( $data['UserProfileID'] !== Session::get('UserProfileID') && $connectionState != true )
                         {{ Form::open(array('url' => 'connect')) }}

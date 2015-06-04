@@ -5,12 +5,16 @@ class ProfileController extends BaseController {
     public function getProfile($profileUrl)
     {
         $profileData = $this->getData($profileUrl);
+        $connectionSum = $this->getNumberConnections($profileData['UserProfileID']);
+        $stenderScore = $this->getStenderScore($profileData['UserProfileID']);
     	$getCheckConnection = $this->checkForConnection($profileData['UserProfileID']);
         $interests = $this->getInterests($profileData['UserProfileID']);
         $skills = $this->getSkills($profileData['UserProfileID']);
         $places = $this->getHashTags($profileData['UserProfileID']);
         $reviews = $this->getReviews($profileData['UserProfileID']);
-        return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)->with('places', $places)->with('reviews', $reviews)->with('connectionState', $getCheckConnection);
+        return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)
+            ->with('places', $places)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
+            ->with('stenderScore', $stenderScore);
     }
 
     public function editprofile($profileUrl)
@@ -48,9 +52,90 @@ class ProfileController extends BaseController {
         );
 
         return $data;
-
     }
 
+    public function setUpVote()
+    {
+        $usrID = User::where('UserProfileID', '=', Input::get('id'))->firstOrFail();
+        if( UserVote::where('ForUserID', '=', Session::get('UserID'))->where('FromUserID', '=', $usrID->UserID)->exists() )
+        {
+            $userVote = UserVote::where('ForUserID', '=', Session::get('UserID'))->where('FromUserID', '=', $usrID->UserID)->first();
+            $userVote->DateUpdated = Carbon\Carbon::now();
+            $userVote->Upvote = 1;
+            $userVote->save();
+        }
+        elseif( UserVote::where('ForUserID', '=', $usrID->UserID)->where('FromUserID', '=', Session::get('UserID'))->exists() )
+        {
+            $userVote = UserVote::where('ForUserID', '=', $usrID->UserID)->where('FromUserID', '=', Session::get('UserID'))->first();
+            $userVote->DateUpdated = Carbon\Carbon::now();
+            $userVote->Upvote = 1;
+            $userVote->save();
+        }
+        else
+        {
+            $usrID = User::where('UserProfileID', '=', Input::get('id'))->firstOrFail();
+            $vote = new UserVote();
+            $vote->ForUserID = $usrID->UserID;
+            $vote->FromUserID = Session::get('UserID');
+            $vote->DateCreated = Carbon\Carbon::now();
+            $vote->Upvote = 1;
+            $vote->save();
+        }
+
+        return 'succes';
+    }
+
+    public function setDownVote()
+    {
+        $usrID = User::where('UserProfileID', '=', Input::get('id'))->firstOrFail();
+        if( UserVote::where('ForUserID', '=', Session::get('UserID'))->where('FromUserID', '=', $usrID->UserID)->exists() )
+        {
+            $userVote = UserVote::where('ForUserID', '=', Session::get('UserID'))->where('FromUserID', '=', $usrID->UserID)->first();
+            $userVote->DateUpdated = Carbon\Carbon::now();
+            $userVote->Upvote = 0;
+            $userVote->save();
+        }
+        elseif( UserVote::where('ForUserID', '=', $usrID->UserID)->where('FromUserID', '=', Session::get('UserID'))->exists() )
+        {
+            $userVote = UserVote::where('ForUserID', '=', $usrID->UserID)->where('FromUserID', '=', Session::get('UserID'))->first();
+            $userVote->DateUpdated = Carbon\Carbon::now();
+            $userVote->Upvote = 0;
+            $userVote->save();
+        }
+        else
+        {
+            $vote = new UserVote();
+            $vote->ForUserID = $usrID->UserID;
+            $vote->FromUserID = Session::get('UserID');
+            $vote->DateCreated = Carbon\Carbon::now();
+            $vote->Upvote = 0;
+            $vote->save();
+        }
+
+        return 'succes';
+    }
+
+    public function getNumberConnections($usrProfID)
+    {
+        $usrID = User::where('UserProfileID', '=', $usrProfID)->first();
+
+        // ConnectionStatusID = 2 => Approved
+        $connectionsFrom = Connection::where('ConnectionStatusID', '=', 2)->where('FromUserID', '=', $usrID->UserID)->count();
+        $connectionsFor = Connection::where('ConnectionStatusID', '=', 2)->where('ForUserID', '=', $usrID->UserID)->count();
+        $connections = $connectionsFor + $connectionsFrom;
+        return $connections;
+    }
+
+    public function getStenderScore($usrProfID)
+    {
+        $usrID = User::where('UserProfileID', '=', $usrProfID)->first();
+
+        // ConnectionStatusID = 2 => Approved
+        $stenderScoreForPrTrue = UserVote::where('Upvote', '=', 1)->where('ForUserID', '=', $usrID->UserID)->count();
+        $stenderScoreForPrFalse = UserVote::where('Upvote', '=', 0)->where('ForUserID', '=', $usrID->UserID)->count();
+        $stenderScore = $stenderScoreForPrTrue - $stenderScoreForPrFalse;
+        return $stenderScore;
+    }
 
     public function saveChanges($profileUrl)
     {
