@@ -6,8 +6,7 @@ $('#vote-up-button').click(function() {
         type: 'GET',
         data: { "id" : "{{ $data['UserProfileID'] }}" },
         success: function (result) {
-            //location.reload();
-            console.log(result);
+            location.reload();
         }
     });
 });
@@ -17,8 +16,7 @@ $('#vote-down-button').click(function() {
         type: 'GET',
         data: { "id" : "{{ $data['UserProfileID'] }}" },
         success: function (result) {
-            //location.reload();
-            console.log(result);
+            location.reload();
         }
     });
 });
