@@ -22,6 +22,9 @@ Route::post('postRegister', 'HomeController@postRegister');
 Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 //Route::get('timeline', 'TimelineController@getTimeline');
 
+//settingspagina
+Route::get('settings', 'SettingsController@getSettings')->before('auth');
+
 //profielpagina
 Route::get('profile/{profileUrl}', 'ProfileController@getProfile')->before('auth');
 Route::post('connect', 'ProfileController@setConnection');

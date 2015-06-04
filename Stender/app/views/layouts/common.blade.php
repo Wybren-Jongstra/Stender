@@ -55,7 +55,7 @@
                                 <li><a href="/timeline">Tijdlijn</a></li>
                                 <li><a href="/profile/{{ $data['ProfileUrlPart'] }}">Profiel</a></li>
                                 <li><a href="#">Connecties</a></li>
-                                <li><a href="#">Account</a></li>
+                                <li><a href="/settings">Instellingen</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/logout">Log uit</a></li>
                             </ul>
