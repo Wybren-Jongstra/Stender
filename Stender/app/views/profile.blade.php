@@ -27,8 +27,16 @@ $('#vote-down-button').click(function() {
         <div id="profile" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="up-down-vote" class="col-xs-4 col-sm-2 col-md-1 col-lg-1">
                 @if( $data['UserProfileID'] !== Session::get('UserProfileID') )
-                    <a id="vote-up-button" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12"></a>
-                    <a id="vote-down-button" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12"></a>
+                    @if( $vote == 'no vote' )
+                        <a id="vote-up-button" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12"></a>
+                        <a id="vote-down-button" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12"></a>
+                    @elseif( $vote == 0 )
+                        <a id="vote-up-button" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12"></a>
+                        <a id="vote-down-button-disabled" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12 disabled"></a>
+                    @elseif( $vote == 1 )
+                        <a id="vote-up-button-disabled" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12 disabled"></a>
+                        <a id="vote-down-button" href="#" class="btn col-xs-12 col-sm-12 col-md-12 col-lg-12"></a>
+                    @endif
                 @endif
             </div>
             <div id="profile-photo" class="col-xs-8 col-sm-4 col-md-3 col-lg-3">

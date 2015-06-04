@@ -190,6 +190,23 @@ h5 {
     background: url('../images/vote_down_unselected.png') no-repeat;
     border: none;
 }
+#vote-up-button-disabled {
+    margin-top: 65px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+    width: 70px;
+    background: url('../images/vote_up_selected.png') no-repeat;
+    border: none;
+}
+#vote-down-button-disabled {
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+    width: 70px;
+    background: url('../images/vote_down_selected.png') no-repeat;
+    border: none;
+}
 #profile-photo img {
     max-height: 232px;
 }

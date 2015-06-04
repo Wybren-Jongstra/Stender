@@ -7,6 +7,7 @@ class ProfileController extends BaseController {
         $profileData = $this->getData($profileUrl);
         $connectionSum = $this->getNumberConnections($profileData['UserProfileID']);
         $stenderScore = $this->getStenderScore($profileData['UserProfileID']);
+        $vote = $this->checkForVoteFromUser($profileData['UserProfileID']);
     	$getCheckConnection = $this->checkForConnection($profileData['UserProfileID']);
         $interests = $this->getInterests($profileData['UserProfileID']);
         $skills = $this->getSkills($profileData['UserProfileID']);
@@ -14,7 +15,7 @@ class ProfileController extends BaseController {
         $reviews = $this->getReviews($profileData['UserProfileID']);
         return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)
             ->with('places', $places)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
-            ->with('stenderScore', $stenderScore);
+            ->with('stenderScore', $stenderScore)->with('vote', $vote);
     }
 
     public function editprofile($profileUrl)
@@ -52,6 +53,26 @@ class ProfileController extends BaseController {
         );
 
         return $data;
+    }
+
+    public function checkForVoteFromUser($profileID)
+    {
+        $forUser = User::where('UserProfileID', '=', $profileID)->firstOrFail();
+
+        if (UserVote::where('ForUserID', '=', $forUser->UserID)->where('FromUserID', '=', Session::get('UserID'))->exists()) {
+            $vote = UserVote::where('ForUserID', '=', $forUser->UserID)->where('FromUserID', '=', Session::get('UserID'))->first();
+            if($vote->Upvote >= 1)
+            {
+                return 1;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else {
+            return 'no vote';
+        }
     }
 
     public function setUpVote()
