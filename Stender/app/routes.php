@@ -61,59 +61,6 @@ Route::get('getdata',function(){
 
     });
 
-Route::get('social/{action?}', array("as" => "hybridauth", function($action = "")
-{
-    // check URL segment
-    if ($action == "auth") {
-        // process authentication
-        try {
-            Hybrid_Endpoint::process();
-        }
-        catch (Exception $e) {
-            // redirect back to http://URL/social/
-            return Redirect::route('hybridauth');
-        }
-        return;
-    }
-    try {
-        // create a HybridAuth object
-        $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
-        // authenticate with Google
-        $provider = $socialAuth->authenticate("twitter");
-        // fetch user profile
-        $userProfile = $provider->getUserProfile();
-        $user_timeline = $provider->getUserActivity("timeline");
-
-
-    
-    }
-    catch(Exception $e) {
-        // exception codes can be found on HybBridAuth's web site
-        return $e->getMessage();
-    }
-
-    $hashtags = array();
-
-    foreach ($user_timeline as $timeline) {
-        $hashtags[] = $timeline->hashtags;
-
-        
-    }
-    // access user profile data
-    echo "Connected with: <b>{$provider->id}</b><br />";
-    echo "As: <b>{$userProfile->displayName}</b><br />";
-   // echo "<pre>" . print_r( $userProfile, true ) . "</pre><br />";
-
-    // logout
-    $provider->logout();
-
-    //compleet iets anders maargoed:
-    $userprofile = UserProfile::find(Auth::user()->UserProfileID);
-
-        $data = array(
-        'firstname'  => $userprofile->FirstName,
-        'ProfileUrlPart' => $userprofile->ProfileUrlPart,
-        );
-
-    return View::make('facebook')->with('data', $data)->with('fb', $userProfile)->with('twitter', $hashtags);
-}));
+Route::get('social/{action?}','SocialController@Login');
+Route::get('hashtags', 'SocialController@updateHashtags');
+Route::post('deleteHashtag', 'SocialController@deleteHashtag');

@@ -273,3 +273,12 @@ h5 {
         border-top: 1px solid #cccccc;
     }
 }
+
+/* 
+ Social.blade.php
+*/
+
+.times
+{
+    font-size: 18px !important;
+}
