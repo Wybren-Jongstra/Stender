@@ -26,6 +26,8 @@ Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 Route::get('profile/{profileUrl}', 'ProfileController@getProfile')->before('auth');
 Route::post('connect', 'ProfileController@setConnection');
 Route::get('connection/{id}/{usrID}/{state}', 'ProfileController@checkForConnectionByMail');
+Route::get('upvote', 'ProfileController@setUpVote');
+Route::get('downvote', 'ProfileController@setDownVote');
 
 //profielpagina aanpassen
 Route::get('editProfile/{profileUrl}', 'ProfileController@editProfile')->before('auth');
