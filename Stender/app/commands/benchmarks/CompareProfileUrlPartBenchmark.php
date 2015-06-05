@@ -86,7 +86,7 @@ class CompareProfileUrlPartBenchmark extends Command {
     private function getMethodName()
     {
         return array(
-            'doWhile',
+            'validator',
             'array'
         );
     }
@@ -94,8 +94,8 @@ class CompareProfileUrlPartBenchmark extends Command {
     private function runBenchmark($benchmarkName)
     {
         switch ($benchmarkName) {
-            case 'doWhile':
-                $this->runDoWhileBenchmark();
+            case 'validator':
+                $this->runValidatorBenchmark();
                 break;
             case 'array':
                 $this->runArrayBenchmark();
@@ -106,9 +106,9 @@ class CompareProfileUrlPartBenchmark extends Command {
     }
 
     /**
-     * runDoWhileBenchmark method
+     * runValidatorBenchmark method
      */
-    private function runDoWhileBenchmark()
+    private function runValidatorBenchmark()
     {
         $t0 = microtime(true);
         for ($i = 0; $i < ($this->option('iterations')); $i++)
@@ -134,7 +134,7 @@ class CompareProfileUrlPartBenchmark extends Command {
             }
             while($valPart->fails());
         }
-        $this->info('do while loop: ' . (microtime(true) - $t0) . ' s', PHP_EOL);
+        $this->info('validator loop: ' . (microtime(true) - $t0) . ' s', PHP_EOL);
     }
 
     /**
