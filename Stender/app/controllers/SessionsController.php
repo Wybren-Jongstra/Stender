@@ -81,6 +81,7 @@ class SessionsController extends BaseController {
     {
         if( ! $token)
         {
+            // FIXME Argument Exception?
             throw new InvalidTokenException;
         }
 
