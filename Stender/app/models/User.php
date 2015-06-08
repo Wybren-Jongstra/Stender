@@ -48,6 +48,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     //     return $this->Email;
     // }
 
+    public function StatusUpdate()
+    {
+        return $this->hasMany('StatusUpdate');
+    }
+
     /**
      * Override to get the password for the user from the correct column from the database.
      *

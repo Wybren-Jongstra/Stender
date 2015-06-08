@@ -11,9 +11,10 @@ class TimelineController extends BaseController {
         $connections = $this->getNumberConnections($userprofile->UserProfileID);
         $stenderScore = $this->getStenderScore($userprofile->UserProfileID);
         $connectProfiles = $this->getConnections($userprofile->UserProfileID);
+        $statusupdates = $this->getStatusUpdates($connectProfiles);
 
         return View::make('timeline')->with('userProfile', $userprofile)->with('stenderScore', $stenderScore)->with('connections', $connections)
-            ->with('connectionProfiles', $connectProfiles);
+            ->with('connectionProfiles', $connectProfiles)->with('statusUpdates', $statusupdates);
     }
 
     public function getConnections($usrProfID)
@@ -30,6 +31,7 @@ class TimelineController extends BaseController {
             $userProfile = UserProfile::where('UserProfileID', '=', $from->ForUserID)->firstOrFail();
             $connectionsFromArray[$itemfrom][] = $userProfile->ProfileUrlPart;
             $connectionsFromArray[$itemfrom][] = $userProfile->DisplayName;
+            $connectionsFromArray[$itemfrom][] = $from->ForUserID;
             $itemfrom++;
         }
 
@@ -39,6 +41,7 @@ class TimelineController extends BaseController {
             $userProfile = UserProfile::where('UserProfileID', '=', $for->FromUserID)->firstOrFail();
             $connectionsForArray[$itemfor][] = $userProfile->ProfileUrlPart;
             $connectionsForArray[$itemfor][] = $userProfile->DisplayName;
+            $connectionsForArray[$itemfor][] = $for->FromUserID;
             $itemfor++;
         }
 
@@ -65,6 +68,42 @@ class TimelineController extends BaseController {
         $stenderScoreForPrFalse = UserVote::where('Upvote', '=', 0)->where('ForUserID', '=', $usrID->UserID)->count();
         $stenderScore = $stenderScoreForPrTrue - $stenderScoreForPrFalse;
         return $stenderScore;
+    }
+
+    public function getStatusUpdates($connections)
+    {
+        $userIdArray = array();
+        foreach($connections as $connection)
+        {
+            $userIdArray[] = $connection[2];
+        }
+        $userIdArray[] = Session::get('UserID');
+
+        $friends_status_updates = StatusUpdate::whereIn('UserID', $userIdArray)->orderBy('DateCreated', 'DESC')->get();
+        return $friends_status_updates;
+    }
+
+    public function postStatus()
+    {
+        $post = new StatusUpdate();
+        $post->UserID = Session::get('UserID');
+        $post->DateCreated = Carbon\Carbon::now();
+        $post->Text = Input::get('userStatus');
+        $post->save();
+
+        return Redirect::to('/');
+    }
+
+    public static function getTimeAgo($timestamp)
+    {
+        return \Carbon\Carbon::createFromTimeStamp(strtotime($timestamp))->diffForHumans();
+    }
+
+    public static function getUserProfileByUserID($userID)
+    {
+        $user = User::where('UserProfileID', '=', $userID)->first();
+        $userProfile = UserProfile::where('UserProfileID', '=', $user->UserProfileID)->first();
+        return $userProfile;
     }
 
     public static function fillSession()

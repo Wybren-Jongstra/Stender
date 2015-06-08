@@ -170,6 +170,9 @@ h5 {
 .border-top {
     border-top: 1px solid #cccccc;
 }
+.border-bottom {
+    border-bottom: 1px solid #cccccc;
+}
 #profile {
     min-height: 232px;
 }
@@ -253,6 +256,11 @@ h5 {
 }
 .profile-image {
     margin-top: 10px;
+}
+.time-ago {
+    color: #acacac;
+    font-size: 10pt;
+    padding-bottom: 3px;
 }
 
 /*
