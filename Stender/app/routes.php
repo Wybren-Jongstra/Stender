@@ -31,7 +31,7 @@ Route::post('connect', 'ProfileController@setConnection');
 Route::get('connection/{id}/{usrID}/{state}', 'ProfileController@checkForConnectionByMail');
 Route::get('upvote', 'ProfileController@setUpVote');
 Route::get('downvote', 'ProfileController@setDownVote');
-Route::post('postReview', 'ProfileController@postReview')->before('csrf');
+Route::post('postReview', 'ProfileController@postReview');
 
 //profielpagina aanpassen
 Route::get('editProfile/{profileUrl}', 'ProfileController@editProfile')->before('auth');
@@ -71,3 +71,7 @@ Route::get('social/{action?}','SocialController@Login');
 Route::post('deleteHashtag', 'SocialController@deleteHashtag');
 Route::post('deleteSkill', 'SocialController@deleteSkill');
 Route::get('content','SocialController@Update');
+
+// Checks for a POST, PUT or DELETE request.
+// If so, it will automatically use the already existing CSRF filter.
+Route::when('*', 'csrf', array('post', 'put', 'delete'));
