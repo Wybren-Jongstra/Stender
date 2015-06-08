@@ -32,6 +32,7 @@ Route::get('connection/{id}/{usrID}/{state}', 'ProfileController@checkForConnect
 Route::get('upvote', 'ProfileController@setUpVote');
 Route::get('downvote', 'ProfileController@setDownVote');
 Route::post('postReview', 'ProfileController@postReview')->before('csrf');
+Route::get('profile/deleteReview/{reviewID}', 'ProfileController@deleteReview');
 
 //profielpagina aanpassen
 Route::get('editProfile/{profileUrl}', 'ProfileController@editProfile')->before('auth');
