@@ -67,5 +67,6 @@ Route::get('getdata',function(){
     });
 
 Route::get('social/{action?}','SocialController@Login');
-Route::get('hashtags', 'SocialController@updateHashtags');
 Route::post('deleteHashtag', 'SocialController@deleteHashtag');
+Route::post('deleteSkill', 'SocialController@deleteSkill');
+Route::get('content','SocialController@Update');

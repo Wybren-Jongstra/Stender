@@ -11,6 +11,11 @@ return array(
 		"Twitter"    => array (
 			"enabled"    => true,
 			"keys"       => array ( "key" => "R2yrXaggilT7eKnABiroNPTfs", "secret" => "pjwJMxXeHxnmYA4SRG0JKkzw95y2U0yRBeoBZiu4LKRCh9ZLKw" )
+			),
+		"LinkedIn"    => array (
+			"enabled"    => true,
+			"keys"       => array ( "key" => "77tbpbjpq67pkc", "secret" => "4rODgUe6YSGfNiMq" ),
+			"scope" => "r_fullprofile"
 			)
 	),
 );
