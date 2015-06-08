@@ -48,6 +48,11 @@
                         <a href="profile/{{ TimelineController::getUserProfileByUserID($statusUpdate['UserID'])['ProfileUrlPart'] }}">
                             {{ TimelineController::getUserProfileByUserID($statusUpdate['UserID'])['DisplayName'] }}
                         </a>
+                        @if( $statusUpdate['UserID'] == Session::get('UserProfileID') )
+                            <a href="deleteStatus/{{ $statusUpdate['StatusUpdateID'] }}" class="delete-btn btn btn-xs btn-danger pull-right">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        @endif
                         <span class="time-ago no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">{{ TimelineController::getTimeAgo($statusUpdate->DateCreated) }}</span>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

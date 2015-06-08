@@ -94,6 +94,13 @@ class TimelineController extends BaseController {
         return Redirect::to('/');
     }
 
+    public function deleteStatus($statusID)
+    {
+        $statusUpdate = StatusUpdate::where('StatusUpdateID', '=', $statusID)->firstOrFail();
+        $statusUpdate->delete();
+        return Redirect::to('/');
+    }
+
     public static function getTimeAgo($timestamp)
     {
         return \Carbon\Carbon::createFromTimeStamp(strtotime($timestamp))->diffForHumans();

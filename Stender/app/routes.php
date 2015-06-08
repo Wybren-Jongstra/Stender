@@ -21,6 +21,8 @@ Route::post('postRegister', 'HomeController@postRegister');
 //timelinepagina
 Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 Route::post('postStatus', 'TimelineController@postStatus');
+Route::get('deleteStatus/{statusUpdateID}', 'TimelineController@deleteStatus');
+
 
 
 //settingspagina
