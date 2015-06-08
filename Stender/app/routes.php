@@ -31,6 +31,7 @@ Route::post('connect', 'ProfileController@setConnection');
 Route::get('connection/{id}/{usrID}/{state}', 'ProfileController@checkForConnectionByMail');
 Route::get('upvote', 'ProfileController@setUpVote');
 Route::get('downvote', 'ProfileController@setDownVote');
+Route::post('postReview', 'ProfileController@postReview')->before('csrf');
 
 //profielpagina aanpassen
 Route::get('editProfile/{profileUrl}', 'ProfileController@editProfile')->before('auth');

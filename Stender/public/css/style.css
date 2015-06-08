@@ -239,6 +239,14 @@ h5 {
 .no-list-signs ul {
     list-style: none;
 }
+#review-input {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#review-list ul li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
 /*
 * EditProfile

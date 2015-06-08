@@ -115,10 +115,22 @@ $('#vote-down-button').click(function() {
             <div id="review-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h5>Reviews</h5>
             </div>
+            @if( $data['UserProfileID'] !== Session::get('UserProfileID') )
+                <div id="review-input" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    {{ Form::open(array('url' => 'postReview')) }}
+                        {{ Form::hidden('usr', $data['UserProfileID']) }}
+                        {{ Form::textarea('userReview', '', array('class' => 'form-control', 'rows' => '3', 'placeholder' => 'Plaats hier een review')) }}
+                        {{ Form::submit('Plaats review', array('type' => 'button', 'class' => 'btn btn-success col-xs-4 col-sm-2 col-md-2 col-lg-2')) }}
+                    {{ Form::close() }}
+                </div>
+            @endif
             <div id="review-list" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <ul>
                     @foreach ($reviews as $review)
-                        <li>{{ $review }}</li>
+                        <li class="no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <a href="profile/{{ $review[0] }}">{{ $review[1] }}</a> schreef op {{ $review[2] }}:<br/>
+                            {{ $review[3] }}
+                        </li>
                     @endforeach
                 </ul>
             </div>

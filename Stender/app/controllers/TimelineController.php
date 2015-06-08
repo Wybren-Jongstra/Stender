@@ -25,5 +25,6 @@ class TimelineController extends BaseController {
         Session::put('UserProfileID', Auth::user()->UserProfileID);
         Session::put('Email', Auth::user()->Email);
         Session::put('ProfileUrlPart', $userprofile->ProfileUrlPart);
+        Session::put('DisplayName', $userprofile->DisplayName);
     }
 }
