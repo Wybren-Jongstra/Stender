@@ -6,7 +6,8 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-		"hybridauth/hybridauth": "*"
+		"hybridauth/hybridauth": "*",
+		"yangqi/htmldom": "dev-master"
 	},
 	"require-dev": {
 		"xethron/migrations-generator": "dev-master",
