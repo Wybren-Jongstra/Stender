@@ -1,6 +1,6 @@
 <?php
 return array(	
-	"base_url"   => "http://stender.app/social/auth",
+	"base_url"   => URL::to('/social/auth'),
 	"providers"  => array (
 		
 		"Facebook"   => array (
