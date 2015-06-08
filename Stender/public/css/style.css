@@ -257,6 +257,11 @@ h5 {
 .profile-image {
     margin-top: 10px;
 }
+.time-ago {
+    color: #acacac;
+    font-size: 10pt;
+    padding-bottom: 3px;
+}
 
 /*
 * EditProfile

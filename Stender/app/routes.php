@@ -20,7 +20,8 @@ Route::post('postRegister', 'HomeController@postRegister');
 
 //timelinepagina
 Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
-//Route::get('timeline', 'TimelineController@getTimeline');
+Route::post('postStatus', 'TimelineController@postStatus');
+
 
 //settingspagina
 Route::get('settings', 'SettingsController@getSettings')->before('auth');

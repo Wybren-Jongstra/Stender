@@ -37,14 +37,24 @@
         <div id="right-column" class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
             <div id="timeline-post" class="spacing-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 {{ Form::open(array('url' => 'postStatus')) }}
-                    {{ Form::textarea('userStatus', '', array('class' => 'form-control', 'rows' => '2', 'placeholder' => 'Wat ben je aan het doen?')) }}
+                    {{ Form::textarea('userStatus', '', array('class' => 'form-control', 'rows' => '3', 'placeholder' => 'Wat ben je aan het doen?')) }}
                     {{ Form::submit('Plaats status', array('type' => 'button', 'class' => 'btn btn-success col-xs-4 col-sm-2 col-md-2 col-lg-2')) }}
                 {{ Form::close() }}
             </div>
 
-            <div id="timeline" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                message
-            </div>
+            @foreach ($statusUpdates as $statusUpdate)
+                <div id="timeline" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <a href="profile/{{ TimelineController::getUserProfileByUserID($statusUpdate['UserID'])['ProfileUrlPart'] }}" class="no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            {{ TimelineController::getUserProfileByUserID($statusUpdate['UserID'])['DisplayName'] }}
+                        </a>
+                        <span class="time-ago no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">{{ TimelineController::getTimeAgo($statusUpdate->DateCreated) }}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        {{ $statusUpdate['Text'] }}
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>
