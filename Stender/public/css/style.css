@@ -170,6 +170,9 @@ h5 {
 .border-top {
     border-top: 1px solid #cccccc;
 }
+.border-bottom {
+    border-bottom: 1px solid #cccccc;
+}
 #profile {
     min-height: 232px;
 }

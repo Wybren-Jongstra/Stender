@@ -23,14 +23,25 @@
             </div>
 
             <div id="connections" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                @foreach ($connectionProfiles as $connectionProfile)
-                    <div class="online col-xs-2 col-sm-2 col-md-2 col-lg-2"><span class="glyphicon glyphicon-globe"></span></div>
-                    <a href="profile/{{ $connectionProfile[0] }}" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">{{ $connectionProfile[1] }}</a>
-                @endforeach
-
+                <div id="review-header" class="border-bottom col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h5>Connecties</h5>
+                </div>
+                @if( count($connectionProfiles) > 0 )
+                    @foreach ($connectionProfiles as $connectionProfile)
+                        <div class="online col-xs-2 col-sm-2 col-md-2 col-lg-2"><span class="glyphicon glyphicon-globe"></span></div>
+                        <a href="profile/{{ $connectionProfile[0] }}" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">{{ $connectionProfile[1] }}</a>
+                    @endforeach
+                @endif
             </div>
         </div>
         <div id="right-column" class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+            <div id="timeline-post" class="spacing-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                {{ Form::open(array('url' => 'postStatus')) }}
+                    {{ Form::textarea('userStatus', '', array('class' => 'form-control', 'rows' => '2', 'placeholder' => 'Wat ben je aan het doen?')) }}
+                    {{ Form::submit('Plaats status', array('type' => 'button', 'class' => 'btn btn-success col-xs-4 col-sm-2 col-md-2 col-lg-2')) }}
+                {{ Form::close() }}
+            </div>
+
             <div id="timeline" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 message
             </div>
