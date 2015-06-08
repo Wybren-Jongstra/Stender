@@ -130,6 +130,11 @@ $('#vote-down-button').click(function() {
                         <li class="no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <a href="profile/{{ $review[0] }}">{{ $review[1] }}</a> schreef op {{ $review[2] }}:<br/>
                             {{ $review[3] }}
+                            @if( $data['UserProfileID'] == Session::get('UserProfileID') || $review[5] == Session::get('UserProfileID') )
+                                <button href="deleteReview/{{ $review[4] }}" class="btn btn-xs btn-danger pull-right">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            @endif
                         </li>
                     @endforeach
                 </ul>

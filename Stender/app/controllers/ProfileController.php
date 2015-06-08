@@ -200,7 +200,8 @@ class ProfileController extends BaseController {
     public function checkForConnection($profileID)
     {
         $forUser = User::where('UserProfileID', '=', $profileID)->firstOrFail();
-        if (Connection::where('ForUserID', '=', $forUser->UserID)->where('FromUserID', '=', Session::get('UserID'))->exists()) {
+        if (Connection::where('ForUserID', '=', $forUser->UserID)->where('FromUserID', '=', Session::get('UserID'))->exists() ||
+            Connection::where('FromUserID', '=', $forUser->UserID)->where('ForUserID', '=', Session::get('UserID'))->exists()) {
             return true;
         }
         else {
@@ -267,14 +268,23 @@ class ProfileController extends BaseController {
         $reviewArray = array();
         $item = 0;
         foreach ($reviews as $review) {
-            $userProfile = UserProfile::where('UserProfileID', '=', $review->ForUserProfileID)->firstOrFail();
+            $userProfile = UserProfile::where('UserProfileID', '=', $review->FromUserProfileID)->firstOrFail();
             $reviewArray[$item][] = $userProfile->ProfileUrlPart;
             $reviewArray[$item][] = $userProfile->DisplayName;
             $reviewArray[$item][] = date("d-m-Y", strtotime($review->DateCreated));
             $reviewArray[$item][] = $review->Text;
+            $reviewArray[$item][] = $review->ReviewID;
+            $reviewArray[$item][] = $review->FromUserProfileID;
             $item++;
         }
         return $reviewArray;
+    }
+
+    public function deleteReview($reviewID)
+    {
+        $review = Review::where('ReviewID', '=', $reviewID)->firstOrFail();
+        $review->delete();
+        return Redirect::to('/profile/'.Session::get('ProfileUrlPart'));
     }
 
     public function getHashTags($profileID)
