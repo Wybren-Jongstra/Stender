@@ -87,7 +87,7 @@ class HomeController extends BaseController {
 			  //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
 					// });
 
-					Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+					Mail::send('emails.welcome', array('confirmationCode'=> $confirmationCode), function($message) {
 			    		$message->to('wybrenjongstra@gmail.com', 'John Doe')->subject('Please activate your account!');
 					});
 			}
