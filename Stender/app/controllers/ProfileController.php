@@ -237,13 +237,42 @@ class ProfileController extends BaseController {
         return Redirect::to('/profile/'.Input::get('url'));
     }
 
+    public function postReview()
+    {
+        // Displayname user ophalen en in de mail zetten bij 'DisplayName'!!!
+
+        $review = new Review();
+        $review->ForUserProfileID = Input::get('usr');
+        $review->FromUserProfileID = Session::get('UserProfileID');
+        $review->DateCreated = Carbon\Carbon::now();
+        $review->Deleted = 0;
+        $review->Text = htmlentities(Input::get('userReview'));
+        $review->save();
+
+        $forUserProfile = UserProfile::where('UserProfileID', '=', Input::get('usr'))->firstOrFail();
+
+        Mail::send('emails.review', array('fromName' => Session::get('DisplayName'),'profUrl' => $forUserProfile->ProfileUrlPart), function($message) {
+            $forUser = User::where('UserProfileID', '=', Input::get('usr'))->firstOrFail();
+            $forUserProfile = UserProfile::where('UserProfileID', '=', Input::get('usr'))->firstOrFail();
+            $message->to($forUser->Email, $forUserProfile->DisplayName)->subject('Nieuwe review!');
+        });
+
+        return Redirect::to('/profile/'.$forUserProfile->ProfileUrlPart);
+    }
+
     public function getReviews($profileID)
     {
         $reviews = Review::where('ForUserProfileID', '=', $profileID)->get();
 
         $reviewArray = array();
+        $item = 0;
         foreach ($reviews as $review) {
-            $reviewArray[] = $review->Text;
+            $userProfile = UserProfile::where('UserProfileID', '=', $review->ForUserProfileID)->firstOrFail();
+            $reviewArray[$item][] = $userProfile->ProfileUrlPart;
+            $reviewArray[$item][] = $userProfile->DisplayName;
+            $reviewArray[$item][] = date("d-m-Y", strtotime($review->DateCreated));
+            $reviewArray[$item][] = $review->Text;
+            $item++;
         }
         return $reviewArray;
     }
