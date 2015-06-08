@@ -49,8 +49,55 @@ class SocialController extends BaseController {
                 {
                     $hashtags[] = $timeline->hashtags;
                 }
-                $this->saveToDB($hashtags, '2');
+                $this->saveToDB($hashtags, 2);
 
+
+                $this->Logout();
+            }
+            elseif ( $network == "linkedin" ) 
+            {
+                // create a HybridAuth object
+                $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
+                // authenticate with Google
+                $provider = $socialAuth->authenticate("LinkedIn");
+                // fetch user profile
+                $userProfile = $provider->getUserProfile();
+                //$user_timeline = $provider->getUserActivity("timeline");
+
+                $link = $userProfile->profileURL;
+
+                $contents = $this->getContent($link);
+
+                $html = new \Htmldom($contents);
+
+                $skills = array();
+                // Find all skills
+                foreach($html->find('a.endorse-item-name-text') as $element)
+                { 
+                    $skills[] = $element->plaintext;
+                }
+
+                $this->saveToDB($skills, 4);
+
+
+                $this->Logout();
+            }
+            elseif ( $network == "facebook" ) 
+            {
+                // create a HybridAuth object
+                $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
+                // authenticate with Google
+                $provider = $socialAuth->authenticate("Facebook");
+                // fetch user profile
+                $userProfile = $provider->getUserProfile();
+                //$user_timeline = $provider->getUserActivity("timeline");
+                echo "<pre>";
+                print_r($userProfile);
+                echo "</pre>";
+                $link = $userProfile->profileURL;
+                // Create DOM from URL or file
+                $contents = $this->getContent('http://173.252.120.6/914228038636697');
+                echo $contents;
 
                 $this->Logout();
             }
@@ -69,30 +116,58 @@ class SocialController extends BaseController {
         }
     }
 
-    public function saveToDB($value, $hashtagKind)
+    public function getContent($url)
     {
-        foreach ($value as $hashtags)
-        {
-            foreach ($hashtags as $tag)
-            {
-
-                $hashtag = new Hashtag();
-                $hashtag->AccountKindID = $hashtagKind;
-                $hashtag->Value = $tag->text;
-                $hashtag->UserProfileID = Auth::user()->UserProfileID;
-                $hashtag->save();
-
-                $this->updateHashtags();
-            }
-        }
-
+        $ch = curl_init();
+        $timeout = 5; // set to zero for no timeout
+        curl_setopt ($ch, CURLOPT_URL, $url);
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+        $file_contents = curl_exec($ch);
+        curl_close($ch);
+        return $file_contents;
     }
 
-    public function updateHashtags()
+    public function saveToDB($value, $accountKind)
+    {
+        if($accountKind == 2) //twitter
+        {
+            foreach ($value as $hashtags)
+            {
+                foreach ($hashtags as $tag)
+                {
+
+                    $hashtag = new Hashtag();
+                    $hashtag->AccountKindID = $accountKind;
+                    $hashtag->Value = $tag->text;
+                    $hashtag->UserProfileID = Auth::user()->UserProfileID;
+                    $hashtag->save();
+
+                }
+            }
+        }
+        if($accountKind == 4) //LinkedIN
+        {
+            foreach ($value as $skills) 
+            {
+                $skill = new Skill();
+                $skill->AccountKindID = $accountKind;
+                $skill->Value = $skills;
+                $skill->UserProfileID = Auth::user()->UserProfileID;
+                $skill->save();
+
+            }
+        }
+            Redirect::to('timeline');
+    }
+
+    public function update()
     { 
         $hashtagsUser = Hashtag::where('UserProfileID', '=', Auth::user()->UserProfileID)->get();
-
+        $skillsUser = Skill::where('UserProfileID', '=', Auth::user()->UserProfileID)->get();
+        
         $hashtags = array();
+        $skills = array();
 
         foreach($hashtagsUser as $hashtag)
         {
@@ -100,8 +175,14 @@ class SocialController extends BaseController {
         $hashtags[] = $hashtag;
         
         }
+        foreach($skillsUser as $skill)
+        {
+
+        $skills[] = $skill;
         
-        return View::make('social')->with('twitter', $hashtags)->with('data', $this->rommelData());
+        }
+        
+        return View::make('social')->with('twitter', $hashtags)->with('linkedin', $skills)->with('data', $this->rommelData());
     }
 
     public function Logout()
@@ -115,5 +196,12 @@ class SocialController extends BaseController {
         $id = Input::get('id');
         $tag = Hashtag::find($id);
         $tag->delete();
+    }
+
+    public function deleteSkill()
+    {
+        $id = Input::get('id');
+        $skill = Skill::find($id);
+        $skill->delete();
     }
 }
