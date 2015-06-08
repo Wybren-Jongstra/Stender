@@ -45,7 +45,7 @@
             @foreach ($statusUpdates as $statusUpdate)
                 <div id="timeline" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <a href="profile/{{ TimelineController::getUserProfileByUserID($statusUpdate['UserID'])['ProfileUrlPart'] }}" class="no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <a href="profile/{{ TimelineController::getUserProfileByUserID($statusUpdate['UserID'])['ProfileUrlPart'] }}">
                             {{ TimelineController::getUserProfileByUserID($statusUpdate['UserID'])['DisplayName'] }}
                         </a>
                         <span class="time-ago no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">{{ TimelineController::getTimeAgo($statusUpdate->DateCreated) }}</span>
