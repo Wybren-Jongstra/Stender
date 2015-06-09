@@ -10,46 +10,31 @@ class SearchController extends BaseController {
     public function autocomplete(){
         $term = Input::get('term');
 
-        $search = UserProfile::where('FirstName', 'LIKE', '%'.$term.'%')->orWhere('Surname', 'LIKE', '%'.$term.'%')->take(5)->get();
+        $search = UserProfile::where('FirstName', 'LIKE', '%'.$term.'%')
+            ->orWhere('Surname', 'LIKE', '%'.$term.'%')
+            ->orWhere('DisplayName', 'LIKE', '%'.$term.'%')
+            ->take(5)
+            ->get();
 
         $results = array();
-
-        // $queries = DB::table('USER_PROFILE')
-        //     ->where('FirstName', 'LIKE', '%'.$term.'%')
-        //     ->orWhere('Surname', 'LIKE', '%'.$term.'%')
-        //     ->take(5)->get();
-
         foreach ($search as $query)
         {
-            
             $search2 = User::where('UserProfileId', '=', $query->UserProfileID)->get();
-            foreach ($search2 as $finish) {
-            
-            $results[] = [ 'id' => $finish->UserID, 'label' =>$query->FirstName, 'actor'=> $query->Surname];
-            
+            foreach ($search2 as $finish)
+            {
+                $results[] = [ 'id' => $finish->UserID, 'label' => $query->DisplayName, 'actor'=> $query->DisplayName];
             }
-            
         }
-        
-        
+
         return Response::json($results);
     }
 
     public function searchUser(){
-        $term = Input::get('userName');
+        $term = Input::get('inputName');
 
-        $search = UserProfile::where('FirstName', 'LIKE', '%'.$term.'%')->orWhere('Surname', 'LIKE', '%'.$term.'%')->get();
-        $results = array();
+        $search = UserProfile::where('DisplayName', '=', $term)->firstOrFail();
 
-        // $queries = DB::table('USER_PROFILE')
-        //     ->where('FirstName', 'LIKE', '%'.$term.'%')
-        //     ->orWhere('Surname', 'LIKE', '%'.$term.'%')
-        //     ->->get();
-
-        foreach ($search as $query)
-        {
-            $results[] = [ 'id' => $query->UserID, 'value' => $query->FirstName.' '.$query->Surname, 'url' => $query->ProfileUrlPart ];
-        }
-        return Response::json($results);
+        return Redirect::to('/profile/'.$search->ProfileUrlPart);
+        //return Response::json($results);
     }
 }

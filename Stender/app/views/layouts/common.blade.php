@@ -21,7 +21,7 @@
         {
             source: '/search/autocomplete',
             select: function( event, ui ) {
-                $( "#inputName" ).val( ui.item.label + " / " + ui.item.actor );
+                $( "#inputName" ).val( ui.item.label );
                 return false;
             }
         });
