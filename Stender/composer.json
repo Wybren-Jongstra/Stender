@@ -71,7 +71,7 @@
         },
         "components/jqueryui": {
           "scripts": [
-            " jquery-ui.js"
+            "jquery-ui.js"
           ]
         },
         "vitalets/x-editable": {
