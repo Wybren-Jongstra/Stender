@@ -75,12 +75,6 @@
           ]
         },
         "vitalets/x-editable": {
-          "scripts": [
-            "dist/bootstrap3-editable/js/bootstrap-editable.js"
-          ],
-          "styles": [
-            "dist/bootstrap3-editable/css/bootstrap-editable.css"
-          ],
           "files": [
             "dist/bootstrap3-editable/img/*"
           ]
