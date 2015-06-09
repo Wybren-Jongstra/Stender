@@ -103,8 +103,8 @@ $('#vote-down-button').click(function() {
                 </div>
                 <div id="hobby" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        @foreach ($places as $place)
-                            <li>#{{ $place }}</li>
+                        @foreach ($hashtags as $hashtag)
+                            <li>#{{ $hashtag }}</li>
                         @endforeach
                     </ul>
                 </div>

@@ -1,16 +1,39 @@
 @extends('layouts.common')
 @section('custom-jquery')
-  {{-- $(".click").editable(
-  "{{ URL::to('/saveProfile/'.$data['ProfileUrlPart'])}}", { 
-      indicator : "<img src='/images/indicator.gif'>",
-      style  : "inherit",
-      placeholder : ""
-  }); --}}
    $('.click').editable({
     type: 'text',
     pk: 0,
     url: '{{ URL::to('/saveProfile/'.$data['ProfileUrlPart'])}}',
 }); 
+
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+});
+
+$(".hashtag").click(function(){
+var attr = $(this).attr("id");
+    $.ajax({
+    url: "{{ URL::to('/deleteHashtag/') }}",
+    type: "POST",
+    data: 'id='+attr,
+    success: function(){
+         $ ("#"+attr).fadeOut();
+    }
+    })
+});
+$(".skill").click(function(){
+var attr = $(this).attr("id");
+    $.ajax({
+    url: "{{ URL::to('/deleteSkill/') }}",
+    type: "POST",
+    data: 'id='+attr,
+    success: function(){
+         $ ("#"+attr).fadeOut();
+    }
+    })
+});
 @endsection
 @section('content')
 <div id="content" class="container">
@@ -77,27 +100,33 @@
             </div>
             <div id="experience-block" class="border-right social-media-blocks col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div id="experience-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h5>Experience</h5>
+                    <h5>Vaardigheden</h5>
                 </div>
-                <div id="experience" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="experience" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12 no-list-signs">
                     <ul>
-                        <li>Experience 1</li>
-                        <li>Experience 2</li>
-                        <li>Experience 3</li>
-                        <li>Experience 4</li>
+                        @foreach ( $skills as $id => $skill )
+                            <li><div class="btn-group skill col-lg-12" id="{{ $id }}">
+                                <button type="button" class="btn btn-default btn-sm col-lg-8" >{{ $skill }}</button>
+                                <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
             <div id="hobby-block" class="social-media-blocks col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <div id="hobby-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h5>Hobby</h5>
+                    <h5>Hashtags</h5>
                 </div>
-                <div id="hobby" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="hashtags" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12 no-list-signs">
                     <ul>
-                        <li>Hobby 1</li>
-                        <li>Hobby 2</li>
-                        <li>Hobby 3</li>
-                        <li>Hobby 4</li>
+                        @foreach ( $hashtags as $id => $hashtag )
+                            <li><div class="btn-group hashtag hashtag col-lg-12" id="{{ $id }}">
+                                <button type="button" class="btn btn-default btn-sm hashtag col-lg-8" >{{ $hashtag }}</button>
+                                <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
+                                </div>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>

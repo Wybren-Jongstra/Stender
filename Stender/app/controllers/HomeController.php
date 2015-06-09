@@ -88,7 +88,7 @@ class HomeController extends BaseController {
 					// });
 
 					Mail::send('emails.welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-			    		$message->to('wybrenjongstra@gmail.com', 'John Doe')->subject('Please activate your account!');
+			    		$message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
 					});
 			}
 			else
@@ -101,7 +101,7 @@ class HomeController extends BaseController {
 		}
 		else
 		{
-			return Redirect::to('/')->withInput()->withErrors($v);
+			return Redirect::to('/')->withInput()->withErrors('Vul alle velden in.');
 		}
 		
 	}

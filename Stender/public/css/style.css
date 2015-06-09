@@ -256,6 +256,7 @@ h5 {
 }
 .profile-image {
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 .time-ago {
     color: #acacac;
@@ -265,11 +266,37 @@ h5 {
 #timeline {
     position: relative;
 }
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
 .delete-btn {
     position: absolute;
     top: 5px;
     right: 5px;
     z-index: 1;
+}
+.status-update-image {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.status-update-image img {
+    max-width: 100%;
 }
 
 /*
