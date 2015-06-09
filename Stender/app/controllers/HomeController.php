@@ -101,7 +101,7 @@ class HomeController extends BaseController {
 		}
 		else
 		{
-			return Redirect::to('/')->withInput()->withErrors($v);
+			return Redirect::to('/')->withInput()->withErrors('Vul alle velden in.');
 		}
 		
 	}
