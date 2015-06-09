@@ -7,8 +7,15 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"hybridauth/hybridauth": "*",
-		"yangqi/htmldom": "dev-master"
-	},
+		"yangqi/htmldom": "dev-master",
+        "components/jquery": "~1.0",
+        "components/bootstrap": "*",
+        "components/jqueryui": "*",
+        "components/font-awesome": "~4.3",
+        "lipis/bootstrap-social": "dev-gh-pages",
+        "vitalets/x-editable": "1.5.1",
+        "robloach/component-installer": "*"
+    },
 	"require-dev": {
 		"xethron/migrations-generator": "dev-master",
 		"caouecs/laravel4-lang": "~1.0",
@@ -38,7 +45,97 @@
 		]
 	},
 	"config": {
-		"preferred-install": "dist"
+		"preferred-install": "dist",
+        "component-dir": "public/packages",
+        "component-baseurl": "/packages"
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "stable",
+    "extra": {
+      "component": {
+        "components/jquery": {
+          "scripts": [
+            "jquery.js"
+          ]
+        },
+        "components/bootstrap": {
+          "scripts": [
+            "js/bootstrap.js"
+          ],
+          "styles": [
+            "css/bootstrap.css",
+            "css/bootstrap-theme.css"
+          ],
+          "files": [
+            "fonts/*"
+          ]
+        },
+        "components/jqueryui": {
+          "scripts": [
+            " jquery-ui.js"
+          ]
+        }
+      }
+    },
+    "repositories": [
+      {
+        "type": "package",
+        "package": {
+          "name": "lipis/bootstrap-social",
+          "type": "component",
+          "version": "dev-gh-pages",
+          "dist": {
+            "url": "https://github.com/lipis/bootstrap-social/archive/gh-pages.zip",
+            "type": "zip"
+          },
+          "source": {
+            "url": "https://github.com/lipis/bootstrap-social.git",
+            "type": "git",
+            "reference": "db0bbda"
+          },
+          "extra": {
+            "component": {
+              "styles": [
+                "bootstrap-social.css"
+              ]
+            }
+          },
+          "require": {
+            "robloach/component-installer": "*"
+          }
+        }
+      },
+      {
+        "type": "package",
+        "package": {
+          "name": "vitalets/x-editable",
+          "type": "component",
+          "version": "1.5.1",
+          "dist": {
+            "url": "https://github.com/vitalets/x-editable/archive/1.5.1.zip",
+            "type": "zip"
+          },
+          "source": {
+            "url": "https://github.com/vitalets/x-editable.git",
+            "type": "git",
+            "reference": "1.5.1"
+          },
+          "extra": {
+            "component": {
+              "scripts": [
+                "dist/bootstrap3-editable/js/bootstrap-editable.js"
+              ],
+              "styles": [
+                "dist/bootstrap3-editable/css/bootstrap-editable.css"
+              ],
+              "files": [
+                "dist/bootstrap3-editable/img/*"
+              ]
+            }
+          },
+          "require": {
+            "robloach/component-installer": "*"
+          }
+        }
+      }
+    ]
 }
