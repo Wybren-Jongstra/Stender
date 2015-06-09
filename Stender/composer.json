@@ -7,8 +7,15 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"hybridauth/hybridauth": "*",
-		"yangqi/htmldom": "dev-master"
-	},
+		"yangqi/htmldom": "dev-master",
+        "components/jquery": "~1.0",
+        "components/bootstrap": "*",
+        "components/jqueryui": "*",
+        "components/font-awesome": "~4.3",
+        "lipis/bootstrap-social": "dev-gh-pages",
+        "vitalets/x-editable": "dev-master",
+        "robloach/component-installer": "*"
+    },
 	"require-dev": {
 		"xethron/migrations-generator": "dev-master",
 		"caouecs/laravel4-lang": "~1.0",
@@ -38,7 +45,72 @@
 		]
 	},
 	"config": {
-		"preferred-install": "dist"
+		"preferred-install": "dist",
+        "component-dir": "public/packages",
+        "component-baseurl": "/packages"
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "stable",
+    "extra": {
+      "component": {
+        "components/jquery": {
+          "scripts": [
+            "jquery.js"
+          ]
+        },
+        "components/bootstrap": {
+          "scripts": [
+            "js/bootstrap.js"
+          ],
+          "styles": [
+            "css/bootstrap.css",
+            "css/bootstrap-theme.css"
+          ],
+          "files": [
+            "css/bootstrap.css.map",
+            "css/bootstrap-theme.css.map",
+            "fonts/*",
+            "less/**"
+          ]
+        },
+        "components/jqueryui": {
+          "scripts": [
+            "jquery-ui.js"
+          ]
+        },
+        "vitalets/x-editable": {
+          "files": [
+            "dist/bootstrap3-editable/img/*"
+          ]
+        }
+      }
+    },
+    "repositories": [
+      {
+        "type": "package",
+        "package": {
+          "name": "lipis/bootstrap-social",
+          "type": "component",
+          "version": "dev-gh-pages",
+          "dist": {
+            "url": "https://github.com/lipis/bootstrap-social/archive/gh-pages.zip",
+            "type": "zip"
+          },
+          "source": {
+            "url": "https://github.com/lipis/bootstrap-social.git",
+            "type": "git",
+            "reference": "db0bbda"
+          },
+          "extra": {
+            "component": {
+              "styles": [
+                "bootstrap-social.css"
+              ]
+            }
+          },
+          "require": {
+            "robloach/component-installer": "*"
+          }
+        }
+      }
+    ]
 }

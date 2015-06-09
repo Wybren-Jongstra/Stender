@@ -11,3 +11,6 @@ composer.lock
 
 # PhpStorm
 .idea/
+
+# assets of packages in the public directory
+/public/packages

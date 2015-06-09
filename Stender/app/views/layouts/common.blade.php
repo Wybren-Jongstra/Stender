@@ -1,21 +1,20 @@
 @extends('layouts.header')
+    @section('custom-stylesheets')
+        {{ HTML::style('packages/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}
+    @endsection
     @section('jquery-scripts')
+        {{ HTML::script('packages/jqueryui/jquery-ui.js') }}
     @endsection
     @section('custom-scripts')
-        <script src="{{ URL::to('js/jquery-ui.js') }}"></script>
-        <!-- <script src="{{ URL::to('js/jquery-ui.min.js') }}"></script> -->
-        <!-- <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
+        {{ HTML::script('packages/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js') }}
 
-            <link href="{{ URL::to('/css/bootstrap-editable.css') }}" rel="stylesheet">
-            <script src="{{ URL::to('js/bootstrap-editable.js') }}">
-            </script>
 
         <script>
         $(document).ready(function(){
 
-//$("#menuButton").onclick(function(){
-  //          $(".dropdown-toggle").dropdown('toggle');
-    //    });
+//        $("#menuButton").onclick(function(){
+//            $(".dropdown-toggle").dropdown('toggle');
+//        });
 
         $( "#inputName" ).autocomplete(
         {

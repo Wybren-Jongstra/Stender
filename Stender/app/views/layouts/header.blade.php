@@ -9,16 +9,11 @@
         <link rel="shortcut icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="{{ URL::to('css/style.css') }}" media="screen" />
+        {{ HTML::style('packages/bootstrap/css/bootstrap.css', array('media' => 'screen, projection')) }}
 @yield('custom-stylesheets')
-        <link type="text/css" href="{{ URL::to('css/bootstrap.css') }}" rel="stylesheet" media="screen, projection" />
-        <!-- <link type="text/css" href="{{ URL::to('css/bootstrap.min.css') }}" rel="stylesheet" media="screen, projection" /> -->
-
-        <script src="{{ URL::to('js/jquery.js') }}"></script>
-        <!-- <script src="{{ URL::to('js/jquery.min.js') }}"></script> -->
+        {{ HTML::script('packages/jquery/jquery.js') }}
+        {{ HTML::script('packages/bootstrap/js/bootstrap.js') }}
 @yield('jquery-scripts')
-        <script src="{{ URL::to('js/bootstrap.js') }}"></script>
-        <!-- <script src="{{ URL::to('js/bootstrap.min.js') }}"></script> -->
-
 @yield('custom-scripts')
     </head>
 

@@ -1,4 +1,4 @@
-/*! X-editable - v1.5.1 
+/*! X-editable - v1.5.1.1
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
 * http://github.com/vitalets/x-editable
 * Copyright (c) 2013 Vitaliy Potapov; Licensed MIT */
@@ -2147,8 +2147,9 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             
 
     $.fn.editable.defaults = {
-            //turn to inline mode
+        // turn to inline mode
         mode: 'inline',
+
         /**
         Type of input. Can be <code>text|textarea|select|date|checklist</code> and more
 
