@@ -298,6 +298,16 @@ h5 {
 .status-update-image img {
     max-width: 100%;
 }
+.connection-spacing {
+    padding-bottom: 10px;
+}
+.spacing-bottom {
+    margin-bottom: 10px;
+}
+.delete-connection-btn {
+    position: absolute;
+    z-index: 1;
+}
 
 /*
 * EditProfile
