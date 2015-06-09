@@ -11,8 +11,7 @@
         <link rel="stylesheet" type="text/css" href="{{ URL::to('css/style.css') }}" media="screen" />
         {{ HTML::style('packages/bootstrap/css/bootstrap.css', array('media' => 'screen, projection')) }}
 @yield('custom-stylesheets')
-        <script src="{{ URL::to('js/jquery.js') }}"></script>
-        <!-- <script src="{{ URL::to('js/jquery.min.js') }}"></script> -->
+        {{ HTML::script('packages/jquery/jquery.js') }}
         {{ HTML::script('packages/bootstrap/js/bootstrap.js') }}
 @yield('jquery-scripts')
 @yield('custom-scripts')
