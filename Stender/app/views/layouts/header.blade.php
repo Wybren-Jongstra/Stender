@@ -9,13 +9,12 @@
         <link rel="shortcut icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="{{ URL::to('css/style.css') }}" media="screen" />
-@yield('custom-stylesheets')
         {{ HTML::style('packages/bootstrap/css/bootstrap.css', array('media' => 'screen, projection')) }}
+@yield('custom-stylesheets')
         <script src="{{ URL::to('js/jquery.js') }}"></script>
         <!-- <script src="{{ URL::to('js/jquery.min.js') }}"></script> -->
-@yield('jquery-scripts')
         {{ HTML::script('packages/bootstrap/js/bootstrap.js') }}
-
+@yield('jquery-scripts')
 @yield('custom-scripts')
     </head>
 
