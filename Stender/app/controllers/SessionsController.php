@@ -66,7 +66,7 @@ class SessionsController extends BaseController {
 		}
 		else
 		{
-			return Redirect::to('/')->withInput()->withErrors($v);
+			return Redirect::to('/')->withInput()->with('wrongCred', 'Vul alle velden in');
 		}
 	}
 
