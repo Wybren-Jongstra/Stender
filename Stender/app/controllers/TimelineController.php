@@ -89,6 +89,41 @@ class TimelineController extends BaseController {
         $post->UserID = Session::get('UserID');
         $post->DateCreated = Carbon\Carbon::now();
         $post->Text = Input::get('userStatus');
+
+        $destinationPath = '';
+        $filename        = '';
+
+        if (Input::hasFile('statusImage'))
+        {
+            // Build the input for our validation
+            $input = array('image' => Input::file('statusImage'));
+
+            // Within the ruleset, make sure we let the validator know that this
+            // file should be an image
+            $rules = array(
+                'image' => 'image'
+            );
+
+            // Now pass the input and rules into the validator
+            $validator = Validator::make($input, $rules);
+
+            // Check to see if validation fails or passes
+            if ($validator->fails())
+            {
+                // Redirect with a helpful message to inform the user that
+                // the provided file was not an adequate type
+                return Redirect::to('/timeline')->withErrors('Upload een afbeelding.');
+            }
+            else
+            {
+                $file            = Input::file('statusImage');
+                $destinationPath = 'uploads/';
+                $filename        = str_random(6) . '_' . $file->getClientOriginalName();
+                $uploadSuccess   = $file->move($destinationPath, $filename);
+                $post->ImageUrlPart = $destinationPath . $filename;
+            }
+        }
+
         $post->save();
 
         return Redirect::to('/');
