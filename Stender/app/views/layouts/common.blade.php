@@ -54,7 +54,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/timeline">Tijdlijn</a></li>
                                 <li><a href="/profile/{{ Session::get('ProfileUrlPart') }}">Profiel</a></li>
-                                <li><a href="#">Connecties</a></li>
+                                <li><a href="/connections">Connecties</a></li>
                                 <li><a href="/settings">Instellingen</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/logout">Log uit</a></li>

@@ -23,7 +23,9 @@ Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 Route::post('postStatus', 'TimelineController@postStatus');
 Route::get('deleteStatus/{statusUpdateID}', 'TimelineController@deleteStatus');
 
-
+//Connections page
+Route::get('connections', 'ConnectionPageController@getConnectionView')->before('auth');
+Route::get('removeConnection/{connectionID}', 'ConnectionPageController@removeConnection');
 
 //settingspagina
 Route::get('settings', 'SettingsController@getSettings')->before('auth');
