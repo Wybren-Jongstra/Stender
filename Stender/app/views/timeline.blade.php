@@ -86,7 +86,7 @@ $(document).on('change', '.btn-file :file', function() {
                             {{ TimelineController::getUserProfileByUserID($statusUpdate['UserID'])['DisplayName'] }}
                         </a>
                         @if( $statusUpdate['UserID'] == Session::get('UserProfileID') )
-                            <a href="deleteStatus/{{ $statusUpdate['StatusUpdateID'] }}" class="delete-btn btn btn-xs btn-danger pull-right">
+                            <a href="deleteStatus/{{ $statusUpdate['StatusUpdateID'] }}" class="delete-btn btn btn-xs btn-danger">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
                         @endif
