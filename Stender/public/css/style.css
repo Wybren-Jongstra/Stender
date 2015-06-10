@@ -348,6 +348,12 @@ h5 {
 {
     margin-top: 14px;
 }
+@media (min-width: 992px) and (max-width: 1200px) {
+    #register h2 {
+        padding-top: 20px;
+        font-size: 16pt;
+    }
+}
 @media screen and (max-width: 992px) {
     #interest-block {
         border-right: none !important;
@@ -373,6 +379,12 @@ h5 {
         margin-top: 0 !important;
         background-color: transparent !important;
         border: 0 !important;
+    }
+    #register {
+        margin-bottom: 50px;
+    }
+    #register h2 {
+        padding-top: 20px;
     }
 }
 
