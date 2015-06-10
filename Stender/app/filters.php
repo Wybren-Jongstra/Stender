@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Security\Core\Util\StringUtils;
+
 /*
 |--------------------------------------------------------------------------
 | Application & Route Filters
@@ -85,7 +87,7 @@ Route::filter('csrf', function()
 {
     $token = Input::get('_token') ?: Request::header('X-CSRF-TOKEN');
 
-	if (Session::token() !== $token)
+	if ( ! StringUtils::equals(Session::token(), $token))
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
