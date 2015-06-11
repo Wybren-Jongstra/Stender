@@ -103,14 +103,17 @@ var attr = $(this).attr("id");
                     <h5>Vaardigheden</h5>
                 </div>
                 <div id="experience" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12 no-list-signs">
-                    <ul>
+                    <ul>@if($skills == null)
+                        <a href="/social?network=linkedin">Klik hier om je vaardigheden op te halen van LinkedIn!</a>
+                        @else
                         @foreach ( $skills as $id => $skill )
-                            <li><div class="btn-group skill col-lg-12" id="{{ $id }}">
+                            <li><div class="btn-group skill col-lg-12" id="skill{{ $id }}">
                                 <button type="button" class="btn btn-default btn-sm col-lg-8" >{{ $skill }}</button>
                                 <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
                                 </div>
                             </li>
                         @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -120,13 +123,17 @@ var attr = $(this).attr("id");
                 </div>
                 <div id="hashtags" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12 no-list-signs">
                     <ul>
+                        @if($hashtags == null)
+                        <a href="/social?network=twitter">Klik hier om hashtags op te halen van Twitter!</a>
+                        @else
                         @foreach ( $hashtags as $id => $hashtag )
-                            <li><div class="btn-group hashtag hashtag col-lg-12" id="{{ $id }}">
-                                <button type="button" class="btn btn-default btn-sm hashtag col-lg-8" >{{ $hashtag }}</button>
+                            <li><div class="btn-group hashtag col-lg-12" id="hashtag{{ $id }}">
+                                <button type="button" class="btn btn-default btn-sm hashtag col-lg-8" >#{{ $hashtag }}</button>
                                 <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
                                 </div>
                             </li>
                         @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>

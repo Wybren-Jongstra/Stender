@@ -23,6 +23,7 @@ class SocialController extends BaseController {
             try 
             {
                 Hybrid_Endpoint::process();
+
             }
             catch ( Exception $e ) 
             {
@@ -79,7 +80,6 @@ class SocialController extends BaseController {
 
                 $this->saveToDB($skills, 4);
 
-
                 $this->Logout();
             }
             elseif ( $network == "facebook" ) 
@@ -91,9 +91,7 @@ class SocialController extends BaseController {
                 // fetch user profile
                 $userProfile = $provider->getUserProfile();
                 //$user_timeline = $provider->getUserActivity("timeline");
-                echo "<pre>";
-                print_r($userProfile);
-                echo "</pre>";
+                
                 $link = $userProfile->profileURL;
                 // Create DOM from URL or file
                 $contents = $this->getContent('http://173.252.120.6/914228038636697');
@@ -107,13 +105,18 @@ class SocialController extends BaseController {
             }
 
             $provider->logout();
+            $urlpart = UserProfile::find(Auth::user()->UserProfileID);
+                return Redirect::to('editProfile/'.$urlpart['ProfileUrlPart']);
 
         }
         catch(Exception $e) 
         {
+
                     // exception codes can be found on HybBridAuth's web site
-            return $e->getMessage();
+            return "Op dit moment kunnen wij de gegevens niet voor je ophalen, probeer het later nog eens. </ br>".
+            $e->getMessage();
         }
+                    
     }
 
     public function getContent($url)
@@ -158,13 +161,14 @@ class SocialController extends BaseController {
 
             }
         }
-            Redirect::to('timeline');
     }
 
     public function update()
     { 
         $hashtagsUser = Hashtag::where('UserProfileID', '=', Auth::user()->UserProfileID)->get();
         $skillsUser = Skill::where('UserProfileID', '=', Auth::user()->UserProfileID)->get();
+
+
         
         $hashtags = array();
         $skills = array();
@@ -193,15 +197,18 @@ class SocialController extends BaseController {
 
     public function deleteHashtag()
     {
-        $id = Input::get('id');
-        $tag = Hashtag::find($id);
+        $hashtagID = Input::get('id');
+        $id = explode("hashtag", $hashtagID);
+
+        $tag = Hashtag::find($id[1]);
         $tag->delete();
     }
 
     public function deleteSkill()
     {
-        $id = Input::get('id');
-        $skill = Skill::find($id);
+        $skillID = Input::get('id');
+        $id = explode("skill", $skillID);
+        $skill = Skill::find($id[1]);
         $skill->delete();
     }
 }
