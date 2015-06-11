@@ -53,7 +53,7 @@
                 <div class="menu col-xs-3 col-sm-3 col-md-3 col-lg-offset-2 col-lg-1 pull-right">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="#" id="menuButton" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a>
+                            <a href="#" id="menuButton" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a> 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/timeline">Tijdlijn</a></li>
                                 <li><a href="/profile/{{ Session::get('ProfileUrlPart') }}">Profiel</a></li>

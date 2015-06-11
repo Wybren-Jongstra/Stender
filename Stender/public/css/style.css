@@ -143,7 +143,8 @@ h5 {
 .menu a {
     color: white;
 }
-.menu .dropdown-toggle:hover, .menu .dropdown-toggle:active, .menu .dropdown-toggle:visited {
+.menu .dropdown-toggle:hover, .menu .dropdown-toggle:active,
+.menu .dropdown-toggle:visited, .menu .dropdown-toggle:focus {
     color: white;
     background-color: transparent !important;
 }
@@ -347,6 +348,12 @@ h5 {
 {
     margin-top: 14px;
 }
+@media (min-width: 992px) and (max-width: 1200px) {
+    #register h2 {
+        padding-top: 20px;
+        font-size: 16pt;
+    }
+}
 @media screen and (max-width: 992px) {
     #interest-block {
         border-right: none !important;
@@ -357,6 +364,27 @@ h5 {
     }
     #hobby-block {
         border-top: 1px solid #cccccc;
+    }
+    .menu ul li ul {
+        width: 100% !important;
+    }
+    .dropdown-menu {
+        min-width: 100% !important;
+        z-index: 9999 !important;
+    }
+    .navbar-nav .open .dropdown-menu {
+        position: relative !important;
+        float: left !important;
+        width: 100% !important;
+        margin-top: 0 !important;
+        background-color: transparent !important;
+        border: 0 !important;
+    }
+    #register {
+        margin-bottom: 50px;
+    }
+    #register h2 {
+        padding-top: 20px;
     }
 }
 
