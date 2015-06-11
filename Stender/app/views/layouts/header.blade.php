@@ -8,7 +8,7 @@
 @yield('custom-meta-tags')
         <link rel="shortcut icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="{{ URL::to('css/style.css') }}" media="screen" />
+        {{ HTML::style('css/style.css', array('media' => 'screen, projection')) }}
         {{ HTML::style('packages/bootstrap/css/bootstrap.css', array('media' => 'screen, projection')) }}
 @yield('custom-stylesheets')
         {{ HTML::script('packages/jquery/jquery.js') }}
