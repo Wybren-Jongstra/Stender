@@ -5,7 +5,7 @@ class SettingsController extends BaseController {
     public function getSettings()
     {
         $profileData = $this->getData();
-        return View::make('settings')->with('data', $profileData);
+        return View::make('settings')->with('data', $profileData)->with('accountKinds', $this->getAccountKindData());
     }
 
     public function getData()
@@ -37,6 +37,21 @@ class SettingsController extends BaseController {
 //            'Education'  => $userprofile->Education,
             'Email' => Auth::user()->Email,
         );
+
+        return $data;
+    }
+
+    public function getAccountKindData()
+    {
+        $data = array();
+
+        // Hardcoded value
+        $accountKinds = AccountKind::where('Name', '!=', 'Stender')->get();
+        for($i = 0, $length = count($accountKinds); $i < $length; $i++)
+        {
+            $data[$i]['Name'] = $accountKinds[$i]->Name;
+            $data[$i]['lcName'] =  mb_strtolower($accountKinds[$i]['Name']);
+        }
 
         return $data;
     }
