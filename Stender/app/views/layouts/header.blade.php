@@ -5,7 +5,7 @@
 
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@yield('custom-meta-tags')
         <link rel="shortcut icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="{{ URL::to('css/style.css') }}" media="screen" />

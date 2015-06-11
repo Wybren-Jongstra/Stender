@@ -1,4 +1,5 @@
 @extends('layouts.header')
+    @section('custom-meta-tags', '<meta name="csrf-token" content="{{ csrf_token() }}">')
     @section('custom-stylesheets')
         {{ HTML::style('packages/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}
     @endsection
