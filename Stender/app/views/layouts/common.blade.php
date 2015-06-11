@@ -8,26 +8,26 @@
     @section('custom-scripts')
         {{ HTML::script('packages/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js') }}
 
-
         <script>
-        $(document).ready(function(){
+            $(document).ready(function(){
 
-//        $("#menuButton").onclick(function(){
-//            $(".dropdown-toggle").dropdown('toggle');
-//        });
+//            $("#menuButton").onclick(function(){
+//                $(".dropdown-toggle").dropdown('toggle');
+//            });
 
-        $( "#inputName" ).autocomplete(
-        {
-            source: '/search/autocomplete',
-            select: function( event, ui ) {
-                $( "#inputName" ).val( ui.item.label );
-                return false;
-            }
-        });
+            $( "#inputName" ).autocomplete(
+            {
+                source: '/search/autocomplete',
+                select: function( event, ui ) {
+                    $( "#inputName" ).val( ui.item.label );
+                    return false;
+                }
+            });
 
 
-            @yield('custom-jquery')
-        });
+                @yield('custom-jquery')
+            });
+            @yield('custom-script')
         </script>
     @endsection
     @section('body')
