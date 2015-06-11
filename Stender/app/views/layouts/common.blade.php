@@ -1,33 +1,37 @@
 @extends('layouts.header')
+    @section('custom-meta-tags', '<meta name="csrf-token" content="{{ csrf_token() }}">')
     @section('custom-stylesheets')
         {{ HTML::style('packages/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}
+        {{ HTML::style('packages/select2/dist/css/select2.css') }}
+        {{ HTML::style('packages/select2-bootstrap3-css/select2-bootstrap.css') }}
     @endsection
     @section('jquery-scripts')
         {{ HTML::script('packages/jqueryui/jquery-ui.js') }}
     @endsection
     @section('custom-scripts')
         {{ HTML::script('packages/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js') }}
-
+        {{ HTML::script('packages/select2/dist/js/select2.js') }}
 
         <script>
-        $(document).ready(function(){
+            $(document).ready(function(){
 
-//        $("#menuButton").onclick(function(){
-//            $(".dropdown-toggle").dropdown('toggle');
-//        });
+//            $("#menuButton").onclick(function(){
+//                $(".dropdown-toggle").dropdown('toggle');
+//            });
 
-        $( "#inputName" ).autocomplete(
-        {
-            source: '/search/autocomplete',
-            select: function( event, ui ) {
-                $( "#inputName" ).val( ui.item.label );
-                return false;
-            }
-        });
+            $( "#inputName" ).autocomplete(
+            {
+                source: '/search/autocomplete',
+                select: function( event, ui ) {
+                    $( "#inputName" ).val( ui.item.label );
+                    return false;
+                }
+            });
 
 
-            @yield('custom-jquery')
-        });
+                @yield('custom-jquery')
+            });
+            @yield('custom-script')
         </script>
     @endsection
     @section('body')

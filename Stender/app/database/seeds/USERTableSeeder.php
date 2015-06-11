@@ -16,6 +16,7 @@ class USERTableSeeder extends Seeder {
         // Generate also random user accounts
         // When the config property not exists, faker creates dumber values.
 		$faker = Faker::create(Config::get('app.locale'));
+        $faker->seed(5102); // create always the same fake accounts
 
         for ($i = 0; $i <= 4; $i++)
         {
