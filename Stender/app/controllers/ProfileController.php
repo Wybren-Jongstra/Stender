@@ -5,6 +5,7 @@ class ProfileController extends BaseController {
     public function getProfile($profileUrl)
     {
         $profileData = $this->getData($profileUrl);
+        $education = $this->getEducationInfo($profileUrl);
         $connectionSum = $this->getNumberConnections($profileData['UserProfileID']);
         $stenderScore = $this->getStenderScore($profileData['UserProfileID']);
         $vote = $this->checkForVoteFromUser($profileData['UserProfileID']);
@@ -14,19 +15,23 @@ class ProfileController extends BaseController {
         $hashtags = $this->getHashTags($profileData['UserProfileID']);
         $reviews = $this->getReviews($profileData['UserProfileID']);
 
+
+
         //TODO Maybe do not get the data twice
         return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)
             ->with('hashtags', $hashtags)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
-            ->with('stenderScore', $stenderScore)->with('vote', $vote);
+            ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('education', $education);
+    
     }
 
     public function editprofile($profileUrl)
     {
         $profileData = $this->getData($profileUrl);
+        $education = $this->getEducationInfo($profileUrl);
         $skills = $this->getSkills($profileData['UserProfileID']);
         $hashtags = $this->getHashTags($profileData['UserProfileID']);
         return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
-            ->with('hashtags', $hashtags);
+            ->with('hashtags', $hashtags)->with('education', $education);
     }
 
     public function getData($profileUrl)
@@ -55,7 +60,7 @@ class ProfileController extends BaseController {
         'City'  => $userprofile->City,
         'Country' => $userprofile->Country,
         'AlternativeEmail'  => $userprofile->AlternativeEmail,
-        'Education'  => $userprofile->Education,
+        'Education'  => $userprofile->EducationID,
         );
 
         return $data;
@@ -294,13 +299,14 @@ class ProfileController extends BaseController {
 
     public function getHashTags($profileID)
     {
-        $places = Hashtag::where('UserProfileID', '=', $profileID)->get();
+        $hashtags = Hashtag::where('UserProfileID', '=', $profileID)->get();
 
-        $placeArray = array();
-        foreach ($places as $place) {
-            $placeArray[] = $place->Value;
+        $hashtagArray = array();
+        foreach ($hashtags as $hashtag) {
+            $hashtagArray[$hashtag->HashtagID] = $hashtag->Value;
         }
-        return $placeArray;
+
+        return $hashtagArray;
     }
 
     public function getSkills($profileID)
@@ -309,8 +315,10 @@ class ProfileController extends BaseController {
 
         $skillArray = array();
         foreach ($skills as $skill) {
-            $skillArray[] = $skill->Value;
+            $skillArray[$skill->SkillID] = $skill->Value;
+
         }
+
         return $skillArray;
     }
 
@@ -320,8 +328,16 @@ class ProfileController extends BaseController {
 
         $interestArray = array();
         foreach ($interests as $interest) {
-            $interestArray[] = $interest->Value;
-        }
+            $interestArray[$interest->InterestID] = $interest->Value;
+        }        
+
         return $interestArray;
+    }
+
+    public function getEducationInfo($educationID)
+    {
+        $Education = Education::where('EducationID', '=', $educationID)->first();
+
+        return $Education;
     }
 }
