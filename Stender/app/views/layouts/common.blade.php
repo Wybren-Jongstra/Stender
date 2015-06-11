@@ -2,12 +2,15 @@
     @section('custom-meta-tags', '<meta name="csrf-token" content="{{ csrf_token() }}">')
     @section('custom-stylesheets')
         {{ HTML::style('packages/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}
+        {{ HTML::style('packages/select2/dist/css/select2.css') }}
+        {{ HTML::style('packages/select2-bootstrap3-css/select2-bootstrap.css') }}
     @endsection
     @section('jquery-scripts')
         {{ HTML::script('packages/jqueryui/jquery-ui.js') }}
     @endsection
     @section('custom-scripts')
         {{ HTML::script('packages/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js') }}
+        {{ HTML::script('packages/select2/dist/js/select2.js') }}
 
         <script>
             $(document).ready(function(){

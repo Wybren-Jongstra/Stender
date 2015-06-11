@@ -14,6 +14,8 @@
         "components/font-awesome": "~4.3",
         "lipis/bootstrap-social": "dev-gh-pages",
         "vitalets/x-editable": "dev-master",
+        "select2/select2": "*",
+        "silverfire/select2-bootstrap3-css": "*",
         "robloach/component-installer": "*"
     },
 	"require-dev": {
@@ -80,6 +82,21 @@
         "vitalets/x-editable": {
           "files": [
             "dist/bootstrap3-editable/img/*"
+          ]
+        },
+        "select2/select2": {
+          "scripts": [
+            "dist/js/select2.js",
+            "dist/js/i18n/en.js",
+            "dist/js/i18n/nl.js"
+          ],
+          "styles": [
+            "dist/css/select2.css"
+          ]
+        },
+        "silverfire/select2-bootstrap3-css": {
+          "styles": [
+            "select2-bootstrap.css"
           ]
         }
       }
