@@ -396,3 +396,17 @@ h5 {
 {
     font-size: 18px !important;
 }
+
+/*
+* Settings.blade.php
+*/
+.btn-social {
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+@media (max-width: 767px) {
+    .btn-social {
+        min-width: 210px;
+    }
+}
