@@ -42,6 +42,12 @@ class SeedBenchmark extends Command {
 	 */
 	public function fire()
 	{
+        if( ! $this->argument('noCache'))
+        {
+            // Fill the cache with the heaviest object oriented query to the database
+            UserProfile::all();
+        }
+
         if($this->option('benchmark'))
         {
             $this->runBenchmark($this->option('benchmark'));
@@ -63,7 +69,7 @@ class SeedBenchmark extends Command {
 	protected function getArguments()
 	{
 		return array(
-			//array('example', InputArgument::REQUIRED, 'An example argument.'),
+            array('noCache', InputArgument::OPTIONAL, 'Fills not in advance the cache with the results from the model/the models.'),
 		);
 	}
 
