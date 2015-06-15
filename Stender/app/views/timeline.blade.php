@@ -71,8 +71,8 @@ $(document).on('change', '.btn-file :file', function() {
                     {{ Form::textarea('userStatus', '', array('class' => 'form-control', 'rows' => '3', 'placeholder' => 'Wat ben je aan het doen?')) }}
                     {{ Form::text('image', '', array('id' => 'image', 'class' => 'form-control', 'readonly' => 'readonly')) }}
                     <div class="btn-group no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group">
-                        <span class="btn btn-default btn-file btn col-xs-4 col-sm-2 col-md-2 col-lg-2">
-                            Browse {{ Form::file('statusImage', '', array('class' => 'col-xs-4 col-sm-2 col-md-4 col-lg-2', 'value' => 'Browse')) }}
+                        <span class="btn btn-default btn-file btn col-xs-4 col-sm-4 col-md-2 col-lg-2">
+                            Afbeelding {{ Form::file('statusImage', '', array('class' => 'col-xs-4 col-sm-4 col-md-4 col-lg-2', 'value' => 'Afbeelding')) }}
                         </span>
                         {{ Form::submit('Plaats status', array('type' => 'button', 'class' => 'btn btn-success col-xs-4 col-sm-4 col-md-2 col-lg-2')) }}
                     </div>
