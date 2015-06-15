@@ -23,7 +23,7 @@ class GetAccountKindBenchmark extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Benchmarks the speed of getting all account kinds.';
+	protected $description = 'Benchmarks the speed of getting the account kinds that are external accounts.';
 
 	/**
 	 * Create a new command instance.
