@@ -108,7 +108,8 @@ class SeedBenchmark extends Command {
                 $this->runAllModelsBenchmark();
                 break;
             default:
-                $this->error('Invalid seed benchmark name!');
+                $this->error('Invalid seed benchmark name! ' .
+                    'Possible options: ' . implode(', ', $this->getSeedBenchmarkNames()));
         }
     }
 

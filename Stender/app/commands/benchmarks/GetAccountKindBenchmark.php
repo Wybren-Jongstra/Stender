@@ -106,7 +106,7 @@ class GetAccountKindBenchmark extends Command {
                 $this->runModelBenchmark();
                 break;
             default:
-                $this->error('Invalid method name!');
+                $this->error('Invalid method name! Possible options: ' . implode(', ', $this->getMethodName()));
         }
     }
 
