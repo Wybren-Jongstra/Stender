@@ -44,7 +44,7 @@ class GetAccountKindBenchmark extends Command {
 	{
         if( ! $this->argument('noCache'))
         {
-            // Fill the cache
+            // Fill the cache with the heaviest object oriented query to the database
             AccountKind::where('Name', '!=', 'Stender')->get();
         }
 
