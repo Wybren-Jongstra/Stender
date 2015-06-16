@@ -5,7 +5,6 @@ class ProfileController extends BaseController {
     public function getProfile($profileUrl)
     {
         $profileData = $this->getData($profileUrl);
-        $education = $this->getEducationInfo($profileUrl);
         $connectionSum = $this->getNumberConnections($profileData['UserProfileID']);
         $stenderScore = $this->getStenderScore($profileData['UserProfileID']);
         $vote = $this->checkForVoteFromUser($profileData['UserProfileID']);
@@ -14,6 +13,7 @@ class ProfileController extends BaseController {
         $skills = $this->getSkills($profileData['UserProfileID']);
         $hashtags = $this->getHashTags($profileData['UserProfileID']);
         $reviews = $this->getReviews($profileData['UserProfileID']);
+        $education = $this->getEducation($this->getData($profileUrl)['EducationID']);
 
 
 
@@ -27,7 +27,7 @@ class ProfileController extends BaseController {
     public function editprofile($profileUrl)
     {
         $profileData = $this->getData($profileUrl);
-        $education = $this->getEducationInfo($profileUrl);
+        $education = $this->getEducations();
         $skills = $this->getSkills($profileData['UserProfileID']);
         $hashtags = $this->getHashTags($profileData['UserProfileID']);
         return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
@@ -60,7 +60,7 @@ class ProfileController extends BaseController {
         'City'  => $userprofile->City,
         'Country' => $userprofile->Country,
         'AlternativeEmail'  => $userprofile->AlternativeEmail,
-        'Education'  => $userprofile->EducationID,
+        'EducationID'  => $userprofile->EducationID,
         );
 
         return $data;
@@ -334,10 +334,25 @@ class ProfileController extends BaseController {
         return $interestArray;
     }
 
-    public function getEducationInfo($educationID)
+    public function getEducations()
     {
-        $Education = Education::where('EducationID', '=', $educationID)->first();
+        $Education = Education::all();
 
         return $Education;
+    }
+
+    public function getEducation($id)
+    {
+        $Education = Education::where('EducationID', '=', $id)->firstOrFail();
+
+        return $Education->Name;
+    }
+
+    public function changeEducation()
+    {
+        $id = Input::get('id');
+        $user = UserProfile::where('UserProfileID', '=', Session::get('UserProfileID'))->firstOrFail();
+        $user->educationID = $id;
+        $user->save();
     }
 }
