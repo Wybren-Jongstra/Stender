@@ -54,6 +54,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     }
 
     /**
+     * Defines the relationship with the UserProfile model.
+     *
+     * @return mixed
+     */
+    public function userProfile()
+    {
+        return $this->belongsTo('UserProfile', 'UserProfileID');
+    }
+
+    /**
      * Override to get the password for the user from the correct column from the database.
      *
      * {@inheritDoc}
