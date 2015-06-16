@@ -7,23 +7,23 @@ class SearchController extends BaseController {
 	 *
 	 * @return Response
 	 */
-    public function autocomplete(){
+    public function autocomplete()
+    {
         $term = Input::get('term');
 
         $search = UserProfile::where('FirstName', 'LIKE', '%'.$term.'%')
             ->orWhere('Surname', 'LIKE', '%'.$term.'%')
             ->orWhere('DisplayName', 'LIKE', '%'.$term.'%')
+            ->orderBy('UserProfileID')
+            ->select('UserProfileID', 'DisplayName')
             ->take(5)
+            ->with('user') // Start with lower case to to indicate that it is an added item and no table column.
             ->get();
 
         $results = array();
-        foreach ($search as $query)
+        foreach ($search as $row)
         {
-            $search2 = User::where('UserProfileId', '=', $query->UserProfileID)->get();
-            foreach ($search2 as $finish)
-            {
-                $results[] = [ 'id' => $finish->UserID, 'label' => $query->DisplayName, 'actor'=> $query->DisplayName];
-            }
+            $results[] = ['id' => $row->user->UserID, 'label' => $row->DisplayName, 'actor'=> $row->DisplayName];
         }
 
         return Response::json($results);

@@ -5,7 +5,7 @@ class SettingsController extends BaseController {
     public function getSettings()
     {
         $profileData = $this->getData();
-        return View::make('settings')->with('data', $profileData)->with('accountKinds', $this->getAccountKindData());
+        return View::make('settings')->with('data', $profileData)->with('externalAccountKinds', $this->getExternalAccountKindData());
     }
 
     public function getData()
@@ -41,21 +41,20 @@ class SettingsController extends BaseController {
         return $data;
     }
 
-    public function getAccountKindData()
+    public function getExternalAccountKindData()
     {
-        $data = array();
+//        /* This code uses a join, therefore one query less must be executed.
+//         * That gives that this code is twice as fast but is uses not the models. */
+//        $tempExternalAccountKind = new ExternalAccountKind();
+//        $tempAccountKind = new AccountKind();
+//
+//        $dbQuery = DB::table($tempExternalAccountKind->getTable())
+//            ->leftJoin($tempAccountKind->getTable(), $tempAccountKind->getQualifiedKeyName(), '=', $tempExternalAccountKind->getQualifiedKeyName())
+//            ->select('Name', 'PopupHeight', 'PopupWidth')
+//            ->get();
 
-        // Hardcoded value
-        $accountKinds = AccountKind::where('Name', '!=', 'Stender')->get();
-        for($i = 0, $length = count($accountKinds); $i < $length; $i++)
-        {
-            $data[$i]['Name'] = $accountKinds[$i]->Name;
-            $data[$i]['lcName'] =  mb_strtolower($accountKinds[$i]['Name']);
-        }
-
-        return $data;
+        return ExternalAccountKind::with('accountKind')->get()->toArray();
     }
-
 
 //    public function saveChanges($profileUrl)
 //    {

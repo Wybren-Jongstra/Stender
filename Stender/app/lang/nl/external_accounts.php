@@ -4,7 +4,7 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Accounts Language Lines
+    | External Accounts Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are the default lines which matches text that

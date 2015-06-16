@@ -34,5 +34,21 @@ class AccountKind extends Eloquent {
      */
     protected $hidden = array('AccountKindID');
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = array('lcName');
 
+
+    /**
+     * Add a lower case version of the name attribute.
+     *
+     * @return bool|mixed|string
+     */
+    public function getLcNameAttribute()
+    {
+        return mb_strtolower($this->Name);
+    }
 }

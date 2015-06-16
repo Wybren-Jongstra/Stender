@@ -42,6 +42,13 @@ class CompareProfileUrlPartBenchmark extends Command {
 	 */
 	public function fire()
 	{
+        if( ! $this->argument('noCache'))
+        {
+            // Fill the cache with the heaviest object oriented query to the database
+            // REMARK: Simple SQL-Injection possible. You can use the % sign to get more (unexpected) results.
+            DB::table('USER_PROFILE')->select('ProfileUrlPart')->where('ProfileUrlPart', 'LIKE', $this->option('profileUrlPart') . '%')->get();
+        }
+
         if($this->option('method'))
         {
             $this->runBenchmark($this->option('method'));
@@ -63,7 +70,7 @@ class CompareProfileUrlPartBenchmark extends Command {
 	protected function getArguments()
 	{
 		return array(
-			//array('example', InputArgument::REQUIRED, 'An example argument.'),
+            array('noCache', InputArgument::OPTIONAL, 'Fills not in advance the cache with the results from the model/the models.'),
 		);
 	}
 
@@ -101,7 +108,7 @@ class CompareProfileUrlPartBenchmark extends Command {
                 $this->runArrayBenchmark();
                 break;
             default:
-                $this->error('Invalid method name!');
+                $this->error('Invalid method name! Possible options: ' . implode(', ', $this->getMethodName()));
         }
     }
 

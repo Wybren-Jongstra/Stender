@@ -21,8 +21,6 @@
      */
     function openWindowCentredPopup(name, url, height, width)
     {
-    //TODO
-    // Add horizontal offset
         // Get the position of the window on the screen.
         // Works with dual screen monitors.
         var windowLeft = window.screenLeft ? window.screenLeft : window.screenX;
@@ -100,10 +98,10 @@
                     <h5>Social media accounts</h5>
                 </div>
                 <div id="external-accounts-list" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    @foreach ($accountKinds as $accountKind)
+                    @foreach ($externalAccountKinds as $externalAccountKind)
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                            <a href="" target="_blank" onclick="return openWindowCentredPopup('connect{{ $accountKind['Name'] }}', '{{ URL::to('/social?network='.$accountKind['lcName']) }}', 400, 400)" class="btn btn-social btn-{{ $accountKind['lcName'] }}">
-                                <i class="fa fa-{{ $accountKind['lcName'] }}"></i> {{ Lang::get('accounts.connect', ['network' => $accountKind['Name']]) }}
+                            <a href="" target="_blank" onclick="return openWindowCentredPopup('connect{{ $externalAccountKind['accountKind']['Name'] }}', '{{ URL::to('/social?network='.$externalAccountKind['accountKind']['lcName']) }}', '{{ $externalAccountKind['PopupHeight'] }}', '{{ $externalAccountKind['PopupHeight'] }}')" class="btn btn-social btn-{{ $externalAccountKind['accountKind']['lcName'] }}">
+                                <i class="fa fa-{{ $externalAccountKind['accountKind']['lcName'] }}"></i> {{ Lang::get('external_accounts.connect', ['network' => $externalAccountKind['accountKind']['Name']]) }}
                             </a>
                         </div>
                     @endforeach
