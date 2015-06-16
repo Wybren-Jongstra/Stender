@@ -13,13 +13,14 @@ class ProfileController extends BaseController {
         $skills = $this->getSkills($profileData['UserProfileID']);
         $hashtags = $this->getHashTags($profileData['UserProfileID']);
         $reviews = $this->getReviews($profileData['UserProfileID']);
+        $education = $this->getEducation($this->getData($profileUrl)['EducationID']);
 
 
 
         //TODO Maybe do not get the data twice
         return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)
             ->with('hashtags', $hashtags)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
-            ->with('stenderScore', $stenderScore)->with('vote', $vote);
+            ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('education', $education);
     
     }
 
@@ -338,6 +339,13 @@ class ProfileController extends BaseController {
         $Education = Education::all();
 
         return $Education;
+    }
+
+    public function getEducation($id)
+    {
+        $Education = Education::where('EducationID', '=', $id)->firstOrFail();
+
+        return $Education->Name;
     }
 
     public function changeEducation()
