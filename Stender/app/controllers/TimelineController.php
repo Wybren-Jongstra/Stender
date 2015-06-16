@@ -173,7 +173,7 @@ class TimelineController extends BaseController {
     }
 
     /**
-     * Get the
+     * Get the time since an action by timestamp
      * @param $timestamp
      * @return string
      */
@@ -182,6 +182,11 @@ class TimelineController extends BaseController {
         return \Carbon\Carbon::createFromTimeStamp(strtotime($timestamp))->diffForHumans();
     }
 
+    /**
+     * Get the UserProfile by an UserID
+     * @param $userID
+     * @return mixed
+     */
     public static function getUserProfileByUserID($userID)
     {
         $user = User::where('UserProfileID', '=', $userID)->first();
@@ -189,6 +194,9 @@ class TimelineController extends BaseController {
         return $userProfile;
     }
 
+    /**
+     * Fill a session with user data
+     */
     public static function fillSession()
     {
         $userprofile = UserProfile::find(Auth::user()->UserProfileID);
