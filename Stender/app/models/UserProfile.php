@@ -44,5 +44,5 @@ class UserProfile extends Eloquent {
         return $this->hasOne('User', 'UserID');
     }
 
-    
+
 }
