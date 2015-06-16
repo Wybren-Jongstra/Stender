@@ -33,7 +33,6 @@
 
                 @yield('custom-jquery')
             });
-            @yield('custom-script')
         </script>
     @endsection
     @section('body')
