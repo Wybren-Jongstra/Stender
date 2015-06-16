@@ -34,5 +34,15 @@ class UserProfile extends Eloquent {
 	 */
 	protected $hidden = array('');
 
+    /**
+     * Defines the relationship with the User model.
+     *
+     * @return mixed
+     */
+    public function user()
+    {
+        return $this->hasOne('User', 'UserID');
+    }
+
 
 }

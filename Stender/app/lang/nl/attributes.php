@@ -37,6 +37,6 @@ return array(
     |
     */
 
-    'attribute-name' => 'custom-message',
+    'attribute_name' => 'custom-message',
 
 );

@@ -12,3 +12,4 @@
 */
 Artisan::resolve('App\Commands\Benchmarks\SeedBenchmark');
 Artisan::resolve('App\Commands\Benchmarks\CompareProfileUrlPartBenchmark');
+Artisan::resolve('App\Commands\Benchmarks\GetAccountKindBenchmark');

@@ -232,7 +232,7 @@ class MigrateGenerateCommand extends GeneratorCommand {
 		}
 
 		foreach ( $tables as $table ) {
-			$this->migrationName = $prefix .'_'. $table .'_table6';
+			$this->migrationName = $prefix .'_'. $table .'_table7';
 			$this->method = $method;
 			$this->table = $table;
 			$this->fields = $this->schemaGenerator->{$function}( $table );

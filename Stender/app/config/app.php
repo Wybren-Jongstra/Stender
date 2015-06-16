@@ -124,6 +124,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider',
 		'Yangqi\Htmldom\HtmldomServiceProvider',
+        'Barryvdh\Debugbar\ServiceProvider',
 	),
 
 	/*
