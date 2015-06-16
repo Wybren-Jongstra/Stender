@@ -14,8 +14,10 @@ class DatabaseSeeder extends Seeder {
         $this->call('ACCOUNTKINDTableSeeder');
         $this->call('EXTERNALACCOUNTKINDTableSeeder');
         $this->call('CONNECTIONSTATUSTableSeeder');
+        $this->call('EDUCATIONTableSeeder');
         $this->call('USERKINDTableSeeder');
 		$this->call('USERTableSeeder');
+
 	}
 
 }

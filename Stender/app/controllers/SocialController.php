@@ -82,22 +82,24 @@ class SocialController extends BaseController {
 
                 $this->Logout();
             }
-            elseif ( $network == "facebook" ) 
+            elseif ( $network == "foursquare" ) 
             {
                 // create a HybridAuth object
                 $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
                 // authenticate with Google
-                $provider = $socialAuth->authenticate("Facebook");
+                $provider = $socialAuth->authenticate("Foursquare");
                 // fetch user profile
                 $userProfile = $provider->getUserProfile();
-                //$user_timeline = $provider->getUserActivity("timeline");
                 
-                $link = $userProfile->profileURL;
-                // Create DOM from URL or file
-                $contents = $this->getContent('http://173.252.120.6/914228038636697');
-                echo $contents;
+                $link = $userProfile->list;
+                
+                 $contents = $this->getContent($link);
+
+                $res = file_get_contents($link);
+                echo $res;
 
                 $this->Logout();
+                die();
             }
             else
             {
