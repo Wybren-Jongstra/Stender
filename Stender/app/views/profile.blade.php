@@ -50,7 +50,7 @@ $('#vote-down-button').click(function() {
                 <h2>{{ $data['DisplayName'] }}</h2>
                 Geboren: {{ $data['Birthday'] }}<br/>
                 Woonplaats: {{ $data['City'] }}<br/>
-                Opleiding: {{ $education }}
+                Opleiding: {{ $education['Name'] }}
 
                 <div id="profile-score-info" class="no-padding-left col-xs-11 col-sm-12 col-md-12 col-lg-12">
                     <div class="no-padding-left col-xs-4 col-sm-3 col-md-3 col-lg-3">
