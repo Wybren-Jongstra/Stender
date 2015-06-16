@@ -27,12 +27,21 @@ class ProfileController extends BaseController {
 
     public function editprofile($profileUrl)
     {
-        $profileData = $this->getData($profileUrl);
-        $education = $this->getEducations();
-        $skills = $this->getSkills($profileData['UserProfileID']);
-        $hashtags = $this->getHashTags($profileData['UserProfileID']);
-        return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
-            ->with('hashtags', $hashtags)->with('education', $education);
+        if($profileUrl == Session::get('ProfileUrlPart'))
+        {
+            $profileData = $this->getData($profileUrl);
+            $education = $this->getEducations();
+            $skills = $this->getSkills($profileData['UserProfileID']);
+            $hashtags = $this->getHashTags($profileData['UserProfileID']);
+            return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
+                ->with('hashtags', $hashtags)->with('education', $education);
+        }
+        else
+        { 
+            print_r(Session::get('ProfileUrlPart').$profileUrl);
+            return Redirect::to('profile/'.$profileUrl);
+        }
+        
     }
 
     public function getData($profileUrl)
