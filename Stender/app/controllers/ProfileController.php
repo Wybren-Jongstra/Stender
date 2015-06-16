@@ -344,9 +344,9 @@ class ProfileController extends BaseController {
 
     public function getEducation($id)
     {
-        $Education = Education::where('EducationID', '=', $id)->firstOrFail();
+        $Education = Education::where('EducationID', '=', $id)->first();
 
-        return $Education->Name;
+        return $Education;
     }
 
     public function changeEducation()
