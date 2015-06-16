@@ -4,23 +4,24 @@ class ProfileController extends BaseController {
 
     public function getProfile($profileUrl)
     {
-        $profileData = $this->getData($profileUrl);
-        $connectionSum = $this->getNumberConnections($profileData['UserProfileID']);
-        $stenderScore = $this->getStenderScore($profileData['UserProfileID']);
-        $vote = $this->checkForVoteFromUser($profileData['UserProfileID']);
-    	$getCheckConnection = $this->checkForConnection($profileData['UserProfileID']);
-        $interests = $this->getInterests($profileData['UserProfileID']);
-        $skills = $this->getSkills($profileData['UserProfileID']);
-        $hashtags = $this->getHashTags($profileData['UserProfileID']);
-        $reviews = $this->getReviews($profileData['UserProfileID']);
-        $education = $this->getEducation($this->getData($profileUrl)['EducationID']);
+        
+            $profileData = $this->getData($profileUrl);
+            $connectionSum = $this->getNumberConnections($profileData['UserProfileID']);
+            $stenderScore = $this->getStenderScore($profileData['UserProfileID']);
+            $vote = $this->checkForVoteFromUser($profileData['UserProfileID']);
+        	$getCheckConnection = $this->checkForConnection($profileData['UserProfileID']);
+            $interests = $this->getInterests($profileData['UserProfileID']);
+            $skills = $this->getSkills($profileData['UserProfileID']);
+            $hashtags = $this->getHashTags($profileData['UserProfileID']);
+            $reviews = $this->getReviews($profileData['UserProfileID']);
+            $education = $this->getEducation($this->getData($profileUrl)['EducationID']);
 
 
 
-        //TODO Maybe do not get the data twice
-        return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)
-            ->with('hashtags', $hashtags)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
-            ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('education', $education);
+            //TODO Maybe do not get the data twice
+            return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)
+                ->with('hashtags', $hashtags)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
+                ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('education', $education);
     
     }
 
