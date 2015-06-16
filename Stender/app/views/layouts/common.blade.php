@@ -58,7 +58,7 @@
                             <a href="#" id="menuButton" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Menu <span class="caret"></span></a> 
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="/timeline">Tijdlijn</a></li>
-                                <li><a href="/profile/{{ Session::get('ProfileUrlPart') }}">Profiel</a></li>
+                                <li><a href="/editProfile/{{ Session::get('ProfileUrlPart') }}">Profiel</a></li>
                                 <li><a href="/connections">Connecties</a></li>
                                 <li><a href="/settings">Instellingen</a></li>
                                 <li class="divider"></li>
