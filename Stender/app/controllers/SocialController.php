@@ -108,7 +108,7 @@ class SocialController extends BaseController {
 
             $provider->logout();
             $urlpart = UserProfile::find(Auth::user()->UserProfileID);
-                return Redirect::to('editProfile/'.$urlpart['ProfileUrlPart']);
+                return Redirect::to('closeWindow');
 
         }
         catch(Exception $e) 
@@ -212,5 +212,9 @@ class SocialController extends BaseController {
         $id = explode("skill", $skillID);
         $skill = Skill::find($id[1]);
         $skill->delete();
+    }
+    public function closeWindow()
+    {
+        return View::make('close');
     }
 }

@@ -2,6 +2,10 @@
 
 class TimelineController extends BaseController {
 
+    /**
+     * Create the view timeline
+     * @return mixed
+     */
     public function getTimeline()
     {
         $this->fillSession();
@@ -17,6 +21,12 @@ class TimelineController extends BaseController {
             ->with('connectionProfiles', $connectProfiles)->with('statusUpdates', $statusupdates);
     }
 
+    /**
+     * Get the connections of an user by the UserProfileID.
+     * This function gets only the connections of an user which are approved(ConnectionStatusID = 2).
+     * @param $usrProfID
+     * @return array
+     */
     public function getConnections($usrProfID)
     {
         $usrID = User::where('UserProfileID', '=', $usrProfID)->first();
@@ -48,6 +58,11 @@ class TimelineController extends BaseController {
         return array_merge($connectionsForArray, $connectionsFromArray);
     }
 
+    /**
+     * Get the number of connections of a user by UserProfileID.
+     * @param $usrProfID
+     * @return mixed
+     */
     public function getNumberConnections($usrProfID)
     {
         $usrID = User::where('UserProfileID', '=', $usrProfID)->first();
@@ -59,6 +74,11 @@ class TimelineController extends BaseController {
         return $connections;
     }
 
+    /**
+     * Get the Stender score of a user by UserProfileID
+     * @param $usrProfID
+     * @return mixed
+     */
     public function getStenderScore($usrProfID)
     {
         $usrID = User::where('UserProfileID', '=', $usrProfID)->first();
@@ -66,10 +86,17 @@ class TimelineController extends BaseController {
         // ConnectionStatusID = 2 => Approved
         $stenderScoreForPrTrue = UserVote::where('Upvote', '=', 1)->where('ForUserID', '=', $usrID->UserID)->count();
         $stenderScoreForPrFalse = UserVote::where('Upvote', '=', 0)->where('ForUserID', '=', $usrID->UserID)->count();
+
+        // Calculate the stenderscore
         $stenderScore = $stenderScoreForPrTrue - $stenderScoreForPrFalse;
         return $stenderScore;
     }
 
+    /**
+     * Get the status updates of all connected users by the connections of a user.
+     * @param $connections
+     * @return mixed
+     */
     public function getStatusUpdates($connections)
     {
         $userIdArray = array();
@@ -83,6 +110,10 @@ class TimelineController extends BaseController {
         return $friends_status_updates;
     }
 
+    /**
+     * Save the posted status update, with or without image, in the database.
+     * @return mixed
+     */
     public function postStatus()
     {
         $post = new StatusUpdate();
@@ -118,7 +149,7 @@ class TimelineController extends BaseController {
             {
                 $file            = Input::file('statusImage');
                 $destinationPath = 'uploads/';
-                $filename        = str_random(6) . '_' . $file->getClientOriginalName();
+                $filename        = Session::get('UserID') . '_' . str_random(6) . '_' . $file->getClientOriginalName();
                 $uploadSuccess   = $file->move($destinationPath, $filename);
                 $post->ImageUrlPart = $destinationPath . $filename;
             }
@@ -129,6 +160,11 @@ class TimelineController extends BaseController {
         return Redirect::to('/');
     }
 
+    /**
+     * Delete a status update of a user by StatusUpdateID
+     * @param $statusID
+     * @return mixed
+     */
     public function deleteStatus($statusID)
     {
         $statusUpdate = StatusUpdate::where('StatusUpdateID', '=', $statusID)->firstOrFail();
@@ -136,11 +172,21 @@ class TimelineController extends BaseController {
         return Redirect::to('/');
     }
 
+    /**
+     * Get the time since an action by timestamp
+     * @param $timestamp
+     * @return string
+     */
     public static function getTimeAgo($timestamp)
     {
         return \Carbon\Carbon::createFromTimeStamp(strtotime($timestamp))->diffForHumans();
     }
 
+    /**
+     * Get the UserProfile by an UserID
+     * @param $userID
+     * @return mixed
+     */
     public static function getUserProfileByUserID($userID)
     {
         $user = User::where('UserProfileID', '=', $userID)->first();
@@ -148,6 +194,9 @@ class TimelineController extends BaseController {
         return $userProfile;
     }
 
+    /**
+     * Fill a session with user data
+     */
     public static function fillSession()
     {
         $userprofile = UserProfile::find(Auth::user()->UserProfileID);
