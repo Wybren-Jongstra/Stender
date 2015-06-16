@@ -34,6 +34,16 @@ var attr = $(this).attr("id");
     }
     })
 });
+
+ $(".education").val('{{ $data['EducationID'] }}');
+$(".education").on('change', function() {
+  $.ajax({
+    url: "{{ URL::to('/changeEducation/') }}",
+    type: "POST",
+    data: 'id='+$(this).val(),
+    })
+
+});
 @endsection
 @section('content')
 <div id="content" class="container">
@@ -68,12 +78,17 @@ var attr = $(this).attr("id");
                     @else
                        {{ $data['City'] }} 
                     @endif</b></br>
-                    Opleiding:<b class="click" id="Education">
-                    @if($data['Education'] == null)
-                        {{"Voer je opleiding in!"}}
-                    @else
-                       {{ $data['Education'] }} 
-                    @endif{{ $data['Education'] }}</b>
+                    Opleiding:
+                    <select class="education" style="width: 250px;">
+                        @if($data['EducationID'] == null)
+                            <option value=''>- Kies een opleiding -</option>
+                        @endif
+                        @foreach($education as $name)
+                        <option value="{{ $name['EducationID'] }}">{{ $name['Name'] }}</option>
+                        @endforeach
+                    </select>
+                       
+                    
                 </div>
                 <div id="profile-score-info" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <span class="scoreHeader">Connecties</span>

@@ -43,6 +43,8 @@ Route::get('profile/deleteReview/{reviewID}', 'ProfileController@deleteReview');
 Route::get('editProfile/{profileUrl}', 'ProfileController@editProfile')->before('auth');
 //save de aanpassingen:
 Route::post('saveProfile/{profileUrl}', 'ProfileController@saveChanges')->before('auth');
+//verander de EducationID
+Route::post('changeEducation', 'ProfileController@changeEducation');
 
 //Search controller
 Route::get('search/autocomplete/', 'SearchController@autocomplete');
