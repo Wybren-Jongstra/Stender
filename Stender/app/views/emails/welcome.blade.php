@@ -4,11 +4,11 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <h2>Verify Your Email Address!</h2>
+        <h2>Verifieer je e-mailadres!</h2>
 
         <div>
-            Thanks for creating a Stender account. <br />
-            Please follow the link below to verify your email address:<br />
+            Bedankt voor het registreren op Stender. <br />
+            Klik op de link hieronder om je e-mailadres te verifiëren.<br />
             {{ URL::to('verify/' . $confirmationCode) }}.<br />
 
         </div>
