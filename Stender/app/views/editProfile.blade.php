@@ -1,10 +1,5 @@
 @extends('layouts.common')
-@section('custom-scripts')
-    @parent    {{-- Avoid an accidentally overwrite --}}
-    {{ HTML::script('js/popup.js') }}
-@endsection
 @section('custom-jquery')
-
    $('.click').editable({
     type: 'text',
     pk: 0,
@@ -62,7 +57,6 @@ $(".education").on('change', function() {
 });
 
 
-findPopups();
 @endsection
 @section('content')
 <div id="content" class="container">
@@ -146,9 +140,6 @@ findPopups();
                     <ul>
                         @if($interests == null)
                             <a href="/social?network=facebook">Klik hier om je interesses op te halen van Facebook!</a>
-                            <a class="btn btn-social btn-facebook" data-popup-width="555" data-popup-height="370" data-popup-name="connectFacebook" data-rel="popup" target="_blank" href="http://stender.app/social?network=facebook">
-                                <i class="fa fa-facebook"></i> Verbind met <b>Facebook</b>
-                            </a>
                         @else
                             @foreach ( $interests as $id => $interest )
                                 <li><div class="btn-group interest col-lg-12 " id="interest{{ $id }}">
