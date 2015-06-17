@@ -9,6 +9,9 @@
     @parent    {{-- Avoid an accidentally overwrite --}}
     {{ HTML::script('js/popup.js') }}
 @endsection
+@section('custom-jquery')
+    findPopups();
+@endsection
 @section('content')
     <div id="content" class="container">
         <div class="row">
@@ -48,7 +51,7 @@
                 <div id="external-accounts-list" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     @foreach ($externalAccountKinds as $externalAccountKind)
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                            <a href="" target="_blank" onclick="return openWindowCentredPopup('connect{{ $externalAccountKind['accountKind']['Name'] }}', '{{ URL::to('/social?network='.$externalAccountKind['accountKind']['lcName']) }}', '{{ $externalAccountKind['PopupHeight'] }}', '{{ $externalAccountKind['PopupHeight'] }}')" class="btn btn-social btn-{{ $externalAccountKind['accountKind']['lcName'] }}">
+                            <a href="{{ URL::to('/social?network='.$externalAccountKind['accountKind']['lcName']) }}" target="_blank" data-rel="popup" data-popup-name="connect{{ $externalAccountKind['accountKind']['Name'] }}" data-popup-height="{{ $externalAccountKind['PopupHeight'] }}" data-popup-width="{{ $externalAccountKind['PopupWidth'] }}" class="btn btn-social btn-{{ $externalAccountKind['accountKind']['lcName'] }}">
                                 <i class="fa fa-{{ $externalAccountKind['accountKind']['lcName'] }}"></i> {{ Lang::get('external_accounts.connect', ['network' => $externalAccountKind['accountKind']['Name']]) }}
                             </a>
                         </div>

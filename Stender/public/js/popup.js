@@ -1,14 +1,110 @@
 /**
+ * Find links that are popups and activates the popup behaviour.
+ *
+ * An link that should behaves as a popup must have the following (data) attributes:
+ * href="{link}"                The normal href attribute. The link to open in the popup.
+ * data-rel="popup"             Used to detect if it is a popup.
+ * data-popup-name="{name}"     @see The name parameter of openWindowCentredPopup.
+ * data-popup-height="{height}" @see The height parameter of openWindowCentredPopup.
+ * data-popup-width="{width}"   @see The width parameter of openWindowCentredPopup.
+ *
+ */
+function findPopups()
+{
+    // Find popups
+    for (var popups = document.getElementsByTagName("a"), i = 0; i < popups.length; i++)
+    {
+        if(popups[i].getAttribute("data-rel") == "popup")
+        {
+            // Add event with an event listener so it doesn't overwrite existing events.
+            addEvent(popups[i], 'click', doOpenPopup);
+        }
+    }
+}
+
+/**
+ * Adds an event to an element.
+ * Takes care of older browser versions.
+ *
+ * @param elem      The element to which the event should be attached
+ * @param eventType The type of the event. This name is without 'on'.
+ * @param funct     The function that must be called when the event fires.
+ * @returns {*}
+ */
+function addEvent(elem, eventType, funct){
+    // Support older versions of IE
+    if (elem.attachEvent)
+    {
+        return elem.attachEvent("on" + eventType, eventHandle);
+    }
+    else
+    {
+        // Support older version of Firefox
+        return elem.addEventListener(eventType, funct, false);
+    }
+}
+
+/**
+ * Opens the pop-up in the right way.
+ *    - Initializes the pop-up
+ *    - Opens the pop-up.
+ *    - Cancels the browsers default link action
+ *    - Prevents the event from bubbling up
+ * @param event The event object. It will passed by the browser automatically.
+ * According to http://stackoverflow.com/a/5849454 this will even work in older versions of IE.
+ */
+function doOpenPopup(event)
+{
+    // Check if all the needed data attributes exists
+    if( !this.getAttribute("data-popup-name") )
+    {
+        throw new TypeError("data-popup-name attribute is undefined");
+    }
+    else if( !this.getAttribute("data-popup-height") )
+    {
+        throw new TypeError("data-popup-height attribute is undefined");
+    }
+    else if( !this.getAttribute("data-popup-width") )
+    {
+        throw new TypeError("data-popup-width attribute is undefined");
+    }
+    else
+    {
+        openWindowCentredPopup(this.getAttribute("data-popup-name"), this.href, this.getAttribute("data-popup-height"), this.getAttribute("data-popup-width"));
+
+        // Cancel the browsers default link action.
+        if (event.preventDefault)
+        {
+            event.preventDefault();
+        }
+        else
+        {
+            // Support older versions of IE
+            event.returnValue = false;
+        }
+
+        // Prevent the event from bubbling up so that no other/'higher level' listeners are called.
+        if (event.stopPropagation)
+        {
+            event.stopPropagation();
+        }
+        else
+        {
+            // Support older versions of IE
+            event.cancelBubble = true;
+        }
+    }
+}
+
+/**
  * Opens a pop-up in the center of current browser window.
+ * When the pop-up is already open, it will focus that window and will, if needed, go to the correct URL.
  *
  * @param name The name of the pop-up. The name should not contain any whitespace characters.
  *  Also it should not end with "Popup" because that is automatically added.
  * @param url The URL to open in the pop-up.
  * @param height The height of the pop-up.
  * @param width The width of the pop-up.
- * @returns {boolean} Return false. Return (the result) of this method
- *  in the event where it is called (for example in the onclick event) to
- *  prevent the browser from following the actual link.
  */
 function openWindowCentredPopup(name, url, height, width)
 {
@@ -47,7 +143,4 @@ function openWindowCentredPopup(name, url, height, width)
     {
         popupWindow.focus()
     }
-
-    // Make it possible to prevent the browser from following the actual link
-    return false;
 }
