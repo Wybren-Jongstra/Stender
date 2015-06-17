@@ -3,8 +3,8 @@
 use App\Database\Migrations\AbstractDeleteTables;
 
 /**
- * Class DropTables5
  * Drops the tables of the previous database version.
+ *
  */
 class DeleteTables5 extends AbstractDeleteTables {
 

@@ -80,7 +80,6 @@ Route::post('deleteHashtag', 'SocialController@deleteHashtag');
 Route::post('deleteSkill', 'SocialController@deleteSkill');
 Route::post('deleteInterest', 'SocialController@deleteInterest');
 Route::get('content','SocialController@Update');
-Route::get('closeWindow','SocialController@closeWindow');
 
 // Checks for a POST, PUT or DELETE request.
 // If so, it will automatically use the already existing CSRF filter.
