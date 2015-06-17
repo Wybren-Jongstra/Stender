@@ -55,6 +55,8 @@ $(".education").on('change', function() {
     })
 
 });
+
+
 @endsection
 @section('content')
 <div id="content" class="container">
@@ -142,7 +144,7 @@ $(".education").on('change', function() {
                             @foreach ( $interests as $id => $interest )
                                 <li><div class="btn-group interest col-lg-12 " id="interest{{ $id }}">
                                     <button type="button" class="btn btn-default btn-sm col-lg-8" ><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> {{ $interest }}</button>
-                                    <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
+                                    <button type="button" class="btn btn-default btn-sm" ><span class="times close">&times;</span></button>
                                     </div>
                                 </li>
                             @endforeach
@@ -162,7 +164,7 @@ $(".education").on('change', function() {
                             @foreach ( $skills as $id => $skill )
                                 <li><div class="btn-group skill col-lg-12" id="skill{{ $id }}">
                                     <button type="button" class="btn btn-default btn-sm col-lg-8" ><span class="glyphicon glyphicon-wrench"></span> {{ $skill }}</button>
-                                    <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
+                                    <button type="button" class="btn btn-default btn-sm" ><span class="times close">&times;</span></button>
                                     </div>
                                 </li>
                             @endforeach
