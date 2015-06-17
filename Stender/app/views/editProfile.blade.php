@@ -139,7 +139,7 @@ $(".education").on('change', function() {
                 <div id="interests" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
                         @if($interests == null)
-                            <a href="#">Klik hier om je interesses op te halen van Facebook!</a>
+                            <a href="/social?network=facebook">Klik hier om je interesses op te halen van Facebook!</a>
                         @else
                             @foreach ( $interests as $id => $interest )
                                 <li><div class="btn-group interest col-lg-12 " id="interest{{ $id }}">
