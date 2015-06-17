@@ -37,6 +37,7 @@ class ProfileController extends BaseController {
             $education = $this->getEducations();
             $skills = $this->getSkills($profileData['UserProfileID']);
             $hashtags = $this->getHashTags($profileData['UserProfileID']);
+            $interests = $this->getInterests($profileData['UserProfileID']);
             return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
                 ->with('hashtags', $hashtags)->with('education', $education)->with('reviews', $reviews)
                 ->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)

@@ -34,6 +34,17 @@ var attr = $(this).attr("id");
     }
     })
 });
+$(".interest").click(function(){
+var attr = $(this).attr("id");
+    $.ajax({
+    url: "{{ URL::to('/deleteInterest/') }}",
+    type: "POST",
+    data: 'id='+attr,
+    success: function(){
+         $ ("#"+attr).fadeOut();
+    }
+    })
+});
 
  $(".education").val('{{ $data['EducationID'] }}');
 $(".education").on('change', function() {
@@ -128,8 +139,12 @@ $(".education").on('change', function() {
                         @if($interests == null)
                             <a href="#">Klik hier om je interesses op te halen van Facebook!</a>
                         @else
-                            @foreach ($interests as $interest)
-                                <li>{{ $interest }}</li>
+                            @foreach ( $interests as $id => $interest )
+                                <li><div class="btn-group interest col-lg-12 " id="interest{{ $id }}">
+                                    <button type="button" class="btn btn-default btn-sm col-lg-8" ><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> {{ $interest }}</button>
+                                    <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
+                                    </div>
+                                </li>
                             @endforeach
                         @endif
                     </ul>
@@ -146,7 +161,7 @@ $(".education").on('change', function() {
                         @else
                             @foreach ( $skills as $id => $skill )
                                 <li><div class="btn-group skill col-lg-12" id="skill{{ $id }}">
-                                    <button type="button" class="btn btn-default btn-sm col-lg-8" >{{ $skill }}</button>
+                                    <button type="button" class="btn btn-default btn-sm col-lg-8" ><span class="glyphicon glyphicon-wrench"></span> {{ $skill }}</button>
                                     <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
                                     </div>
                                 </li>
@@ -166,8 +181,8 @@ $(".education").on('change', function() {
                         @else
                             @foreach ( $hashtags as $id => $hashtag )
                                 <li><div class="btn-group hashtag col-lg-12" id="hashtag{{ $id }}">
-                                    <button type="button" class="btn btn-default btn-sm hashtag col-lg-8" >#{{ $hashtag }}</button>
-                                    <button type="button" class="btn btn-default btn-sm" ><span href="#" class="times close">&times;</span></button>
+                                    <button type="button" class="btn btn-default btn-sm hashtag col-lg-8" ><b>#</b> {{ $hashtag }}</button>
+                                    <button type="button" class="btn btn-default btn-sm" ><span class="times close">&times;</span></button>
                                     </div>
                                 </li>
                             @endforeach
