@@ -78,6 +78,7 @@ Route::get('getdata',function(){
 Route::get('social/{action?}','SocialController@Login');
 Route::post('deleteHashtag', 'SocialController@deleteHashtag');
 Route::post('deleteSkill', 'SocialController@deleteSkill');
+Route::post('deleteInterest', 'SocialController@deleteInterest');
 Route::get('content','SocialController@Update');
 
 // Checks for a POST, PUT or DELETE request.

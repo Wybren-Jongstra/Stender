@@ -168,6 +168,15 @@ h5 {
 .border-right {
     border-right: 1px solid #cccccc;
 }
+#interest-block {
+    min-height: 70px;
+}
+#experience-block {
+    min-height: 70px;
+}
+#hobby-block {
+    min-height: 70px;
+}
 .border-top {
     border-top: 1px solid #cccccc;
 }
@@ -221,6 +230,9 @@ h5 {
 #profile-score-info {
     position: absolute;
     bottom: 10px;
+}
+#socialData {
+
 }
 .social-media-blocks {
     padding: 0 !important;

@@ -79,22 +79,29 @@ class SocialController extends BaseController {
 
                 $this->saveToDB($skills, 4);
             }
-            elseif( $network == "foursquare" )
+            elseif ( $network == "facebook" )
             {
                 // authenticate with Google
-                $provider = $socialAuth->authenticate("Foursquare");
+                $provider = $socialAuth->authenticate("Facebook");
                 // fetch user profile
-                $userProfile = $provider->getUserProfile();
+                $userInterests = $provider->getUserInterests();
                 
-                $link = $userProfile->list;
+                //$link = $userProfile->list;
                 
-                 $contents = $this->getContent($link);
+                //$contents = $this->getContent($link);
 
-                $res = file_get_contents($link);
-                echo $res;
+                //$res = file_get_contents($link);
+                //echo $res;
+                $likes = array();
+                foreach($userInterests->likes as $interests)
+                {
+                    
+                    $likes[] = $interests['name'];
+                    
+                }
 
-                // abort to see what you got
-                die();
+                $this->saveToDB($likes, 3);
+
             }
             else
             {
@@ -159,6 +166,18 @@ class SocialController extends BaseController {
 
             }
         }
+        if($accountKind == 3) //LinkedIN
+        {
+            foreach ($value as $interests) 
+            {
+                $interest = new Interest();
+                $interest->AccountKindID = $accountKind;
+                $interest->Value = $interests;
+                $interest->UserProfileID = Auth::user()->UserProfileID;
+                $interest->save();
+
+            }
+        }
     }
 
     public function update()
@@ -202,5 +221,13 @@ class SocialController extends BaseController {
         $id = explode("skill", $skillID);
         $skill = Skill::find($id[1]);
         $skill->delete();
+    }
+
+    public function deleteInterest()
+    {
+        $interestID = Input::get('id');
+        $id = explode("interest", $interestID);
+        $interest = Skill::find($id[1]);
+        $interest->delete();
     }
 }

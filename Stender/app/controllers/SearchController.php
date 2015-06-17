@@ -23,7 +23,7 @@ class SearchController extends BaseController {
         $results = array();
         foreach ($search as $row)
         {
-            $results[] = ['id' => $row->user->UserID, 'label' => $row->DisplayName, 'actor'=> $row->DisplayName];
+            $results[] = ['id' => $row->UserProfileID, 'label' => $row->DisplayName, 'photo'=> $row->PhotoUrl];
         }
 
         return Response::json($results);
@@ -34,7 +34,7 @@ class SearchController extends BaseController {
 
         $search = UserProfile::where('DisplayName', '=', $term)->firstOrFail();
 
-        return Redirect::to('/profile/'.$search->ProfileUrlPart);
+        return Redirect::to('/profile/'.$search['ProfileUrlPart']);
         //return Response::json($results);
     }
 }

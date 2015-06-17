@@ -16,23 +16,38 @@ class ProfileController extends BaseController {
             $reviews = $this->getReviews($profileData['UserProfileID']);
             $education = $this->getEducation($this->getData($profileUrl)['EducationID']);
 
-
-
             //TODO Maybe do not get the data twice
-            return View::make('profile')->with('data', $this->getData($profileUrl))->with('interests', $interests)->with('skills', $skills)
-                ->with('hashtags', $hashtags)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
-                ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('education', $education);
-    
+            return View::make('profile')->with('data', $profileData)->with('interests', $interests)->with('skills', $skills)
+                ->with('hashtags', $hashtags)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)
+                ->with('connections', $connectionSum)->with('stenderScore', $stenderScore)->with('vote', $vote)
+                ->with('education', $education);
     }
 
     public function editprofile($profileUrl)
     {
-        $profileData = $this->getData($profileUrl);
-        $education = $this->getEducations();
-        $skills = $this->getSkills($profileData['UserProfileID']);
-        $hashtags = $this->getHashTags($profileData['UserProfileID']);
-        return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
-            ->with('hashtags', $hashtags)->with('education', $education);
+        if($profileUrl == Session::get('ProfileUrlPart'))
+        {
+            $profileData = $this->getData($profileUrl);
+            $connectionSum = $this->getNumberConnections($profileData['UserProfileID']);
+            $stenderScore = $this->getStenderScore($profileData['UserProfileID']);
+            $vote = $this->checkForVoteFromUser($profileData['UserProfileID']);
+            $getCheckConnection = $this->checkForConnection($profileData['UserProfileID']);
+            $interests = $this->getInterests($profileData['UserProfileID']);
+            $reviews = $this->getReviews($profileData['UserProfileID']);
+            $education = $this->getEducations();
+            $skills = $this->getSkills($profileData['UserProfileID']);
+            $hashtags = $this->getHashTags($profileData['UserProfileID']);
+            $interests = $this->getInterests($profileData['UserProfileID']);
+            return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
+                ->with('hashtags', $hashtags)->with('education', $education)->with('reviews', $reviews)
+                ->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
+                ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('interests', $interests);
+        }
+        else
+        { 
+            return Redirect::to('profile/'.$profileUrl);
+        }
+        
     }
 
     public function getData($profileUrl)
@@ -344,9 +359,9 @@ class ProfileController extends BaseController {
 
     public function getEducation($id)
     {
-        $Education = Education::where('EducationID', '=', $id)->firstOrFail();
+        $Education = Education::where('EducationID', '=', $id)->first();
 
-        return $Education->Name;
+        return $Education;
     }
 
     public function changeEducation()

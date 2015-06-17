@@ -50,7 +50,7 @@ $('#vote-down-button').click(function() {
                 <h2>{{ $data['DisplayName'] }}</h2>
                 Geboren: {{ $data['Birthday'] }}<br/>
                 Woonplaats: {{ $data['City'] }}<br/>
-                Opleiding: {{ $education }}
+                Opleiding: {{ $education['Name'] }}
 
                 <div id="profile-score-info" class="no-padding-left col-xs-11 col-sm-12 col-md-12 col-lg-12">
                     <div class="no-padding-left col-xs-4 col-sm-3 col-md-3 col-lg-3">
@@ -79,9 +79,13 @@ $('#vote-down-button').click(function() {
                 </div>
                 <div id="interests" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        @foreach ($interests as $interest)
-                            <li>{{ $interest }}</li>
-                        @endforeach
+                        @if($interests == null)
+                            Er zijn nog geen interesses ingevuld.
+                        @else
+                            @foreach ($interests as $interest)
+                                <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> {{ $interest }}</li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -91,9 +95,13 @@ $('#vote-down-button').click(function() {
                 </div>
                 <div id="experience" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        @foreach ($skills as $skill)
-                            <li>{{ $skill }}</li>
-                        @endforeach
+                        @if($skills == null)
+                            Er zijn nog geen vaardigheden ingevuld.
+                        @else
+                            @foreach ($skills as $skill)
+                                <li><span class="glyphicon glyphicon-wrench"></span> {{ $skill }}</li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -103,9 +111,13 @@ $('#vote-down-button').click(function() {
                 </div>
                 <div id="hobby" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        @foreach ($hashtags as $hashtag)
-                            <li>#{{ $hashtag }}</li>
-                        @endforeach
+                        @if($hashtags == null)
+                            Er zijn nog geen hashtags ingevuld.
+                        @else
+                            @foreach ($hashtags as $hashtag)
+                                <li><b>#</b> {{ $hashtag }}</li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -126,17 +138,23 @@ $('#vote-down-button').click(function() {
             @endif
             <div id="review-list" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <ul>
-                    @foreach ($reviews as $review)
+                    @if($reviews == null)
                         <li class="no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <a href="profile/{{ $review[0] }}">{{ $review[1] }}</a> schreef op {{ $review[2] }}:<br/>
-                            {{ $review[3] }}
-                            @if( $data['UserProfileID'] == Session::get('UserProfileID') || $review[5] == Session::get('UserProfileID') )
-                                <button href="deleteReview/{{ $review[4] }}" class="btn btn-xs btn-danger pull-right">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                            @endif
+                            Er zijn nog geen reviews over {{ $data['DisplayName'] }} geschreven.
                         </li>
-                    @endforeach
+                    @else
+                        @foreach ($reviews as $review)
+                            <li class="no-padding-left col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <a href="profile/{{ $review[0] }}">{{ $review[1] }}</a> schreef op {{ $review[2] }}:<br/>
+                                {{ $review[3] }}
+                                @if( $data['UserProfileID'] == Session::get('UserProfileID') || $review[5] == Session::get('UserProfileID') )
+                                    <button href="deleteReview/{{ $review[4] }}" class="btn btn-xs btn-danger pull-right">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                @endif
+                            </li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
         </div>
