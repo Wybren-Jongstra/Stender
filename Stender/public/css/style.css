@@ -168,6 +168,15 @@ h5 {
 .border-right {
     border-right: 1px solid #cccccc;
 }
+#interest-block {
+    min-height: 70px;
+}
+#experience-block {
+    min-height: 70px;
+}
+#hobby-block {
+    min-height: 70px;
+}
 .border-top {
     border-top: 1px solid #cccccc;
 }
