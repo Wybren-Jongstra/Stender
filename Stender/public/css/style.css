@@ -212,6 +212,8 @@ h5 {
     border: none;
 }
 #profile-photo img {
+    width: 100% !important;
+    height: 100%;
     max-height: 232px;
 }
 #profile-info {
@@ -222,8 +224,13 @@ h5 {
     position: absolute;
     bottom: 10px;
 }
-#socialData {
-
+.profile-img {
+    position: relative;
+}
+.btn-change-profile {
+    position: absolute !important;
+    top: 5px;
+    right: 35px;
 }
 .social-media-blocks {
     padding: 0 !important;

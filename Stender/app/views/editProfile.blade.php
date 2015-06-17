@@ -55,8 +55,6 @@ $(".education").on('change', function() {
     })
 
 });
-
-
 @endsection
 @section('content')
 <div id="content" class="container">
@@ -77,11 +75,23 @@ $(".education").on('change', function() {
                 </div>
             @endif
             <div id="profile-photo" class="col-xs-8 col-sm-4 col-md-3 col-lg-3">
-                @if( empty($data['PhotoUrl']) )
-                    <img src="{{ URL::to('uploads/default_profile_picture.png') }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
-                @else
-                    <img src="{{ URL::to('uploads/'.$data['PhotoUrl']) }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        {{ implode('', $errors->all(':message'))}}
+                    </div>
                 @endif
+                @if( empty($data['PhotoUrl']) )
+                    <img src="{{ URL::to('uploads/default_profile_picture.png') }}" class="profile-img col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                @else
+                    <img src="{{ URL::to($data['PhotoUrl']) }}" class="profile-img col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                @endif
+                {{ Form::open(array('url' => 'changeProfileImage', 'files'=> true)) }}
+                    <span class="btn-change-profile btn btn-warning btn-file btn-xs">
+                        <span class="glyphicon glyphicon-edit"></span><input name='newProfileImage' type='file' onchange='this.form.submit();'/>
+                    </span>
+                    {{ Form::submit('changeProfileImage', array('type' => 'button', 'class' => 'btn btn-success col-xs-4 col-sm-4 col-md-2 col-lg-2', 'style' => 'display: none;')) }}
+                {{ Form::close() }}
             </div>
             <div id="profile-info" class="col-xs-12 col-sm-6 col-md-8 col-lg-8 edit">
                 <div id="displayName">
