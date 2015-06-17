@@ -33,11 +33,12 @@ class SocialController extends BaseController {
         }
         try
         {
+            // create a HybridAuth object
+            $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
+
             if ( $network == "twitter" ) 
             {
-                // create a HybridAuth object
-                $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
-                // authenticate with Google
+                // authenticate with provider
                 $provider = $socialAuth->authenticate("twitter");
                 // fetch user profile
                 $userProfile = $provider->getUserProfile();
@@ -51,41 +52,35 @@ class SocialController extends BaseController {
                     $hashtags[] = $timeline->hashtags;
                 }
                 $this->saveToDB($hashtags, 2);
-
-
-                $this->Logout();
             }
             elseif ( $network == "linkedin" ) 
             {
-                // create a HybridAuth object
-                $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
-                // authenticate with Google
+                // authenticate with provider
                 $provider = $socialAuth->authenticate("LinkedIn");
                 // fetch user profile
                 $userProfile = $provider->getUserProfile();
                 //$user_timeline = $provider->getUserActivity("timeline");
 
+                // get profile URL
                 $link = $userProfile->profileURL;
 
+                // grab content
                 $contents = $this->getContent($link);
 
+                // create DOM of content
                 $html = new \Htmldom($contents);
 
-                $skills = array();
                 // Find all skills
+                $skills = array();
                 foreach($html->find('a.endorse-item-name-text') as $element)
                 { 
                     $skills[] = $element->plaintext;
                 }
 
                 $this->saveToDB($skills, 4);
-
-                $this->Logout();
             }
-            elseif ( $network == "foursquare" ) 
+            elseif( $network == "foursquare" )
             {
-                // create a HybridAuth object
-                $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
                 // authenticate with Google
                 $provider = $socialAuth->authenticate("Foursquare");
                 // fetch user profile
@@ -98,24 +93,25 @@ class SocialController extends BaseController {
                 $res = file_get_contents($link);
                 echo $res;
 
-                $this->Logout();
+                // abort to see what you got
                 die();
             }
             else
             {
-                echo "no network selected!";
+                // TODO test this; throw invalid argument exception instead of echo!
+                // don't go further because there is no active network
+                echo 'no network selected!';
             }
 
             $provider->logout();
-            $urlpart = UserProfile::find(Auth::user()->UserProfileID);
-                return Redirect::to('closeWindow');
 
+            //$urlpart = UserProfile::find(Auth::user()->UserProfileID);
+            return View::make('closePopup');
         }
         catch(Exception $e) 
         {
-
-                    // exception codes can be found on HybBridAuth's web site
-            return "Op dit moment kunnen wij de gegevens niet voor je ophalen, probeer het later nog eens. </ br>".
+            // exception codes can be found on HybBridAuth's web site
+            return 'Op dit moment kunnen wij de gegevens niet voor je ophalen, probeer het later nog eens. </ br>'.
             $e->getMessage();
         }
                     
@@ -191,12 +187,6 @@ class SocialController extends BaseController {
         return View::make('social')->with('twitter', $hashtags)->with('linkedin', $skills)->with('data', $this->rommelData());
     }
 
-    public function Logout()
-    {
-                // logout
-
-    }
-
     public function deleteHashtag()
     {
         $hashtagID = Input::get('id');
@@ -212,9 +202,5 @@ class SocialController extends BaseController {
         $id = explode("skill", $skillID);
         $skill = Skill::find($id[1]);
         $skill->delete();
-    }
-    public function closeWindow()
-    {
-        return View::make('close');
     }
 }
