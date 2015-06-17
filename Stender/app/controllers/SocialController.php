@@ -82,24 +82,32 @@ class SocialController extends BaseController {
 
                 $this->Logout();
             }
-            elseif ( $network == "foursquare" ) 
+            elseif ( $network == "facebook" ) 
             {
                 // create a HybridAuth object
                 $socialAuth = new Hybrid_Auth(app_path() . '/config/hybridauth.php');
                 // authenticate with Google
-                $provider = $socialAuth->authenticate("Foursquare");
+                $provider = $socialAuth->authenticate("Facebook");
                 // fetch user profile
-                $userProfile = $provider->getUserProfile();
+                $userInterests = $provider->getUserInterests();
                 
-                $link = $userProfile->list;
+                //$link = $userProfile->list;
                 
-                 $contents = $this->getContent($link);
+                //$contents = $this->getContent($link);
 
-                $res = file_get_contents($link);
-                echo $res;
+                //$res = file_get_contents($link);
+                //echo $res;
+                $likes = array();
+                foreach($userInterests->likes as $interests)
+                {
+                    
+                    $likes[] = $interests['name'];
+                    
+                }
+
+                $this->saveToDB($likes, 3);
 
                 $this->Logout();
-                die();
             }
             else
             {
@@ -163,6 +171,18 @@ class SocialController extends BaseController {
 
             }
         }
+        if($accountKind == 3) //LinkedIN
+        {
+            foreach ($value as $interests) 
+            {
+                $interest = new Interest();
+                $interest->AccountKindID = $accountKind;
+                $interest->Value = $interests;
+                $interest->UserProfileID = Auth::user()->UserProfileID;
+                $interest->save();
+
+            }
+        }
     }
 
     public function update()
@@ -213,6 +233,15 @@ class SocialController extends BaseController {
         $skill = Skill::find($id[1]);
         $skill->delete();
     }
+
+    public function deleteInterest()
+    {
+        $interestID = Input::get('id');
+        $id = explode("interest", $interestID);
+        $interest = Skill::find($id[1]);
+        $interest->delete();
+    }
+
     public function closeWindow()
     {
         return View::make('close');

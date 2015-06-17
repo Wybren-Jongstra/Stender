@@ -15,6 +15,11 @@ return array(
 			"enabled"    => true,
 			"keys"       => array ( "key" => "77tbpbjpq67pkc", "secret" => "4rODgUe6YSGfNiMq" ),
 			"scope" => "r_fullprofile"
-			)
+			),
+		"Facebook"   => array (
+			"enabled"    => true,
+			"keys"       => array ( "id" => "1584405708514903", "secret" => "e7472db1f7bcfb1d502e88eac9baaa08" ),
+			"scope"		=> "user_friends, email, user_likes"
+			),
 	),
 );

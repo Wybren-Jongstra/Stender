@@ -29,6 +29,8 @@
                     return false;
                 }
             });
+            var highestCol = Math.max($('#hobby-block').height(),$('#experience-block').height(),$('#interest-block').height());
+            $('.border-right').height(highestCol);
 
 
                 @yield('custom-jquery')

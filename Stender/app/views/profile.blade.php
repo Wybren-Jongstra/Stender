@@ -83,7 +83,7 @@ $('#vote-down-button').click(function() {
                             Er zijn nog geen interesses ingevuld.
                         @else
                             @foreach ($interests as $interest)
-                                <li>{{ $interest }}</li>
+                                <li><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> {{ $interest }}</li>
                             @endforeach
                         @endif
                     </ul>
@@ -99,7 +99,7 @@ $('#vote-down-button').click(function() {
                             Er zijn nog geen vaardigheden ingevuld.
                         @else
                             @foreach ($skills as $skill)
-                                <li>{{ $skill }}</li>
+                                <li><span class="glyphicon glyphicon-wrench"></span> {{ $skill }}</li>
                             @endforeach
                         @endif
                     </ul>
@@ -115,7 +115,7 @@ $('#vote-down-button').click(function() {
                             Er zijn nog geen hashtags ingevuld.
                         @else
                             @foreach ($hashtags as $hashtag)
-                                <li>#{{ $hashtag }}</li>
+                                <li><b>#</b> {{ $hashtag }}</li>
                             @endforeach
                         @endif
                     </ul>
