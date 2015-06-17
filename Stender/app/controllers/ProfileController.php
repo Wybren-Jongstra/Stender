@@ -41,7 +41,8 @@ class ProfileController extends BaseController {
             return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
                 ->with('hashtags', $hashtags)->with('education', $education)->with('reviews', $reviews)
                 ->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
-                ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('interests', $interests);
+                ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('interests', $interests)
+                ->with('externalAccountKinds', $this->getExternalAccountKindData());
         }
         else
         { 
@@ -370,5 +371,20 @@ class ProfileController extends BaseController {
         $user = UserProfile::where('UserProfileID', '=', Session::get('UserProfileID'))->firstOrFail();
         $user->educationID = $id;
         $user->save();
+    }
+
+        public function getExternalAccountKindData()
+    {
+//        /* This code uses a join, therefore one query less must be executed.
+//         * That gives that this code is twice as fast but is uses not the models. */
+//        $tempExternalAccountKind = new ExternalAccountKind();
+//        $tempAccountKind = new AccountKind();
+//
+//        $dbQuery = DB::table($tempExternalAccountKind->getTable())
+//            ->leftJoin($tempAccountKind->getTable(), $tempAccountKind->getQualifiedKeyName(), '=', $tempExternalAccountKind->getQualifiedKeyName())
+//            ->select('Name', 'PopupHeight', 'PopupWidth')
+//            ->get();
+
+        return ExternalAccountKind::with('accountKind')->get()->toArray();
     }
 }
