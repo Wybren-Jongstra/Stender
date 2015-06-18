@@ -1,4 +1,13 @@
 @extends('layouts.common')
+@section('custom-stylesheets')
+    @parent    {{-- Avoid an accidentally overwrite --}}
+    {{ HTML::style('packages/font-awesome/css/font-awesome.css') }}
+    {{ HTML::style('packages/bootstrap-social/bootstrap-social.css') }}
+@endsection
+@section('custom-scripts')
+    @parent    {{-- Avoid an accidentally overwrite --}}
+    {{ HTML::script('js/popup.js') }}
+@endsection
 @section('custom-jquery')
    $('.click').editable({
     type: 'text',
@@ -55,6 +64,8 @@ $(".education").on('change', function() {
     })
 
 });
+
+findPopups();
 @endsection
 @section('content')
 <div id="content" class="container">
@@ -148,8 +159,10 @@ $(".education").on('change', function() {
                 </div>
                 <div id="interests" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <ul>
-                        @if($interests == null)
-                            <a href="/social?network=facebook">Klik hier om je interesses op te halen van Facebook!</a>
+                        @if($interests == null && $externalAccountKind = $externalAccountKinds['Facebook'])
+                            <a href="{{ URL::to('/social?network='.$externalAccountKind['accountKind']['lcName']) }}" target="_blank" data-rel="popup" data-popup-name="connect{{ $externalAccountKind['accountKind']['Name'] }}" data-popup-height="{{ $externalAccountKind['PopupHeight'] }}" data-popup-width="{{ $externalAccountKind['PopupWidth'] }}" class="btn btn-social btn-{{ $externalAccountKind['accountKind']['lcName'] }}">
+                                <i class="fa fa-{{ $externalAccountKind['accountKind']['lcName'] }}"></i> {{ Lang::get('external_accounts.retrieve', ['kind' => 'interesses', 'network' => $externalAccountKind['accountKind']['Name']]) }}
+                            </a>
                         @else
                             @foreach ( $interests as $id => $interest )
                                 <li><div class="btn-group interest col-lg-12 " id="interest{{ $id }}">
