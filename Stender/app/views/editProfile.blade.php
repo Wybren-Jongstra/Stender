@@ -181,8 +181,10 @@ findPopups();
                 </div>
                 <div id="experience" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12 no-list-signs">
                     <ul>
-                        @if($skills == null)
-                            <a href="/social?network=linkedin">Klik hier om je vaardigheden op te halen van LinkedIn!</a>
+                        @if($skills == null && $externalAccountKind = $externalAccountKinds['LinkedIn'])
+                            <a href="{{ URL::to('/social?network='.$externalAccountKind['accountKind']['lcName']) }}" target="_blank" data-rel="popup" data-popup-name="connect{{ $externalAccountKind['accountKind']['Name'] }}" data-popup-height="{{ $externalAccountKind['PopupHeight'] }}" data-popup-width="{{ $externalAccountKind['PopupWidth'] }}" class="btn btn-social btn-{{ $externalAccountKind['accountKind']['lcName'] }}">
+                                <i class="fa fa-{{ $externalAccountKind['accountKind']['lcName'] }}"></i> {{ Lang::get('external_accounts.retrieve', ['kind' => 'vaardigheden', 'network' => $externalAccountKind['accountKind']['Name']]) }}
+                            </a>
                         @else
                             @foreach ( $skills as $id => $skill )
                                 <li><div class="btn-group skill col-lg-12" id="skill{{ $id }}">
@@ -201,8 +203,10 @@ findPopups();
                 </div>
                 <div id="hashtags" class="border-top col-xs-12 col-sm-12 col-md-12 col-lg-12 no-list-signs">
                     <ul>
-                        @if($hashtags == null)
-                            <a href="/social?network=twitter">Klik hier om hashtags op te halen van Twitter!</a>
+                        @if($hashtags == null && $externalAccountKind = $externalAccountKinds['Twitter'])
+                            <a href="{{ URL::to('/social?network='.$externalAccountKind['accountKind']['lcName']) }}" target="_blank" data-rel="popup" data-popup-name="connect{{ $externalAccountKind['accountKind']['Name'] }}" data-popup-height="{{ $externalAccountKind['PopupHeight'] }}" data-popup-width="{{ $externalAccountKind['PopupWidth'] }}" class="btn btn-social btn-{{ $externalAccountKind['accountKind']['lcName'] }}">
+                                <i class="fa fa-{{ $externalAccountKind['accountKind']['lcName'] }}"></i> {{ Lang::get('external_accounts.retrieve', ['kind' => 'hashtags', 'network' => $externalAccountKind['accountKind']['Name']]) }}
+                            </a>
                         @else
                             @foreach ( $hashtags as $id => $hashtag )
                                 <li><div class="btn-group hashtag col-lg-12" id="hashtag{{ $id }}">
