@@ -176,21 +176,7 @@ function openWindowCentredPopup(name, url, height, width)
         // Enables the prevention of the creation of several identical pop-ups
         popupWindowHandlers[popupName] = null;
         // If a pop-up with the same name is already open, it will return the object reference/window handle. Otherwise it will open a new pop-up.
-        // Pass the first parameter (url) as an empty string, so that the page will not get redirected if the pop-up is already open and on the correct page.
         popupWindowHandlers[popupName] = popupWindow = window.open(url, popupName, attr);
-    }
-
-    // If possible redirect the page of the pop-up if it is not on the correct page.
-    try
-    {
-        if (popupWindow.location != url)
-        {
-            popupWindow.location = url;
-        }
-    }
-    catch(e)
-    {
-        console.log(e)
     }
 
     // Always give the focus to the pop-up
