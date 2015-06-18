@@ -105,9 +105,8 @@ class SocialController extends BaseController {
             }
             else
             {
-                // TODO test this; throw invalid argument exception instead of echo!
                 // don't go further because there is no active network
-                echo 'no network selected!';
+                throw new ErrorException( Lang::get('external_accounts.exception.unknown_network', ['network' => $network]) );
             }
 
             $provider->logout();

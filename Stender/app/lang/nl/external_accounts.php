@@ -15,4 +15,18 @@ return array(
     'connect' => 'Verbind met <b>:network</b>',
     'connected' => 'Verbonden met <b>:network</b>',
 
+    /*
+    |--------------------------------------------------------------------------
+    | External Accounts Exception Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the exception messages that may occur when the user
+    | uses this functionality.
+    |
+    */
+
+    'exception' => array(
+        'unknown_network' => 'Onbekend netwerk: :network',
+    ),
+
 );
