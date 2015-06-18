@@ -41,6 +41,7 @@ Route::get('profile/deleteReview/{reviewID}', 'ProfileController@deleteReview');
 
 //profielpagina aanpassen
 Route::get('editProfile/{profileUrl}', 'ProfileController@editProfile')->before('auth');
+Route::post('changeProfileImage', 'ProfileController@changeProfileImage')->before('auth');
 //save de aanpassingen:
 Route::post('saveProfile/{profileUrl}', 'ProfileController@saveChanges')->before('auth');
 //verander de EducationID

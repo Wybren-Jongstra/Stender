@@ -203,6 +203,48 @@ class ProfileController extends BaseController {
         }        
     }
 
+    public function changeProfileImage()
+    {
+        $userProfile = UserProfile::where('UserProfileID', '=', Session::get('UserProfileID'))->firstOrFail();
+        $destinationPath = '';
+        $filename        = '';
+
+        if (Input::hasFile('newProfileImage'))
+        {
+            // Build the input for our validation
+            $input = array('image' => Input::file('newProfileImage'));
+
+            // Within the ruleset, make sure we let the validator know that this
+            // file should be an image
+            $rules = array(
+                'image' => 'image'
+            );
+
+            // Now pass the input and rules into the validator
+            $validator = Validator::make($input, $rules);
+
+            // Check to see if validation fails or passes
+            if ($validator->fails())
+            {
+                // Redirect with a helpful message to inform the user that
+                // the provided file was not an adequate type
+                return Redirect::to('/editProfile/'.Session::get('ProfileUrlPart'))->withErrors('Upload een afbeelding.');
+            }
+            else
+            {
+                $file            = Input::file('newProfileImage');
+                $destinationPath = 'uploads/';
+                $filename        = Session::get('UserID') . '_' . str_random(6) . '_' . $file->getClientOriginalName();
+                $uploadSuccess   = $file->move($destinationPath, $filename);
+                $userProfile->PhotoUrl = $destinationPath . $filename;
+            }
+        }
+
+        $userProfile->save();
+
+        return Redirect::to('/editProfile/'.Session::get('ProfileUrlPart'));
+    }
+
     public function checkForConnectionByMail($connectID, $usrID, $acceptState)
     {
         if (Connection::where('ForUserID', '=', $usrID)->where('ConnectionID', '=', $connectID)->where('ConnectionStatusID', '=', '1')->exists()) {
