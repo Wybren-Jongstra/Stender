@@ -41,6 +41,11 @@ class SettingsController extends BaseController {
         return $data;
     }
 
+    /**
+     * Get all external account kind data as an normal array.
+     *
+     * @return array An array with all external accounts.
+     */
     public function getExternalAccountKindData()
     {
 //        /* This code uses a join, therefore one query less must be executed.
