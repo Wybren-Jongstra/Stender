@@ -13,7 +13,8 @@ return array(
     */
 
     'connect' => 'Verbind met <b>:network</b>',
-    'connected' => 'Verbonden met <b>:network</b>',
+    'retrieve' => 'Haal :kind van <b>:network</b>',
+    'expand' => 'Bereid :kind uit met die van <b>:network</b>',
     'done' => 'Het importeren van de gegevens van uw :externalAccount account is voltooid.',
     'close_window' => 'U kunt dit venster nu sluiten.',
 

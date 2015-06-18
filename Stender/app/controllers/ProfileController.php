@@ -41,7 +41,8 @@ class ProfileController extends BaseController {
             return View::make('editProfile')->with('data', $this->getData($profileUrl))->with('skills', $skills)
                 ->with('hashtags', $hashtags)->with('education', $education)->with('reviews', $reviews)
                 ->with('connectionState', $getCheckConnection)->with('connections', $connectionSum)
-                ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('interests', $interests);
+                ->with('stenderScore', $stenderScore)->with('vote', $vote)->with('interests', $interests)
+                ->with('externalAccountKinds', $this->getExternalAccountKindData());
         }
         else
         { 
@@ -404,6 +405,24 @@ class ProfileController extends BaseController {
         $Education = Education::where('EducationID', '=', $id)->first();
 
         return $Education;
+    }
+
+    /**
+     * Get all external account kind data as an associative array.
+     *
+     * @return array An array with all external accounts.
+     */
+    public function getExternalAccountKindData()
+    {
+        $externalAccountKinds = ExternalAccountKind::with('accountKind')->get();
+
+        $externalAccountKindsArray = array();
+        foreach($externalAccountKinds as $externalAccountKind)
+        {
+            $externalAccountKindsArray[$externalAccountKind->accountKind->Name] = $externalAccountKind->toArray();
+        }
+
+        return $externalAccountKindsArray;
     }
 
     public function changeEducation()
