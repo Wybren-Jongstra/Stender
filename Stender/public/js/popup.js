@@ -1,9 +1,34 @@
 /**
- * Find links that are popups and activates the popup behaviour.
+ * Global var for keeping track of the open pop-up windows.
+ * The code below will update this variable automatically.
+ */
+var popupWindowHandlers = {};
+
+/**
+ * Removes a pop-up from the list with open pop-up windows
  *
- * An link that should behaves as a popup must have the following (data) attributes:
- * href="{link}"                The normal href attribute. The link to open in the popup.
- * data-rel="popup"             Used to detect if it is a popup.
+ * @param name The full name of the pop-up.
+ */
+function removePopupWindowHandler(name)
+{
+    // Find and remove item from popupWindowHandlers
+    // Otherwise there is a problem with the code, so then throw an error.
+    if(popupWindowHandlers[name])
+    {
+        delete popupWindowHandlers[name];
+    }
+    else
+    {
+        throw new TypeError("Pop-up with " + name + " doesn't exists in the array with pop-ups");
+    }
+}
+
+/**
+ * Find links that are pop-ups and activates the pop-up behaviour.
+ *
+ * An link that should behaves as a pop-up must have the following (data) attributes:
+ * href="{link}"                The normal href attribute. The link to open in the pop-up.
+ * data-rel="popup"             Used to detect if it is a pop-up.
  * data-popup-name="{name}"     @see The name parameter of openWindowCentredPopup.
  * data-popup-height="{height}" @see The height parameter of openWindowCentredPopup.
  * data-popup-width="{width}"   @see The width parameter of openWindowCentredPopup.
@@ -73,24 +98,28 @@ function doOpenPopup(event)
         openWindowCentredPopup(this.getAttribute("data-popup-name"), this.href, this.getAttribute("data-popup-height"), this.getAttribute("data-popup-width"));
 
         // Cancel the browsers default link action.
-        if (event.preventDefault)
+        if (event.preventDefault) // check if function exists
         {
             event.preventDefault();
         }
-        else
+        else if (event.returnValue) // check for boolean value
         {
-            // Support older versions of IE
+            // At this moment the above (standard) methods didn't work.
+            // But this browser has support for the event.returnValue.
+            // Supported by older versions of IE
             event.returnValue = false;
         }
 
         // Prevent the event from bubbling up so that no other/'higher level' listeners are called.
-        if (event.stopPropagation)
+        if (! event.stopPropagation)  // check if function exists
         {
             event.stopPropagation();
         }
-        else
+        else if ( ! event.returnValue) // check for boolean value
         {
-            // Support older versions of IE
+            // At this moment the above (standard) methods didn't work.
+            // But this browser has support for the event.returnValue
+            // Support: older versions of IE, Firefox
             event.cancelBubble = true;
         }
     }
@@ -127,15 +156,27 @@ function openWindowCentredPopup(name, url, height, width)
     var left = (windowLeft + (windowWidth / 2) - (width / 2)) > windowLeft ? (windowLeft + (windowWidth / 2) - (width / 2)) : windowLeft + offset;
     var top = (windowTop + (windowHeight / 2) - (height / 2)) > windowTop ? (windowTop + (windowHeight / 2) - (height / 2)) : windowTop + offset;
 
+    // Some pop-up parameters
     var attr = "height=" + height + ", width=" + width + ", top=" + top + ", left=" + left + ", menubar=no, location=yes, toolbar=no, status=yes, resizable=yes, scrollbars=yes";
-    // If a pop-up with the same is already open, it will return the object reference/window handle. Otherwise it will open a new pop-up.
-    // Pass the first parameter (url) as an empty string, so that the page will not get redirected if the pop-up is already open and on the correct page.
-    var popupWindow = window.open("", (name + "Popup"), attr);
+    var popupName = name + "Popup";
 
-    // Redirect the page of the pop-up if it is not on the correct page.
-    if (popupWindow.location != url)
+    // Some sites changes the name of the pop-up. Therefore an new pop-up will be opened instead of the already opened pop-up.
+    // So save the pop-up window handlers by ourselves and try first to retrieve them.
+    if(popupWindowHandlers[popupName] && ! popupWindowHandlers[popupName].closed)
     {
-        popupWindow.location = url;
+        popupWindow = popupWindowHandlers[popupName];
+    }
+    else if (popupWindowHandlers[popupName] === null)
+    {
+        // Prevent the creation of several identical pop-ups
+        return;
+    }
+    else
+    {
+        // Enables the prevention of the creation of several identical pop-ups
+        popupWindowHandlers[popupName] = null;
+        // If a pop-up with the same name is already open, it will return the object reference/window handle. Otherwise it will open a new pop-up.
+        popupWindowHandlers[popupName] = popupWindow = window.open(url, popupName, attr);
     }
 
     // Always give the focus to the pop-up

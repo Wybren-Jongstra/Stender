@@ -14,5 +14,21 @@ return array(
 
     'connect' => 'Verbind met <b>:network</b>',
     'connected' => 'Verbonden met <b>:network</b>',
+    'done' => 'Het importeren van de gegevens van uw :externalAccount account is voltooid.',
+    'close_window' => 'U kunt dit venster nu sluiten.',
+
+    /*
+    |--------------------------------------------------------------------------
+    | External Accounts Exception Language Lines
+    |--------------------------------------------------------------------------
+    |
+    | Here you may specify the exception messages that may occur when the user
+    | uses this functionality.
+    |
+    */
+
+    'exception' => array(
+        'unknown_network' => 'Onbekend netwerk: :network',
+    ),
 
 );
