@@ -60,10 +60,8 @@ Route::get('logout', 'SessionsController@destroy');
 
 Route::get('verify/{confirmationCode}', 'SessionsController@verify');
 
-Route::get('test', function()
-{
-    echo Hash::make('test');
-});
+// Reset password
+Route::post('password/change', 'PasswordController@change')->before('auth');
 
 Route::get('search', function(){
 

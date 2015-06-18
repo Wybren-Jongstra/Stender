@@ -37,6 +37,9 @@ return array(
     |
     */
 
-    'attribute_name' => 'custom-message',
+    'old_password'      => 'oud wachtwoord',
+    'new_password'      => 'nieuw wachtwoord',
+    'confirm_password'  => 'herhaal wachtwoord',
+    'change_password'   => 'verander wachtwoord',
 
 );

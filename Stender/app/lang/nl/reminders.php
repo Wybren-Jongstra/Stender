@@ -23,4 +23,6 @@ return array(
 
     "reset"    => "Wachtwoord is veranderd!",
 
+    "changed" => 'Je wachtwoord is gewijzigd!',
+
 );

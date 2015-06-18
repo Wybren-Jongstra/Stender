@@ -33,14 +33,36 @@
                 </div>
             </div>
 
-            <div id="security" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div id="security-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h5>Beveiliging</h5>
+            <div id="password" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div id="password-header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border-bottom">
+                    <h5>Wachtwoord</h5>
                 </div>
-                <div id="security-list" class="border-top no-list-signs col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <ul>
-                        <li>Wachtwoord</li>
-                    </ul>
+                <div id="password-body" class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                    {{ Form::open(['url' => 'password/change'])}}
+                    @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="alert alert-danger">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            {{ implode('', $errors->all(':message'))}}
+                        </div>
+                    @endif
+                    <div class="form-group">
+                        {{ Form::password('oldPassword', array('placeholder' => ucfirst(Lang::get('attributes.old_password')), 'class' => 'form-control', 'required' => 'required'))}}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::password('password', array('placeholder' => ucfirst(Lang::get('attributes.new_password')), 'class' => 'form-control', 'required' => 'required'))}}
+                    </div>
+                    <div class="form-group">
+                        {{ Form::password('password_confirmation', array('placeholder' => ucfirst(Lang::get('attributes.confirm_password')), 'class' => 'form-control', 'required' => 'required'))}}
+                    </div>
+                    {{ Form::submit(ucfirst(Lang::get('attributes.change_password')), array('class' => 'btn btn-warning col-xs-12 col-sm-12 col-md-12'))}}
+
+                    {{ Form::close() }}
                 </div>
             </div>
 
