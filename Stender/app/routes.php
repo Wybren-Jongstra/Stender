@@ -60,11 +60,6 @@ Route::get('logout', 'SessionsController@destroy');
 
 Route::get('verify/{confirmationCode}', 'SessionsController@verify');
 
-Route::get('test', function()
-{
-    echo Hash::make('test');
-});
-
 Route::get('search', function(){
 
        return View::make('search');
