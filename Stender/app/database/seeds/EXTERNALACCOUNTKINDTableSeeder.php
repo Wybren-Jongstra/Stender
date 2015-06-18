@@ -20,12 +20,12 @@ class EXTERNALACCOUNTKINDTableSeeder extends Seeder {
             switch ($accountKindName)
             {
                 case 'Twitter':
-                    $row['PopupHeight'] = 645;
+                    $row['PopupHeight'] = 600;
                     $row['PopupWidth'] = 780;
                     break;
                 case 'Facebook':
-                    $row['PopupHeight'] = 370;
-                    $row['PopupWidth'] = 555;
+                    $row['PopupHeight'] = 475;
+                    $row['PopupWidth'] = 1150;
                     break;
                 case 'LinkedIn':
                     $row['PopupHeight'] = 645;

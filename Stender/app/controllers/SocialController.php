@@ -105,21 +105,23 @@ class SocialController extends BaseController {
             }
             else
             {
-                // TODO test this; throw invalid argument exception instead of echo!
                 // don't go further because there is no active network
-                echo 'no network selected!';
+                throw new ErrorException( Lang::get('external_accounts.exception.unknown_network', ['network' => $network]) );
             }
 
             $provider->logout();
 
             //$urlpart = UserProfile::find(Auth::user()->UserProfileID);
-            return View::make('closePopup');
+            // TODO Use the original network name
+            // TODO Mention which data is imported
+            return View::make('closePopup')->with(['externalAccount' => ucfirst($network)]);
         }
-        catch(Exception $e) 
+        catch(Exception $e)
         {
+            // FIXME Translate + View
             // exception codes can be found on HybBridAuth's web site
-            return 'Op dit moment kunnen wij de gegevens niet voor je ophalen, probeer het later nog eens. </ br>'.
-            $e->getMessage();
+            return 'Op dit moment kunnen wij de gegevens niet voor je ophalen, probeer het later nog eens. </ br>' .
+                $e->getMessage();
         }
                     
     }
