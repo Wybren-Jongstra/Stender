@@ -88,6 +88,7 @@ return array(
         'email' => array(
             'contains' => 'Je moet registreren met een Stenden e-mailadres.',
         ),
+        'message' => 'Vul alle velden in.',
     ),
 
     /*

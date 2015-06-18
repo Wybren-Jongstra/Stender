@@ -60,6 +60,9 @@ Route::get('logout', 'SessionsController@destroy');
 
 Route::get('verify/{confirmationCode}', 'SessionsController@verify');
 
+// Reset password
+Route::post('password/change', 'PasswordController@change')->before('auth');
+
 Route::get('search', function(){
 
        return View::make('search');
