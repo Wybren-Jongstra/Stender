@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <h2>Nieuwe connectie!</h2>
+        <h2 style="color: #013a75;">Nieuwe connectie!</h2>
 
         <div>
             {{ $DisplayName }} wil je toevoegen als connectie. <br />

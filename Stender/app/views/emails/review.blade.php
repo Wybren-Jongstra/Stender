@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 </head>
 <body>
-<h2>Nieuwe review!</h2>
+<h2 style="color: #013a75;">Nieuwe review!</h2>
 
 <div>
     {{ $fromName }} heeft een review over jou geschreven. <br />

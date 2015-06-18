@@ -4,7 +4,7 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <h2>Verifieer je e-mailadres!</h2>
+        <h2 style="color: #013a75;">Verifieer je e-mailadres!</h2>
 
         <div>
             Bedankt voor het registreren op Stender. <br />
