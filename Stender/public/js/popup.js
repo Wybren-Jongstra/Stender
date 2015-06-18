@@ -1,5 +1,6 @@
 /**
- * Global var for keeping track of the open pop-up windows
+ * Global var for keeping track of the open pop-up windows.
+ * The code below will update this variable automatically.
  */
 var popupWindowHandlers = {};
 
