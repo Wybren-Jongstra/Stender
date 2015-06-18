@@ -2,16 +2,19 @@
 @section('custom-scripts')
     <script>
         /**
-         * Refresh the parent window
+         * Updates the parent window
          */
-        function refreshParent()
+        function updateParent()
         {
+            // Removes item from list.
+            window.opener.removePopupWindowHandler(this.name);
+            // Reload parent, so the new status will be shown
             window.opener.location.reload();
         }
 
-        // Reload parent on unload
-        window.onunload = refreshParent;
-        // Close window
+        // Update parent on unload
+        window.onunload = updateParent;
+        // Close pop-up
         window.close();
     </script>
 @endsection
