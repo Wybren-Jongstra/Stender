@@ -116,11 +116,12 @@ class SocialController extends BaseController {
             // TODO Mention which data is imported
             return View::make('closePopup')->with(['externalAccount' => ucfirst($network)]);
         }
-        catch(Exception $e) 
+        catch(Exception $e)
         {
+            // FIXME Translate + View
             // exception codes can be found on HybBridAuth's web site
-            return 'Op dit moment kunnen wij de gegevens niet voor je ophalen, probeer het later nog eens. </ br>'.
-            $e->getMessage();
+            return 'Op dit moment kunnen wij de gegevens niet voor je ophalen, probeer het later nog eens. </ br>' .
+                $e->getMessage();
         }
                     
     }
