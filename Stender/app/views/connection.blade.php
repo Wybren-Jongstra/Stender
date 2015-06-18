@@ -13,7 +13,7 @@
                                 @if( empty($connection[1]) )
                                     <img src="{{ URL::to('uploads/default_profile_picture.png') }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
                                 @else
-                                    <img src="{{ URL::to('uploads/'.$connection[1]) }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                                    <img src="{{ URL::to($connection[1]) }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
                                 @endif
                             </div>
                             <div class="no-padding-left col-xs-10 col-sm-10 col-md-11 col-lg-11">

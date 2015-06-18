@@ -29,10 +29,10 @@ $(document).on('change', '.btn-file :file', function() {
     <div class="row">
         <div id="left-column" class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
             <div id="timeline-profile" class="spacing-top rounded-div-border col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    @if( empty($data['PhotoUrl']) )
+                    @if( empty($userProfile['PhotoUrl']) )
                         <img src="{{ URL::to('uploads/default_profile_picture.png') }}" class="profile-image col-xs-4 col-sm-12 col-md-12 col-lg-12" />
                     @else
-                        <img src="{{ URL::to('uploads/'.$data['PhotoUrl']) }}" class="profile-image col-xs-4 col-sm-12 col-md-12 col-lg-12" />
+                        <img src="{{ URL::to($userProfile['PhotoUrl']) }}" class="profile-image col-xs-4 col-sm-12 col-md-12 col-lg-12" />
                     @endif
                 <div class="clearfix"></div>
                 <h3 class="col-xs-8 col-sm-12 col-md-12 col-lg-12">{{ $userProfile['DisplayName'] }}</h3>

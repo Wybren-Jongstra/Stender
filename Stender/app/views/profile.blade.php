@@ -43,7 +43,7 @@ $('#vote-down-button').click(function() {
                 @if( empty($data['PhotoUrl']) )
                     <img src="{{ URL::to('uploads/default_profile_picture.png') }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
                 @else
-                    <img src="{{ URL::to('uploads/'.$data['PhotoUrl']) }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
+                    <img src="{{ URL::to($data['PhotoUrl']) }}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" />
                 @endif
             </div>
             <div id="profile-info" class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
