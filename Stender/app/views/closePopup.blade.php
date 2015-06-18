@@ -14,4 +14,9 @@
         // Close window
         window.close();
     </script>
+@endsection
+@section('no-script')
+    {{ Lang::get('external_accounts.done', ['externalAccount' => $externalAccount]) }}
+    {{-- When JavaScript is disabled there is no pop-up but a window --}}
+    {{ Lang::get('external_accounts.close_window') }}
 @stop

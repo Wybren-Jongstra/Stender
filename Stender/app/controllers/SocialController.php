@@ -112,7 +112,9 @@ class SocialController extends BaseController {
             $provider->logout();
 
             //$urlpart = UserProfile::find(Auth::user()->UserProfileID);
-            return View::make('closePopup');
+            // TODO Use the original network name
+            // TODO Mention which data is imported
+            return View::make('closePopup')->with(['externalAccount' => ucfirst($network)]);
         }
         catch(Exception $e) 
         {

@@ -14,6 +14,8 @@ return array(
 
     'connect' => 'Verbind met <b>:network</b>',
     'connected' => 'Verbonden met <b>:network</b>',
+    'done' => 'Het importeren van de gegevens van uw :externalAccount account is voltooid.',
+    'close_window' => 'U kunt dit venster nu sluiten.',
 
     /*
     |--------------------------------------------------------------------------

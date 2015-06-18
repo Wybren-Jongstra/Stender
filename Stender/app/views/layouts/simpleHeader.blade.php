@@ -6,4 +6,9 @@
         <link rel="icon" href="{{ URL::to('favicon.ico') }}" type="image/x-icon">
         @yield('custom-scripts')
     </head>
+    <body>
+        <noscript>
+            @yield('no-script')
+        </noscript>
+    </body>
 </html>
