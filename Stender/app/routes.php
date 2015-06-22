@@ -15,10 +15,10 @@
 Route::get('/', 'HomeController@getIndex');
 
 
-//posten van registreren
+//Register
 Route::post('postRegister', 'HomeController@postRegister');
 
-//timelinepagina
+//timelinepage
 Route::get('timeline', 'TimelineController@getTimeline')->before('auth');
 Route::post('postStatus', 'TimelineController@postStatus');
 Route::get('deleteStatus/{statusUpdateID}', 'TimelineController@deleteStatus');
@@ -27,10 +27,10 @@ Route::get('deleteStatus/{statusUpdateID}', 'TimelineController@deleteStatus');
 Route::get('connections', 'ConnectionPageController@getConnectionView')->before('auth');
 Route::get('removeConnection/{connectionID}', 'ConnectionPageController@removeConnection');
 
-//settingspagina
+//settingspage
 Route::get('settings', 'SettingsController@getSettings')->before('auth');
 
-//profielpagina
+//profilepage
 Route::get('profile/{profileUrl}', 'ProfileController@getProfile')->before('auth');
 Route::post('connect', 'ProfileController@setConnection');
 Route::get('connection/{id}/{usrID}/{state}', 'ProfileController@checkForConnectionByMail');
@@ -39,20 +39,17 @@ Route::get('downvote', 'ProfileController@setDownVote');
 Route::post('postReview', 'ProfileController@postReview');
 Route::get('profile/deleteReview/{reviewID}', 'ProfileController@deleteReview');
 
-//profielpagina aanpassen
+//Change the profile
 Route::get('editProfile/{profileUrl}', 'ProfileController@editProfile')->before('auth');
 Route::post('changeProfileImage', 'ProfileController@changeProfileImage')->before('auth');
-//save de aanpassingen:
+//Save the changes
 Route::post('saveProfile/{profileUrl}', 'ProfileController@saveChanges')->before('auth');
-//verander de EducationID
+//Change the EducationID
 Route::post('changeEducation', 'ProfileController@changeEducation');
 
 //Search controller
 Route::get('search/autocomplete/', 'SearchController@autocomplete');
 Route::get('searchUser', 'SearchController@searchUser');
-
-//posten van login
-//Route::post('login', array('uses' => 'HomeController@postLogin'));
 
 Route::resource('sessions', 'SessionsController');
 Route::get('login', 'SessionsController@create');
@@ -64,15 +61,11 @@ Route::get('verify/{confirmationCode}', 'SessionsController@verify');
 Route::post('password/change', 'PasswordController@change')->before('auth');
 
 Route::get('search', function(){
-
-       return View::make('search');
-
-    });
+   return View::make('search');
+});
 Route::get('getdata',function(){
-
-        echo microtime(true);
-
-    });
+    echo microtime(true);
+});
 
 Route::get('social/{action?}','SocialController@Login');
 Route::post('deleteHashtag', 'SocialController@deleteHashtag');

@@ -15,15 +15,17 @@ class HomeController extends BaseController {
         }
     }
 
+    /**
+     * Register an user and check if the input values are valid.
+     * @return mixed
+     */
 	public function postRegister()
 	{
-
 		//get input
 		$input = Input::all();
 
 		$profileUrl = '';
 		$displayName = '';
-
 
 		//rules to validate input
 		$rules = array(
@@ -31,7 +33,6 @@ class HomeController extends BaseController {
 			'surname' 	=> 'required',
 			'email'	 	=> 'required|email|unique:USER',
 			'password' 	=> 'required'
-
 		);
 
 		//check validation
@@ -55,41 +56,38 @@ class HomeController extends BaseController {
 					$profileUrl = $input['firstname'].'.'.$input['surnamePrefix'].'.'.$input['surname'];
 					$displayName = $input['firstname'].' '.$input['surnamePrefix'].' '.$input['surname'];
 				}
-				//$verifier->setConnection('stender');
+
+                $confirmationCode = str_random(64);
+
+                $password = $input['password'];
+                $password = Hash::make($password);
+                $user = new User();
+                //$user->fullName = $input['fullName'];
+                $user->Email = $input['email'];
+                $user->ActivationToken = $confirmationCode;
+                $user->Password = $password;
+                $user->UserKindID = 2;
+                $user->DateCreated = Carbon\Carbon::now();
 
 
-					$confirmationCode = str_random(64);
+                $userprofile = new UserProfile();
+                $userprofile->FirstName = $input['firstname'];
+                $userprofile->SurnamePrefix = $input['surnamePrefix'];
+                $userprofile->Surname = $input['surname'];
+                $userprofile->ProfileUrlPart = self::getProfileUrlPart($profileUrl);
+                $userprofile->Displayname = $displayName;
 
-					$password = $input['password'];
-					$password = Hash::make($password);
-					$user = new User();
-					//$user->fullName = $input['fullName'];
-					$user->Email = $input['email'];
-					$user->ActivationToken = $confirmationCode;
-					$user->Password = $password;
-					$user->UserKindID = 2;
-					$user->DateCreated = Carbon\Carbon::now();
-					
+                $userprofile->save();
 
-					$userprofile = new UserProfile();
-					$userprofile->FirstName = $input['firstname'];
-					$userprofile->SurnamePrefix = $input['surnamePrefix'];
-					$userprofile->Surname = $input['surname'];
-					$userprofile->ProfileUrlPart = self::getProfileUrlPart($profileUrl);
-					$userprofile->Displayname = $displayName;
+                $user->UserProfileID = $userprofile->UserProfileID;
+                $user->save();
+                // Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+          //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
+                // });
 
-					$userprofile->save();
-
-					$user->UserProfileID = $userprofile->UserProfileID;
-					$user->save();
-
-					// Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-			  //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
-					// });
-
-					Mail::send('emails.welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-			    		$message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
-					});
+                Mail::send('emails.welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+                    $message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
+                });
 			}
 			else
 			{
@@ -97,13 +95,11 @@ class HomeController extends BaseController {
 			}
 
 			return Redirect::to('/')->withSuccess( 'Registreren gelukt! Je krijgt z.s.m. een mail om je account te activeren.' );
-
 		}
 		else
 		{
 			return Redirect::to('/')->withInput()->withErrors('Vul alle velden in.');
 		}
-		
 	}
 
     // Made public static for use in USERTableSeeder
@@ -124,7 +120,6 @@ class HomeController extends BaseController {
 
         // Check if ProfileUrlPart already exists
         // If not generate an unique ProfileUrlPart
-        // TODO Maybe check if there are speed optimisations possible
         $increment = 0;
         while(in_array($newProfileUrlPart, $profileUrlParts))
         {

@@ -23,6 +23,11 @@ class ProfileController extends BaseController {
                 ->with('education', $education);
     }
 
+    /**
+     * Open the edit profile view.
+     * @param $profileUrl
+     * @return mixed
+     */
     public function editprofile($profileUrl)
     {
         if($profileUrl == Session::get('ProfileUrlPart'))
@@ -51,6 +56,11 @@ class ProfileController extends BaseController {
         
     }
 
+    /**
+     * Get all the data of an user by the ProfileUrlPart
+     * @param $profileUrl
+     * @return array
+     */
     public function getData($profileUrl)
     {
         $userprofile = UserProfile::where('ProfileUrlPart', '=', $profileUrl)->firstOrFail();
@@ -83,6 +93,11 @@ class ProfileController extends BaseController {
         return $data;
     }
 
+    /**
+     * Check of the authenticated user already voted on a user.
+     * @param $profileID
+     * @return bool|int|string
+     */
     public function checkForVoteFromUser($profileID)
     {
         $forUser = User::where('UserProfileID', '=', $profileID)->firstOrFail();
@@ -103,6 +118,10 @@ class ProfileController extends BaseController {
         }
     }
 
+    /**
+     * Upvote an user.
+     * @return string
+     */
     public function setUpVote()
     {
         $usrID = User::where('UserProfileID', '=', Input::get('id'))->firstOrFail();
@@ -134,6 +153,10 @@ class ProfileController extends BaseController {
         return 'succes';
     }
 
+    /**
+     * Down vote an user.
+     * @return string
+     */
     public function setDownVote()
     {
         $usrID = User::where('UserProfileID', '=', Input::get('id'))->firstOrFail();
@@ -164,6 +187,11 @@ class ProfileController extends BaseController {
         return 'succes';
     }
 
+    /**
+     * Get the total number connections by UserProfileID.
+     * @param $usrProfID
+     * @return mixed
+     */
     public function getNumberConnections($usrProfID)
     {
         $usrID = User::where('UserProfileID', '=', $usrProfID)->first();
@@ -204,6 +232,10 @@ class ProfileController extends BaseController {
         }        
     }
 
+    /**
+     * Change the profile image.
+     * @return mixed
+     */
     public function changeProfileImage()
     {
         $userProfile = UserProfile::where('UserProfileID', '=', Session::get('UserProfileID'))->firstOrFail();
@@ -246,6 +278,13 @@ class ProfileController extends BaseController {
         return Redirect::to('/editProfile/'.Session::get('ProfileUrlPart'));
     }
 
+    /**
+     * Change the ConnectionStatusID by the URL which a user get, by mail, if someone tried to connect with him.
+     * @param $connectID
+     * @param $usrID
+     * @param $acceptState
+     * @return mixed
+     */
     public function checkForConnectionByMail($connectID, $usrID, $acceptState)
     {
         if (Connection::where('ForUserID', '=', $usrID)->where('ConnectionID', '=', $connectID)->where('ConnectionStatusID', '=', '1')->exists()) {
@@ -266,6 +305,11 @@ class ProfileController extends BaseController {
         }
     }
 
+    /**
+     * Check of there is a connection between two users.
+     * @param $profileID
+     * @return bool
+     */
     public function checkForConnection($profileID)
     {
         $forUser = User::where('UserProfileID', '=', $profileID)->firstOrFail();
@@ -278,12 +322,16 @@ class ProfileController extends BaseController {
         }
     }
 
+    /**
+     * Set a connection between two users.
+     * Set the ConnectionStatusID to 1 -> 'Waiting'.
+     * Mail the requested user for approval of this connection.
+     * @return mixed
+     */
     public function setConnection()
     {
         $forUser = User::where('UserProfileID', '=', Input::get('user'))->firstOrFail();
         $forUserProfile = UserProfile::where('UserProfileID', '=', Input::get('user'))->firstOrFail();
-
-        // Displayname user ophalen en in de mail zetten bij 'DisplayName'!!!
 
         $connection = new Connection();
         $connection->ForUserID = $forUser->UserID;
@@ -296,21 +344,25 @@ class ProfileController extends BaseController {
 
         $id = $connection->ConnectionID;
 
+        // For the live version
         // Mail::send('emails.connection', array('id'=> $id, 'DisplayName' => $forUserProfile->DisplayName), function($message) {
         //     $message->to(Session::get('Email'), $fromUserProfile->DisplayName)->subject('Nieuwe connectie!');
         // });
 
-         Mail::send('emails.connection', array('id'=> $id, 'DisplayName' => $forUserProfile->DisplayName, 'usrID' => $forUser->UserID), function($message) {
-             $message->to('wybrenjongstra@gmail.com', 'John Doe')->subject('Nieuwe connectie!');
-         });
+
+        Mail::send('emails.connection', array('id'=> $id, 'DisplayName' => $forUserProfile->DisplayName, 'usrID' => $forUser->UserID), function($message) {
+            $message->to('wybrenjongstra@gmail.com', 'John Doe')->subject('Nieuwe connectie!');
+        });
 
         return Redirect::to('/profile/'.Input::get('url'));
     }
 
+    /**
+     * Post a review and save it in the database
+     * @return mixed
+     */
     public function postReview()
     {
-        // Displayname user ophalen en in de mail zetten bij 'DisplayName'!!!
-
         $review = new Review();
         $review->ForUserProfileID = Input::get('usr');
         $review->FromUserProfileID = Session::get('UserProfileID');
@@ -330,6 +382,11 @@ class ProfileController extends BaseController {
         return Redirect::to('/profile/'.$forUserProfile->ProfileUrlPart);
     }
 
+    /**
+     * Get the reviews by UserProfileID
+     * @param $profileID
+     * @return array
+     */
     public function getReviews($profileID)
     {
         $reviews = Review::where('ForUserProfileID', '=', $profileID)->get();
@@ -349,6 +406,11 @@ class ProfileController extends BaseController {
         return $reviewArray;
     }
 
+    /**
+     * Delete an excisting review by ReviewID
+     * @param $reviewID
+     * @return mixed
+     */
     public function deleteReview($reviewID)
     {
         $review = Review::where('ReviewID', '=', $reviewID)->firstOrFail();
@@ -356,6 +418,11 @@ class ProfileController extends BaseController {
         return Redirect::to('/profile/'.Session::get('ProfileUrlPart'));
     }
 
+    /**
+     * Get the hashtags of an user by UserProfileID
+     * @param $profileID
+     * @return array
+     */
     public function getHashTags($profileID)
     {
         $hashtags = Hashtag::where('UserProfileID', '=', $profileID)->get();
@@ -368,6 +435,11 @@ class ProfileController extends BaseController {
         return $hashtagArray;
     }
 
+    /**
+     * Get the skills of an user by UserProfileID
+     * @param $profileID
+     * @return array
+     */
     public function getSkills($profileID)
     {
         $skills = Skill::where('UserProfileID', '=', $profileID)->get();
@@ -381,6 +453,11 @@ class ProfileController extends BaseController {
         return $skillArray;
     }
 
+    /**
+     * Get the interests of an user by UserProfileID
+     * @param $profileID
+     * @return array
+     */
     public function getInterests($profileID)
     {
         $interests = Interest::where('UserProfileID', '=', $profileID)->get();
@@ -393,6 +470,10 @@ class ProfileController extends BaseController {
         return $interestArray;
     }
 
+    /**
+     * Get all the educations from the database
+     * @return mixed
+     */
     public function getEducations()
     {
         $Education = Education::all();
@@ -400,6 +481,11 @@ class ProfileController extends BaseController {
         return $Education;
     }
 
+    /**
+     * Get the education by an EducationID
+     * @param $id
+     * @return mixed
+     */
     public function getEducation($id)
     {
         $Education = Education::where('EducationID', '=', $id)->first();
@@ -425,6 +511,9 @@ class ProfileController extends BaseController {
         return $externalAccountKindsArray;
     }
 
+    /**
+     * Change the education of an User.
+     */
     public function changeEducation()
     {
         $id = Input::get('id');

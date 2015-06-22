@@ -9,6 +9,10 @@ class ConnectionPageController extends BaseController {
         return View::make('connection')->with('connections', $connections);
     }
 
+    /**
+     * Get the connections of an user.
+     * @return array
+     */
     public function getConnections()
     {
         $usrID = User::where('UserProfileID', '=', Session::get('UserID'))->first();
@@ -44,6 +48,11 @@ class ConnectionPageController extends BaseController {
         return array_merge($connectionsForArray, $connectionsFromArray);
     }
 
+    /**
+     * Remove a connected user.
+     * @param $connectionID
+     * @return mixed
+     */
     public function removeConnection($connectionID)
     {
         if( Connection::where('ConnectionID', '=', $connectionID)->where('ForUserID', '=', Session::get('UserID'))->exists() ||
@@ -59,6 +68,11 @@ class ConnectionPageController extends BaseController {
         }
     }
 
+    /**
+     * Get the Stender Score of a connection by his UserProfileID
+     * @param $usrProfID
+     * @return mixed
+     */
     public static function getStenderScore($usrProfID)
     {
         $usrID = User::where('UserProfileID', '=', $usrProfID)->first();
@@ -70,6 +84,11 @@ class ConnectionPageController extends BaseController {
         return $stenderScore;
     }
 
+    /**
+     * Get the last login of a user by UserProfileID
+     * @param $userProfID
+     * @return string
+     */
     public static function getLastLogin($userProfID)
     {
         $user = User::where('UserProfileID', '=', $userProfID)->first();

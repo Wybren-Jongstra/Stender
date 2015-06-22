@@ -223,6 +223,7 @@ h5 {
 #profile-photo img {
     width: 100% !important;
     height: 100%;
+    /*min-height: 100%;*/
     max-height: 232px;
 }
 #profile-info {

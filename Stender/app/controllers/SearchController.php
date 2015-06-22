@@ -29,6 +29,10 @@ class SearchController extends BaseController {
         return Response::json($results);
     }
 
+    /**
+     * Search for an user
+     * @return requested profile view
+     */
     public function searchUser(){
         $term = Input::get('inputName');
 
