@@ -2,16 +2,18 @@
 
 class PasswordController extends BaseController {
 
+    /**
+     * Check input values are valid and change the password.
+     * @return mixed
+     */
     public function change()
     {
         //get input
         $input = Input::all();
-
-
         //rules to validate input
         $rules = array(
             'oldPassword'               => 'required',
-            'password' 	                => 'required', // TODO Change to project kind of fields
+            'password' 	                => 'required',
             'password_confirmation'	 	=> 'required',
         );
 
@@ -24,7 +26,6 @@ class PasswordController extends BaseController {
             )
         );
 
-        // TODO Use Laravel classes
         //store data in user object and save to database
         if($v->passes())
         {
@@ -33,13 +34,10 @@ class PasswordController extends BaseController {
                 if($input['password'] == $input['password_confirmation'])
                 {
                     Auth::user()->Password = Hash::make($input['password']);
-
                     Auth::user()->save();
-
                     Mail::send('emails.passwordChanged', array(), function($message) {
                         $message->to('buntraymon@gmail.com', 'John Doe')->subject('Wachtwoord gewijzigd');
                     });
-
                     return Redirect::to('/settings')->withSuccess( Lang::get('reminders.changed') );
                 }
                 else
@@ -56,6 +54,5 @@ class PasswordController extends BaseController {
         {
             return Redirect::to('/settings')->withErrors(Lang::get('validation.custom.message'));
         }
-
     }
 }

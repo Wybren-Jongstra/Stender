@@ -2,18 +2,27 @@
 
 class SocialController extends BaseController {
 
-    public function rommelData()
+    /**
+     * Get the userdata of the authenticated user
+     * @return array
+     */
+    public function getUserData()
     {
         $userprofile = UserProfile::find(Auth::user()->UserProfileID);
-
         $data = array(
             'firstname'  => $userprofile->FirstName,
             'ProfileUrlPart' => $userprofile->ProfileUrlPart,
-            );
+        );
 
         return $data;
     }
 
+    /**
+     * Login at a social media website by creating a hybridauth object.
+     * Get the hashtags/ interests/ skills and save them in the database.
+     * @param string $action
+     * @return string
+     */
     public function login($action='')
     {
         $network = Input::get('network');
@@ -23,7 +32,6 @@ class SocialController extends BaseController {
             try 
             {
                 Hybrid_Endpoint::process();
-
             }
             catch ( Exception $e ) 
             {
@@ -86,12 +94,6 @@ class SocialController extends BaseController {
                 // fetch user profile
                 $userInterests = $provider->getUserInterests();
                 
-                //$link = $userProfile->list;
-                
-                //$contents = $this->getContent($link);
-
-                //$res = file_get_contents($link);
-                //echo $res;
                 $likes = array();
                 foreach($userInterests->likes as $interests)
                 {
@@ -110,15 +112,10 @@ class SocialController extends BaseController {
             }
 
             $provider->logout();
-
-            //$urlpart = UserProfile::find(Auth::user()->UserProfileID);
-            // TODO Use the original network name
-            // TODO Mention which data is imported
             return View::make('closePopup')->with(['externalAccount' => ucfirst($network)]);
         }
         catch(Exception $e)
         {
-            // FIXME Translate + View
             // exception codes can be found on HybBridAuth's web site
             return 'Op dit moment kunnen wij de gegevens niet voor je ophalen, probeer het later nog eens. </ br>' .
                 $e->getMessage();
@@ -126,6 +123,11 @@ class SocialController extends BaseController {
                     
     }
 
+    /**
+     * Get the content by an URL
+     * @param $url
+     * @return mixed
+     */
     public function getContent($url)
     {
         $ch = curl_init();
@@ -138,6 +140,11 @@ class SocialController extends BaseController {
         return $file_contents;
     }
 
+    /**
+     * Save data from twitter, facebook, linkedin in the database with the right AccountKindID
+     * @param $value
+     * @param $accountKind
+     */
     public function saveToDB($value, $accountKind)
     {
         if($accountKind == 2) //twitter
@@ -146,13 +153,11 @@ class SocialController extends BaseController {
             {
                 foreach ($hashtags as $tag)
                 {
-
                     $hashtag = new Hashtag();
                     $hashtag->AccountKindID = $accountKind;
                     $hashtag->Value = $tag->text;
                     $hashtag->UserProfileID = Auth::user()->UserProfileID;
                     $hashtag->save();
-
                 }
             }
         }
@@ -165,7 +170,6 @@ class SocialController extends BaseController {
                 $skill->Value = $skills;
                 $skill->UserProfileID = Auth::user()->UserProfileID;
                 $skill->save();
-
             }
         }
         if($accountKind == 3) //LinkedIN
@@ -177,46 +181,46 @@ class SocialController extends BaseController {
                 $interest->Value = $interests;
                 $interest->UserProfileID = Auth::user()->UserProfileID;
                 $interest->save();
-
             }
         }
     }
 
+    /**
+     * Update the existing data in the database.
+     * @return mixed
+     */
     public function update()
     { 
         $hashtagsUser = Hashtag::where('UserProfileID', '=', Auth::user()->UserProfileID)->get();
         $skillsUser = Skill::where('UserProfileID', '=', Auth::user()->UserProfileID)->get();
-
-
-        
         $hashtags = array();
         $skills = array();
 
         foreach($hashtagsUser as $hashtag)
         {
-
-        $hashtags[] = $hashtag;
-        
+            $hashtags[] = $hashtag;
         }
         foreach($skillsUser as $skill)
         {
-
-        $skills[] = $skill;
-        
+            $skills[] = $skill;
         }
-        
-        return View::make('social')->with('twitter', $hashtags)->with('linkedin', $skills)->with('data', $this->rommelData());
+        return View::make('social')->with('twitter', $hashtags)->with('linkedin', $skills)->with('data', $this->getUserData());
     }
 
+    /**
+     * delete an hashtag
+     */
     public function deleteHashtag()
     {
         $hashtagID = Input::get('id');
         $id = explode("hashtag", $hashtagID);
-
         $tag = Hashtag::find($id[1]);
         $tag->delete();
     }
 
+    /**
+     * delete a skill
+     */
     public function deleteSkill()
     {
         $skillID = Input::get('id');
@@ -225,6 +229,9 @@ class SocialController extends BaseController {
         $skill->delete();
     }
 
+    /**
+     * delete an interest
+     */
     public function deleteInterest()
     {
         $interestID = Input::get('id');

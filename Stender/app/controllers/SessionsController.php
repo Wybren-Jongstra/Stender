@@ -2,6 +2,10 @@
 
 class SessionsController extends BaseController {
 
+    /**
+     * Create a Session
+     * @return mixed
+     */
 	public function create()
 	{
 		if(Auth::check())
@@ -11,6 +15,11 @@ class SessionsController extends BaseController {
 		return Redirect::to('/');
 	}
 
+    /**
+     * Check if the input values exist in the database.
+     * Store userdata in the session.
+     * @return mixed
+     */
 	public function store()
 	{
 
@@ -31,10 +40,10 @@ class SessionsController extends BaseController {
 		{
 
 			//get the input userdata
-				$userdata = array(
-						'Email' 	=> Input::get('emailLogin'),
-						'password' 	=> Input::get('password')
-					);
+            $userdata = array(
+                'Email' 	=> Input::get('emailLogin'),
+                'password' 	=> Input::get('password')
+            );
 			
 			// Custom attempt to login because authenticating a user with conditions gives
 			// no direct possibility to check which error occurs.
@@ -70,6 +79,10 @@ class SessionsController extends BaseController {
 		}
 	}
 
+    /**
+     * Destroy the Session and wipe the session clean.
+     * @return mixed
+     */
 	public function destroy()
 	{
 		Auth::logout();
@@ -78,11 +91,17 @@ class SessionsController extends BaseController {
 		return Redirect::to('/');
 	}
 
+    /**
+     * Check if the verifytoken is equal to the ActivationToken in the database and activate the user login.
+     * @param $token
+     * @return mixed
+     * @throws InvalidConfirmationCodeException
+     * @throws InvalidTokenException
+     */
 	public function verify($token)
     {
         if( ! $token)
         {
-            // FIXME Argument Exception?
             throw new InvalidTokenException;
         }
 
@@ -100,7 +119,6 @@ class SessionsController extends BaseController {
 
         $user->Activated = 1;
         $user->save();
-
         return Redirect::to('/')->withInput()->with('activated', 'Account is geactiveerd! Je kunt nu inloggen.');
 	}
 }
