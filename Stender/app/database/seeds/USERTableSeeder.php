@@ -10,8 +10,8 @@ class USERTableSeeder extends Seeder {
 	public function run()
 	{
         // When the config property not exists, faker creates dumber values.
-        $this->$faker = Faker::create(Config::get('app.locale'));
-        $this->$faker->seed(5102); // create always the same fake accounts/data
+        $this->faker = Faker::create(Config::get('app.locale'));
+        $this->faker->seed(5102); // create always the same fake accounts/data
 
         // Generate default users
         $this->generateUser('Raymon', 'Bunt', null, 'test_pictures/1_wuK4hc_profile_picture_raymon.png', 2);
@@ -24,15 +24,15 @@ class USERTableSeeder extends Seeder {
         {
             $createdUserData = null;
 
-            $educationId = $this->$faker->boolean() ? $this->$faker->numberBetween(0, DB::table('EDUCATION')->count()) : null;
+            $educationId = $this->faker->boolean() ? $this->faker->numberBetween(0, DB::table('EDUCATION')->count()) : null;
 
-            if($this->$faker->boolean())
+            if($this->faker->boolean())
             {
-                $createdUserData = $this->generateUser($this->$faker->firstName, $this->$faker->lastName, null, null, $educationId, $this->$faker->boolean(), $this->$faker->boolean(), $this->$faker->boolean(), $this->$faker->boolean());
+                $createdUserData = $this->generateUser($this->faker->firstName, $this->faker->lastName, null, null, $educationId, $this->faker->boolean(), $this->faker->boolean(), $this->faker->boolean(), $this->faker->boolean());
             }
             else
             {
-                $createdUserData = $this->generateUser($this->$faker->firstName, $this->$faker->lastName, $this->$faker->word, null, $educationId, $this->$faker->boolean(), $this->$faker->boolean(), $this->$faker->boolean(), $this->$faker->boolean());
+                $createdUserData = $this->generateUser($this->faker->firstName, $this->faker->lastName, $this->faker->word, null, $educationId, $this->faker->boolean(), $this->faker->boolean(), $this->faker->boolean(), $this->faker->boolean());
             }
 
             $this->command->info('Created random user. StudentEmail: ' . ($createdUserData['student'] ? '1' : '0') . ', Activated: ' . ($createdUserData['active'] ? '1' : '0') . ', Email: ' . $createdUserData['email'] . ', Password: ' . $createdUserData['password']);
@@ -66,8 +66,8 @@ class USERTableSeeder extends Seeder {
         $userprofile->Displayname    = $displayName;
         $userprofile->PhotoUrl       = $photoUrl;
         $userprofile->EducationId    = $educationId;
-        $userprofile->BirthDay       = $getsBirthDay ? $this->$faker->date($format = 'Y-m-d', $max = '-20 years') : null;
-        $userprofile->City           = $getsCity ? $this->$faker->city : null;
+        $userprofile->BirthDay       = $getsBirthDay ? $this->faker->date($format = 'Y-m-d', $max = '-20 years') : null;
+        $userprofile->City           = $getsCity ? $this->faker->city : null;
 
         $userprofile->save();
 
