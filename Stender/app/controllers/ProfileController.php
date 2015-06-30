@@ -36,7 +36,6 @@ class ProfileController extends BaseController {
             $stenderScore = $this->getStenderScore($profileData['UserProfileID']);
             $vote = $this->checkForVoteFromUser($profileData['UserProfileID']);
             $getCheckConnection = $this->checkForConnection($profileData['UserProfileID']);
-            $interests = $this->getInterests($profileData['UserProfileID']);
             $reviews = $this->getReviews($profileData['UserProfileID']);
             $education = $this->getEducations();
             $skills = $this->getSkills($profileData['UserProfileID']);
