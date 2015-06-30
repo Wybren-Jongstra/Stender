@@ -24,6 +24,7 @@ class HomeController extends BaseController {
 		//get input
 		$input = Input::all();
 
+        // TODO Check if needed
 		$profileUrl = '';
 		$displayName = '';
 
@@ -48,12 +49,14 @@ class HomeController extends BaseController {
 				//$verifier = App::make('validation.presence');
 				if($input['surnamePrefix'] == '')
 				{
-					$profileUrl = $input['firstname'].'.'.$input['surname'];
+                    // Always convert the profile URL part to lower case
+					$profileUrl = mb_strtolower($input['firstname'].'.'.$input['surname']);
 					$displayName = $input['firstname'].' '.$input['surname'];
 				}
 				else
 				{
-					$profileUrl = $input['firstname'].'.'.$input['surnamePrefix'].'.'.$input['surname'];
+                    // Always convert the profile URL part to lower case
+                    $profileUrl = mb_strtolower($input['firstname'].'.'.$input['surnamePrefix'].'.'.$input['surname']);
 					$displayName = $input['firstname'].' '.$input['surnamePrefix'].' '.$input['surname'];
 				}
 
