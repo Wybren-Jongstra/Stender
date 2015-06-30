@@ -66,7 +66,7 @@ class USERTableSeeder extends Seeder {
         $userprofile->Displayname    = $displayName;
         $userprofile->PhotoUrl       = $photoUrl;
         $userprofile->EducationID    = $educationID;
-        $userprofile->BirthDay       = $getsBirthDay ? $this->faker->date($format = 'Y-m-d', $max = '-20 years') : null;
+        $userprofile->BirthDay       = $getsBirthDay ? $this->faker->dateTimeBetween($startDate = '-50 years', $endDate = '1995')->format('Y-m-d') : null;
         $userprofile->City           = $getsCity ? $this->faker->city : null;
 
         $userprofile->save();
