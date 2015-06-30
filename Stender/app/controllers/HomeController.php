@@ -24,6 +24,7 @@ class HomeController extends BaseController {
 		//get input
 		$input = Input::all();
 
+        // TODO Check if needed
 		$profileUrl = '';
 		$displayName = '';
 
@@ -48,12 +49,14 @@ class HomeController extends BaseController {
 				//$verifier = App::make('validation.presence');
 				if($input['surnamePrefix'] == '')
 				{
-					$profileUrl = $input['firstname'].'.'.$input['surname'];
+                    // Always convert the profile URL part to lower case
+					$profileUrl = mb_strtolower($input['firstname'].'.'.$input['surname']);
 					$displayName = $input['firstname'].' '.$input['surname'];
 				}
 				else
 				{
-					$profileUrl = $input['firstname'].'.'.$input['surnamePrefix'].'.'.$input['surname'];
+                    // Always convert the profile URL part to lower case
+                    $profileUrl = mb_strtolower($input['firstname'].'.'.$input['surnamePrefix'].'.'.$input['surname']);
 					$displayName = $input['firstname'].' '.$input['surnamePrefix'].' '.$input['surname'];
 				}
 
@@ -81,12 +84,15 @@ class HomeController extends BaseController {
 
                 $user->UserProfileID = $userprofile->UserProfileID;
                 $user->save();
-                // Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-          //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
-                // });
+
+                // TODO Replace with config
+                // For the live version
+                //Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+                //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
+                //});
 
                 Mail::send('emails.welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-                    $message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
+                    $message->to('stenderapp@gmail.com', 'John Doe')->subject('Please activate your account!');
                 });
 			}
 			else
