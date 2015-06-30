@@ -14,10 +14,10 @@ class USERTableSeeder extends Seeder {
         $this->faker->seed(5102); // create always the same fake accounts/data
 
         // Generate default users
-        $this->generateUser('Raymon', 'Bunt', null, 'test_pictures/1_wuK4hc_profile_picture_raymon.png', 2);
-        $this->generateUser('Wybren', 'Jongstra', null, 'test_pictures/2_HSCT11_profile_picture_wybren.png', 1);
-        $this->generateUser('Gerjan', 'Oenen', 'van', 'test_pictures/3_2D7qxL_profile_picture_gerjan.png', 1);
-        $this->generateUser('Mark', 'Roelans', null, 'test_pictures/4_3RvTRD_profile_picture_mark.png', 1);
+        $this->generateUser('Raymon', 'Bunt', null, 'uploads/test_pictures/1_wuK4hc_profile_picture_raymon.png', 2);
+        $this->generateUser('Wybren', 'Jongstra', null, 'uploads/test_pictures/2_HSCT11_profile_picture_wybren.png', 1);
+        $this->generateUser('Gerjan', 'Oenen', 'van', 'uploads/test_pictures/3_2D7qxL_profile_picture_gerjan.png', 1);
+        $this->generateUser('Mark', 'Roelans', null, 'uploads/test_pictures/4_3RvTRD_profile_picture_mark.png', 1);
 
         // Generate also random user accounts
         for ($i = 0; $i <= 4; $i++)
