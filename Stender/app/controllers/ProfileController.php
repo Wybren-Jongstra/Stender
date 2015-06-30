@@ -349,7 +349,7 @@ class ProfileController extends BaseController {
 
 
         Mail::send('emails.connection', array('id'=> $id, 'DisplayName' => $forUserProfile->DisplayName, 'usrID' => $forUser->UserID), function($message) {
-            $message->to('wybrenjongstra@gmail.com', 'John Doe')->subject('Nieuwe connectie!');
+            $message->to('stenderapp@gmail.com', 'John Doe')->subject('Nieuwe connectie!');
         });
 
         return Redirect::to('/profile/'.Input::get('url'));
@@ -371,10 +371,15 @@ class ProfileController extends BaseController {
 
         $forUserProfile = UserProfile::where('UserProfileID', '=', Input::get('usr'))->firstOrFail();
 
+        // For the live version
+        //Mail::send('emails.review', array('fromName' => Session::get('DisplayName'),'profUrl' => $forUserProfile->ProfileUrlPart), function($message) {
+        //    $forUser = User::where('UserProfileID', '=', Input::get('usr'))->firstOrFail();
+        //    $forUserProfile = UserProfile::where('UserProfileID', '=', Input::get('usr'))->firstOrFail();
+        //    $message->to($forUser->Email, $forUserProfile->DisplayName)->subject('Nieuwe review!');
+        //});
+
         Mail::send('emails.review', array('fromName' => Session::get('DisplayName'),'profUrl' => $forUserProfile->ProfileUrlPart), function($message) {
-            $forUser = User::where('UserProfileID', '=', Input::get('usr'))->firstOrFail();
-            $forUserProfile = UserProfile::where('UserProfileID', '=', Input::get('usr'))->firstOrFail();
-            $message->to($forUser->Email, $forUserProfile->DisplayName)->subject('Nieuwe review!');
+            $message->to('stenderapp@gmail.com', 'John Doe')->subject('Nieuwe review!');
         });
 
         return Redirect::to('/profile/'.$forUserProfile->ProfileUrlPart);

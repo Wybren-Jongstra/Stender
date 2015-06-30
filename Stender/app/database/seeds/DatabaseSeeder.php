@@ -17,6 +17,13 @@ class DatabaseSeeder extends Seeder {
         $this->call('EDUCATIONTableSeeder');
         $this->call('USERKINDTableSeeder');
 		$this->call('USERTableSeeder');
+        $this->call('HASHTAGTableSeeder');
+        $this->call('INTERESTTableSeeder');
+        $this->call('SKILLTableSeeder');
+        $this->call('CONNECTIONTableSeeder');
+        $this->call('USERVOTETableSeeder');
+        $this->call('REVIEWTableSeeder');
+        $this->call('STATUSUPDATETableSeeder');
 
 	}
 
