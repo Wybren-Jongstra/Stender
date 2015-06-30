@@ -39,7 +39,7 @@ class USERTableSeeder extends Seeder {
         }
     }
 
-    private function generateUser($firstName, $surname, $surnamePrefix = null, $photoUrl = null, $educationId = null, $isStudent = true, $isActivated = true, $getsBirthDay = true, $getsCity = true)
+    private function generateUser($firstName, $surname, $surnamePrefix = null, $photoUrl = null, $educationID = null, $isStudent = true, $isActivated = true, $getsBirthDay = true, $getsCity = true)
     {
         // REMARK: Parameters not checked. Furthermore they are returned directly.
 
@@ -65,7 +65,7 @@ class USERTableSeeder extends Seeder {
         $userprofile->ProfileUrlPart = HomeController::getProfileUrlPart($profileUrl);
         $userprofile->Displayname    = $displayName;
         $userprofile->PhotoUrl       = $photoUrl;
-        $userprofile->EducationId    = $educationId;
+        $userprofile->EducationID    = $educationID;
         $userprofile->BirthDay       = $getsBirthDay ? $this->faker->date($format = 'Y-m-d', $max = '-20 years') : null;
         $userprofile->City           = $getsCity ? $this->faker->city : null;
 
