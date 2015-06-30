@@ -27,7 +27,6 @@ class SKILLTableSeeder extends Seeder {
             array('UserProfileID' => '2', 'AccountKindID' => '4', 'Value' => 'Databases'),
         );
 
-        // TODO Replace this code with a model
         DB::table('SKILL')->insert($dbEntries);
 	}
 

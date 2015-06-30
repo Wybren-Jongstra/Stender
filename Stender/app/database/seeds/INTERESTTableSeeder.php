@@ -32,7 +32,6 @@ class INTERESTTableSeeder extends Seeder {
             array('UserProfileID' => '2', 'AccountKindID' => '3', 'Value' => 'The Killers'),
         );
 
-        // TODO Replace this code with a model
         DB::table('INTEREST')->insert($dbEntries);
 	}
 

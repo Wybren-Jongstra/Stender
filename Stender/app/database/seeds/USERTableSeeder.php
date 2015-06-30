@@ -24,8 +24,6 @@ class USERTableSeeder extends Seeder {
         {
             $createdUserData = null;
 
-            // When someone manually deletes database rows there is a possibility that the educationId is no longer valid.
-            // TODO Test if faker never returns 0.
             $educationId = $this->$faker->boolean() ? $this->$faker->numberBetween(0, DB::table('EDUCATION')->count()) : null;
 
             if($this->$faker->boolean())

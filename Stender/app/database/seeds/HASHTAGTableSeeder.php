@@ -15,7 +15,6 @@ class HASHTAGTableSeeder extends Seeder {
             array('UserProfileID' => '2', 'AccountKindID' => '2', 'Value' => 'ATeam'),
         );
 
-        // TODO Replace this code with a model
         DB::table('HASHTAG')->insert($dbEntries);
 	}
 
