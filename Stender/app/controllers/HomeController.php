@@ -84,12 +84,15 @@ class HomeController extends BaseController {
 
                 $user->UserProfileID = $userprofile->UserProfileID;
                 $user->save();
-                // Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-          //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
-                // });
+
+                // TODO Replace with config
+                // For the live version
+                //Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
+                //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
+                //});
 
                 Mail::send('emails.welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-                    $message->to('buntraymon@gmail.com', 'John Doe')->subject('Please activate your account!');
+                    $message->to('stenderapp@gmail.com', 'John Doe')->subject('Please activate your account!');
                 });
 			}
 			else
