@@ -10,7 +10,6 @@ class CONNECTIONSTATUSTableSeeder extends Seeder {
             array('Name' => 'declined'),
         );
 
-        // TODO Replace this code with a model
         DB::table('CONNECTION_STATUS')->insert($dbEntries);
 	}
 

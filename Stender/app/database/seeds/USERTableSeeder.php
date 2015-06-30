@@ -2,7 +2,6 @@
 
 use Faker\Factory as Faker;
 
-// TODO Some of this code exists in HomeController
 class USERTableSeeder extends Seeder {
 
 	public function run()

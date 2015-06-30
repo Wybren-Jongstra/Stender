@@ -9,7 +9,6 @@ class USERKINDTableSeeder extends Seeder {
             array('Name' => 'user'),
         );
 
-        // TODO Replace this code with a model
         DB::table('USER_KIND')->insert($dbEntries);
 	}
 

@@ -4,8 +4,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-// Import the needed classes.
-// TODO It looks that Laravel autoloader isn't working correct. Couldn't find a way to fix it. Maybe fix this some day.
+// Import the needed classes
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 

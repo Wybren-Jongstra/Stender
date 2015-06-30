@@ -11,7 +11,6 @@ class ACCOUNTKINDTableSeeder extends Seeder {
             array('Name' => 'LinkedIn'),
         );
 
-        // TODO Replace this code with a model
         DB::table('ACCOUNT_KIND')->insert($dbEntries);
 	}
 

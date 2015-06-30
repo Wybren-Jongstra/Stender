@@ -16,7 +16,6 @@ class ProfileController extends BaseController {
             $reviews = $this->getReviews($profileData['UserProfileID']);
             $education = $this->getEducation($this->getData($profileUrl)['EducationID']);
 
-            //TODO Maybe do not get the data twice
             return View::make('profile')->with('data', $profileData)->with('interests', $interests)->with('skills', $skills)
                 ->with('hashtags', $hashtags)->with('reviews', $reviews)->with('connectionState', $getCheckConnection)
                 ->with('connections', $connectionSum)->with('stenderScore', $stenderScore)->with('vote', $vote)

@@ -18,7 +18,6 @@ class EDUCATIONTableSeeder extends Seeder {
             
         );
 
-        // TODO Replace this code with a model
         DB::table('EDUCATION')->insert($dbEntries);
 	}
 
