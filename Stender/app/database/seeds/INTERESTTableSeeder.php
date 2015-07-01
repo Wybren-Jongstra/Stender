@@ -16,7 +16,6 @@ class INTERESTTableSeeder extends Seeder {
             array('UserProfileID' => '2', 'AccountKindID' => '3', 'Value' => 'Suits'),
             array('UserProfileID' => '2', 'AccountKindID' => '3', 'Value' => 'WoodWatch'),
             array('UserProfileID' => '2', 'AccountKindID' => '3', 'Value' => 'Streekbedrijven.nl'),
-            array('UserProfileID' => '2', 'AccountKindID' => '3', 'Value' => 'Bouwkundig Ontwerp- en Tekenbureau R. van der Burgh'),
             array('UserProfileID' => '2', 'AccountKindID' => '3', 'Value' => 'BETSTAY'),
             array('UserProfileID' => '2', 'AccountKindID' => '3', 'Value' => 'Bier College'),
             array('UserProfileID' => '2', 'AccountKindID' => '3', 'Value' => 'Facebook for Every Phone'),
