@@ -236,7 +236,7 @@ class SocialController extends BaseController {
     {
         $interestID = Input::get('id');
         $id = explode("interest", $interestID);
-        $interest = Skill::find($id[1]);
+        $interest = Interest::find($id[1]);
         $interest->delete();
     }
 }
