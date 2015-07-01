@@ -39,6 +39,5 @@ class SearchController extends BaseController {
         $search = UserProfile::where('DisplayName', '=', $term)->firstOrFail();
 
         return Redirect::to('/profile/'.$search['ProfileUrlPart']);
-        //return Response::json($results);
     }
 }
