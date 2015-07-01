@@ -86,11 +86,11 @@ class HomeController extends BaseController {
 
                 // For the live version
                 //Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-                //   		$message->to($input['email'], $input['firstname'])->subject('Please activate your account!');
+                //   		$message->to($input['email'], $input['firstname'])->subject('Stender - Verifieer je e-mailadres!');
                 //});
 
                 Mail::send('emails.welcome', array('confirmationCode'=> $confirmationCode), function($message) {
-                    $message->to('stenderapp@gmail.com', 'John Doe')->subject('Please activate your account!');
+                    $message->to('stenderapp@gmail.com', 'John Doe')->subject('Verifieer je e-mailadres!');
                 });
 			}
 			else
