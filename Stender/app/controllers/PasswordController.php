@@ -36,7 +36,7 @@ class PasswordController extends BaseController {
                     Auth::user()->Password = Hash::make($input['password']);
                     Auth::user()->save();
                     Mail::send('emails.passwordChanged', array(), function($message) {
-                        $message->to('stenderapp@gmail.com', 'John Doe')->subject('Wachtwoord gewijzigd');
+                        $message->to('stenderapp@gmail.com', 'John Doe')->subject('Wachtwoord gewijzigd!');
                     });
                     return Redirect::to('/settings')->withSuccess( Lang::get('reminders.changed') );
                 }
