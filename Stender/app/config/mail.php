@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'noreply@stender.app', 'name' => 'noreply@stender.app'),
+	'from' => array('address' => 'noreply@stender.app', 'name' => 'Stender'),
 
 	/*
 	|--------------------------------------------------------------------------
