@@ -84,7 +84,6 @@ class HomeController extends BaseController {
                 $user->UserProfileID = $userprofile->UserProfileID;
                 $user->save();
 
-                // For the live version
                 //Mail::send('emails.Welcome', array('confirmationCode'=> $confirmationCode), function($message) {
                 //   		$message->to($input['email'], $input['firstname'])->subject('Stender - Verifieer je e-mailadres!');
                 //});

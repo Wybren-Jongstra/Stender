@@ -342,7 +342,6 @@ class ProfileController extends BaseController {
 
         $id = $connection->ConnectionID;
 
-        // For the live version
         // Mail::send('emails.connection', array('id'=> $id, 'DisplayName' => $forUserProfile->DisplayName), function($message) {
         //     $message->to(Session::get('Email'), $fromUserProfile->DisplayName)->subject('Nieuwe connectie!');
         // });
